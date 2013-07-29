@@ -2,6 +2,7 @@ package org.wcbn.android;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Build;
@@ -48,6 +49,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                                 getString(R.string.title_section3),
                         }),
                 this);
+
+        startService(new Intent(this, StreamService.class));
     }
 
     /**

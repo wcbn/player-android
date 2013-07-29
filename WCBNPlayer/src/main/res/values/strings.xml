@@ -7,4 +7,8 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
 
+    <string name="uri_quality_mid">http://www.wcbn.org/wcbn-mid.m3u</string>
+    <string name="uri_quality_hi">http://www.wcbn.org/wcbn-hi.m3u</string>
+    <string name="uri_quality_hd">http://www.wcbn.org/wcbn-hd.m3u</string>
+
 </resources>
