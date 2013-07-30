@@ -57,7 +57,31 @@
                 </string>
                 <string name="title_section2" >Section 2
                 </string>
+                <string name="uri_quality_hd" >http://floyd.wcbn.org:8000/wcbn-hd.mp3
+                </string>
+                <string name="desc_quality_mid" >128 kbps MP3
+                </string>
+                <string name="uri_quality_mid" >http://floyd.wcbn.org:8000/wcbn-mid.mp3
+                </string>
+                <string name="pref_quality_high" >Maximum quality
+                </string>
+                <string name="pref_quality_auto" >Automatic
+                </string>
+                <string name="pref_quality_mid" >Medium quality
+                </string>
+                <string name="title_listen" >Listen
+                </string>
+                <string name="title_playlist" >Playlist
+                </string>
+                <string name="desc_quality_high" >320 kbps MP3
+                </string>
                 <string name="app_name" >WCBN Player
+                </string>
+                <string name="uri_quality_hi" >http://floyd.wcbn.org:8000/wcbn-hi.mp3
+                </string>
+                <string name="desc_quality_low" >64 kbps MP3
+                </string>
+                <string name="pref_quality_low" >Low quality
                 </string>
             </file>
             <file
@@ -102,6 +126,11 @@
                     <!-- API 11 theme customizations can go here. -->
                 </style>
             </file>
+            <file
+                name="fragment_playback"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/fragment_playback.xml"
+                qualifiers=""
+                type="layout" />
         </source>
         <source path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/res/rs/debug" />
     </dataSet>

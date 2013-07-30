@@ -1,8 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MergeRootFrame" />
-<!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/activity_main.xml -->
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
+    <FrameLayout
+            android:id="@+id/playback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"/>
+</LinearLayout><!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/activity_main.xml -->

@@ -1,16 +1,24 @@
 # incremental data. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1375130712000 545 4164728abd8136096988329c3c619fcc5de4820d /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$string.class
+1375211829000 903 69716b5f22bf6981d849fb997b52d8cbd80b8dfb /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$string.class
+1375211829000 657 185f672d5025c95d4d1b4e3aeb8ccc9134f7af90 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R.class
+1375130712000 401 8b52464121dba21eb03c89c2b3e4ce086ae0f86e /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$drawable.class
+1375211829000 3578 e976207e27a3025c04660da8ca1a1bb54dc52bb6 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/StreamService.class
+1375212015000 954 aacfbb800ba3cadb72845dcd88df4c91809a3377 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/PlaybackFragment$1.class
+1375130712000 334 c72fa08c08b47047ffa5b025ad90d0c0926c881f /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$attr.class
+1375211829000 481 e58aaac5c63ed80ace3e6fd5305b5b462812b7ab /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$layout.class
+1375211829000 382 0267c8648385ecfbf7fca328faa7b8ad53ffcc33 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$menu.class
+1375211829000 328 c45932f218bd3fa79707dfd5a84c4b491c7e330b /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/SettingsFragment.class
+1375211829000 490 752fdb7b6113ab316e0d36923bb9ae81244a72bc /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/StreamService$Quality.class
+1375212015000 1854 956e8bfa9a0c6958616ef17508ce06c4092c191b /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/PlaybackFragment.class
 1375130529000 490914 3fe75433da602500cc71fcc1c46e5550291dd45d /Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/13.0.0/support-v4-13.0.0.jar
 1375130712000 341 e8ee245236d81a14e4f054c8707347c185c6e5b1 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/BuildConfig.class
-1375130712000 657 06324995579f56453f3c4909f74c93eeadf27114 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R.class
-1375130712000 425 492f613dd423b9e528ee8c83973e418a0ca327a6 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$style.class
-1375130712000 401 8b52464121dba21eb03c89c2b3e4ce086ae0f86e /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$drawable.class
+1375211829000 623 30f37aaafaabf509f87a4bb51d4776ce53347991 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/StreamService$StreamBinder.class
+1375211829000 1674 773bb0d7c7851237fa21571af4276c299d4c738a /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/MainActivity$1.class
+1375211829000 425 37198e810bbee04659e8203302abb7bcb1c0de78 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$style.class
 1375130712000 455 238e506c13168c907f1758cb9ec0c570bc150e37 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$dimen.class
-1375130712000 1460 56c960e996314a2c8daa12dae9b2a85e51156694 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/MainActivity$DummySectionFragment.class
-1375130712000 440 7a2a4a87b847400857b3c7a9be58036fa9329f61 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$layout.class
-1375130712000 334 c72fa08c08b47047ffa5b025ad90d0c0926c881f /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$attr.class
-1375130712000 382 876a051989d1338db55fb5b502ee814e5f6136ba /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$menu.class
-1375130712000 457 e3ca680735712988f2434168f483f932d36e650e /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$id.class
-1375130712000 3375 81d965928c59c6e1074a3b91948330b9afeddcab /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/MainActivity.class
+1375211829000 322 f0ef2f2684a03a05b3e88e20c3100d7fd6fee151 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/PlaylistFragment.class
+1375211829000 565 6eecd5716f02bd1fd5c686bb926dac1072f81c2c /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/R$id.class
+1375211829000 328 bed26bbd2b6947d16ab6beb5cef2f166741fecae /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/NowPlayingFragment.class
+1375211829000 5456 25c42b989d1b3ff219574e358c10bb6ed0299132 /Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/classes/debug/org/wcbn/android/MainActivity.class

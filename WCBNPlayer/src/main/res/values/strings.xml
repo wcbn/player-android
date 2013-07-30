@@ -3,12 +3,22 @@
 
     <string name="app_name">WCBN Player</string>
     <string name="action_settings">Settings</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_listen">Listen</string>
+    <string name="title_playlist">Playlist</string>
 
-    <string name="uri_quality_mid">http://www.wcbn.org/wcbn-mid.m3u</string>
-    <string name="uri_quality_hi">http://www.wcbn.org/wcbn-hi.m3u</string>
-    <string name="uri_quality_hd">http://www.wcbn.org/wcbn-hd.m3u</string>
+    <string name="pref_quality_auto">Automatic</string>
+
+    <string name="pref_quality_low">Low quality</string>
+    <string name="desc_quality_low">64 kbps MP3</string>
+
+    <string name="pref_quality_mid">Medium quality</string>
+    <string name="desc_quality_mid">128 kbps MP3</string>
+
+    <string name="pref_quality_high">Maximum quality</string>
+    <string name="desc_quality_high">320 kbps MP3</string>
+
+    <string name="uri_quality_mid">http://floyd.wcbn.org:8000/wcbn-mid.mp3</string>
+    <string name="uri_quality_hi">http://floyd.wcbn.org:8000/wcbn-hi.mp3</string>
+    <string name="uri_quality_hd">http://floyd.wcbn.org:8000/wcbn-hd.mp3</string>
 
 </resources>

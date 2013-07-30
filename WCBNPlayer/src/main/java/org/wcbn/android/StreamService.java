@@ -8,12 +8,10 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 
 import java.io.IOException;
 
-/**
- * Created by mike on 7/29/13.
- */
 public class StreamService extends Service {
     public static class Quality {
         public static final int MID = 0;
@@ -21,9 +19,9 @@ public class StreamService extends Service {
         public static final int HD = 2;
     }
 
-    private SharedPreferences mPrefs;
+    private NotificationCompat.Builder mNotificationBuilder;
     private String mStreamUri;
-    private MediaPlayer mPlayer;
+    private final MediaPlayer mPlayer = new MediaPlayer();
     private final IBinder mBinder = new StreamBinder();
 
     public class StreamBinder extends Binder {
@@ -32,24 +30,35 @@ public class StreamService extends Service {
         }
     }
 
-    public void startPlayback() {
+    public boolean prepare(MediaPlayer.OnPreparedListener listener) {
+        try {
+            startForeground(99, mNotificationBuilder.build());
+            mPlayer.setOnPreparedListener(listener);
+            mPlayer.prepareAsync();
+            return true;
+        } catch(IllegalStateException e) {
+            return false;
+        }
+    }
 
+    public void startPlayback() {
+        mPlayer.start();
     }
 
     public void stopPlayback() {
-
+        mPlayer.stop();
+        stopForeground(true);
     }
 
-    public MediaPlayer getMediaPlayer() {
-        return mPlayer;
+    public void pausePlayback() {
+        mPlayer.pause();
     }
 
     @Override
-    public void onCreate() {
+    public IBinder onBind(Intent intent) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        switch(mPrefs.getInt("quality", Quality.HI)) {
+        switch(prefs.getInt("quality", Quality.HI)) {
             case Quality.MID:
                 mStreamUri = getResources().getString(R.string.uri_quality_mid);
                 break;
@@ -64,25 +73,19 @@ public class StreamService extends Service {
                 break;
         }
 
-        mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(this, Uri.parse(mStreamUri));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-       mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-           @Override
-           public void onPrepared(MediaPlayer mp) {
-               mp.start();
-           }
-       });
+        mNotificationBuilder = new NotificationCompat.Builder(this)
+                .setOngoing(true)
+                .setSmallIcon(android.R.drawable.ic_media_play)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis());
 
-       mPlayer.prepareAsync();
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
        return mBinder;
     }
 }

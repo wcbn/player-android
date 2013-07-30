@@ -21,13 +21,17 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080002;
+        public static final int action_settings=0x7f080005;
+        public static final int button_play_pause=0x7f080003;
+        public static final int button_stop=0x7f080004;
         public static final int container=0x7f080000;
-        public static final int section_label=0x7f080001;
+        public static final int playback=0x7f080001;
+        public static final int section_label=0x7f080002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int fragment_main_dummy=0x7f030001;
+        public static final int fragment_playback=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -37,9 +41,18 @@ public final class R {
          */
         public static final int action_settings=0x7f050000;
         public static final int app_name=0x7f050001;
-        public static final int title_section1=0x7f050002;
-        public static final int title_section2=0x7f050003;
-        public static final int title_section3=0x7f050004;
+        public static final int desc_quality_high=0x7f050002;
+        public static final int desc_quality_low=0x7f050003;
+        public static final int desc_quality_mid=0x7f050004;
+        public static final int pref_quality_auto=0x7f050005;
+        public static final int pref_quality_high=0x7f050006;
+        public static final int pref_quality_low=0x7f050007;
+        public static final int pref_quality_mid=0x7f050008;
+        public static final int title_listen=0x7f050009;
+        public static final int title_playlist=0x7f05000a;
+        public static final int uri_quality_hd=0x7f05000b;
+        public static final int uri_quality_hi=0x7f05000c;
+        public static final int uri_quality_mid=0x7f05000d;
     }
     public static final class style {
         /**  From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/styles.xml 
