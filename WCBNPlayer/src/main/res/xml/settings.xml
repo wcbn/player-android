@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/stream_quality">
+        <ListPreference
+                android:key="quality"
+                android:defaultValue="1"
+                android:title="%s"
+                android:summary="%s"
+                android:entries="@array/quality_pref"
+                android:entryValues="@array/quality_values"
+                android:dialogTitle="@string/stream_quality" />
+    </PreferenceCategory>
+</PreferenceScreen>

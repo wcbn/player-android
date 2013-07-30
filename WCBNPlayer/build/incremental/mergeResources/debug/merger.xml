@@ -4,9 +4,239 @@
     <dataSet config="main" >
         <source path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res" >
             <file
+                name="appwidget_bg"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/appwidget_bg.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="bg_stripes_dark"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/bg_stripes_dark.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_notification_collapse"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_notification_collapse.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_next"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_next.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_pause"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_pause.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_play"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_play.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_previous"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_previous.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_repeat.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat_all"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_repeat_all.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat_one"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_repeat_one.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_shuffle"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_shuffle.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_shuffle_all"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_playback_shuffle_all.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="btn_switch_queue"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/btn_switch_queue.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_favorite"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/ic_action_favorite.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_pinn_to_home"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/ic_action_pinn_to_home.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/ic_action_search.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_shop"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/ic_action_shop.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
                 name="ic_launcher"
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/ic_launcher.png"
                 qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="playlist_tile_normal"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/playlist_tile_normal.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="scrubber_primary_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/scrubber_primary_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="scrubber_secondary_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/scrubber_secondary_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="scrubber_track_holo_dark"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/scrubber_track_holo_dark.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="stat_notify_music"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/stat_notify_music.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="view_pager_background_texture"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/view_pager_background_texture.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/vpi__tab_selected_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/vpi__tab_unselected_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-hdpi/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="appwidget_bg"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/appwidget_bg.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="bg_stripes_dark"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/bg_stripes_dark.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_notification_collapse"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_notification_collapse.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_next"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_next.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_pause"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_pause.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_play"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_play.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_previous"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_previous.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_repeat.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat_all"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_repeat_all.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat_one"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_repeat_one.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_shuffle"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_shuffle.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_shuffle_all"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_playback_shuffle_all.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="btn_switch_queue"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/btn_switch_queue.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_favorite"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/ic_action_favorite.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_pinn_to_home"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/ic_action_pinn_to_home.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/ic_action_search.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_shop"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/ic_action_shop.png"
+                qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="ic_launcher"
@@ -14,8 +244,213 @@
                 qualifiers="mdpi"
                 type="drawable" />
             <file
+                name="playlist_tile_normal"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/playlist_tile_normal.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="scrubber_primary_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/scrubber_primary_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="scrubber_secondary_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/scrubber_secondary_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="scrubber_track_holo_dark"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/scrubber_track_holo_dark.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="stat_notify_music"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/stat_notify_music.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="view_pager_background_texture"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/view_pager_background_texture.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/vpi__tab_selected_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/vpi__tab_unselected_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-mdpi/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="appwidget_bg"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/appwidget_bg.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="bg_stripes_dark"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/bg_stripes_dark.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_notification_collapse"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_notification_collapse.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_next"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_next.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_pause"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_pause.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_play"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_play.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_previous"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_previous.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_repeat.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat_all"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_repeat_all.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_repeat_one"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_repeat_one.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_shuffle"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_shuffle.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_playback_shuffle_all"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_shuffle_all.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="btn_switch_queue"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_switch_queue.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_favorite"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/ic_action_favorite.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_pinn_to_home"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/ic_action_pinn_to_home.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_search"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/ic_action_search.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_shop"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/ic_action_shop.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
                 name="ic_launcher"
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="playlist_tile_normal"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/playlist_tile_normal.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="scrubber_primary_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/scrubber_primary_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="scrubber_secondary_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/scrubber_secondary_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="scrubber_track_holo_dark"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/scrubber_track_holo_dark.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="stat_notify_music"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/stat_notify_music.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="view_pager_background_texture"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/view_pager_background_texture.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/vpi__tab_selected_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/vpi__tab_unselected_holo.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/vpi__tab_unselected_pressed_holo.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
@@ -29,8 +464,13 @@
                 qualifiers=""
                 type="layout" />
             <file
-                name="fragment_main_dummy"
-                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/fragment_main_dummy.xml"
+                name="fragment_playback"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/fragment_playback.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_settings"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/fragment_settings.xml"
                 qualifiers=""
                 type="layout" />
             <file
@@ -49,39 +489,62 @@
             <file
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml"
                 qualifiers="" >
-                <string name="title_section1" >Section 1
-                </string>
-                <string name="title_section3" >Section 3
-                </string>
+                <string-array name="quality_desc" >
+                    <item>
+64 kbps MP3. Recommended for slow connections or plans with low data caps.
+                    </item>
+                    <item>
+128 kbps MP3. A good balance between sound quality and data usage.
+                    </item>
+                    <item>
+320 kbps MP3. Recommended for WiFi or fast cellular connections.
+                    </item>
+                </string-array>
+
                 <string name="action_settings" >Settings
-                </string>
-                <string name="title_section2" >Section 2
                 </string>
                 <string name="uri_quality_hd" >http://floyd.wcbn.org:8000/wcbn-hd.mp3
                 </string>
                 <string name="desc_quality_mid" >128 kbps MP3
                 </string>
-                <string name="uri_quality_mid" >http://floyd.wcbn.org:8000/wcbn-mid.mp3
-                </string>
                 <string name="pref_quality_high" >Maximum quality
+                </string>
+                <string name="uri_quality_mid" >http://floyd.wcbn.org:8000/wcbn-mid.mp3
                 </string>
                 <string name="pref_quality_auto" >Automatic
                 </string>
-                <string name="pref_quality_mid" >Medium quality
+                <string name="title_now_playing" >Now Playing
                 </string>
-                <string name="title_listen" >Listen
+                <string name="pref_quality_mid" >Medium quality
                 </string>
                 <string name="title_playlist" >Playlist
                 </string>
+                <string name="app_name" >WCBN Player
+                </string>
                 <string name="desc_quality_high" >320 kbps MP3
                 </string>
-                <string name="app_name" >WCBN Player
+
+                <string-array name="quality_pref" >
+                    <item>
+Low quality
+                    </item>
+                    <item>
+High quality
+                    </item>
+                    <item>
+Maximum quality
+                    </item>
+                </string-array>
+
+                <string name="stream_settings" >Stream Settings
+                </string>
+                <string name="stream_quality" >Stream Quality
                 </string>
                 <string name="uri_quality_hi" >http://floyd.wcbn.org:8000/wcbn-hi.mp3
                 </string>
-                <string name="desc_quality_low" >64 kbps MP3
-                </string>
                 <string name="pref_quality_low" >Low quality
+                </string>
+                <string name="desc_quality_low" >64 kbps MP3
                 </string>
             </file>
             <file
@@ -121,16 +584,31 @@
 
                 <style
                     name="AppBaseTheme"
-                    parent="android:Theme.Holo.Light" >
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
 
                     <!-- API 11 theme customizations can go here. -->
                 </style>
             </file>
             <file
-                name="fragment_playback"
-                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/layout/fragment_playback.xml"
+                name="settings"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/xml/settings.xml"
                 qualifiers=""
-                type="layout" />
+                type="xml" />
+            <file
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/arrays.xml"
+                qualifiers="" >
+                <string-array name="quality_values" >
+                    <item>
+0
+                    </item>
+                    <item>
+1
+                    </item>
+                    <item>
+2
+                    </item>
+                </string-array>
+            </file>
         </source>
         <source path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/res/rs/debug" />
     </dataSet>

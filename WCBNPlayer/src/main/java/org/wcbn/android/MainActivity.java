@@ -2,11 +2,9 @@ package org.wcbn.android;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Build;
@@ -14,6 +12,8 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 
 import org.wcbn.android.StreamService.StreamBinder;
@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
 
         final ActionBar actionBar = getActionBar();
@@ -46,7 +47,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         android.R.layout.simple_list_item_1,
                         android.R.id.text1,
                         new String[] {
-                                getString(R.string.title_listen),
+                                getString(R.string.title_now_playing),
                                 getString(R.string.title_playlist)
                         }),
                 this);
@@ -104,7 +105,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class)); return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean onNavigationItemSelected(int position, long id) {
         Fragment fragment = mFragments.get(position);

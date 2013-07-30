@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml -->
+    <string-array name="quality_desc">
+        <item>64 kbps MP3. Recommended for slow connections or plans with low data caps.</item>
+        <item>128 kbps MP3. A good balance between sound quality and data usage.</item>
+        <item>320 kbps MP3. Recommended for WiFi or fast cellular connections.</item>
+    </string-array>
+    <string-array name="quality_pref">
+        <item>Low quality</item>
+        <item>High quality</item>
+        <item>Maximum quality</item>
+    </string-array>
+    <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/arrays.xml -->
+    <string-array name="quality_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/dimens.xml -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml -->
     <string name="action_settings">Settings</string>
     <string name="app_name">WCBN Player</string>
-    <string name="desc_quality_high">320 kbps MP3</string>
-    <string name="desc_quality_low">64 kbps MP3</string>
-    <string name="desc_quality_mid">128 kbps MP3</string>
-    <string name="pref_quality_auto">Automatic</string>
-    <string name="pref_quality_high">Maximum quality</string>
-    <string name="pref_quality_low">Low quality</string>
-    <string name="pref_quality_mid">Medium quality</string>
-    <string name="title_listen">Listen</string>
+    <string name="stream_quality">Stream Quality</string>
+    <string name="stream_settings">Stream Settings</string>
+    <string name="title_now_playing">Now Playing</string>
     <string name="title_playlist">Playlist</string>
     <string name="uri_quality_hd">http://floyd.wcbn.org:8000/wcbn-hd.mp3</string>
     <string name="uri_quality_hi">http://floyd.wcbn.org:8000/wcbn-hi.mp3</string>

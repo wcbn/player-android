@@ -3,6 +3,7 @@ package org.wcbn.android;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
@@ -14,9 +15,13 @@ import java.io.IOException;
 
 public class StreamService extends Service {
     public static class Quality {
-        public static final int MID = 0;
-        public static final int HI = 1;
-        public static final int HD = 2;
+        public static final String MID = "0";
+        public static final String HI = "1";
+        public static final String HD = "2";
+
+        public static String getUri(String quality, Resources res) {
+            return res.getStringArray(R.array.stream_uri)[Integer.parseInt(quality)];
+        }
     }
 
     private NotificationCompat.Builder mNotificationBuilder;
@@ -32,7 +37,7 @@ public class StreamService extends Service {
 
     public boolean prepare(MediaPlayer.OnPreparedListener listener) {
         try {
-            startForeground(99, mNotificationBuilder.build());
+            startForeground(1, mNotificationBuilder.build());
             mPlayer.setOnPreparedListener(listener);
             mPlayer.prepareAsync();
             return true;
@@ -54,24 +59,17 @@ public class StreamService extends Service {
         mPlayer.pause();
     }
 
+    public boolean isPlaying() {
+        return mPlayer.isPlaying() || mPlayer.isLooping();
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        switch(prefs.getInt("quality", Quality.HI)) {
-            case Quality.MID:
-                mStreamUri = getResources().getString(R.string.uri_quality_mid);
-                break;
-            case Quality.HI:
-                mStreamUri = getResources().getString(R.string.uri_quality_hi);
-                break;
-            case Quality.HD:
-                mStreamUri = getResources().getString(R.string.uri_quality_hd);
-                break;
-            default:
-                mStreamUri = getResources().getString(R.string.uri_quality_hi);
-                break;
-        }
+        String quality = prefs.getString("quality", Quality.HI);
+
+        mStreamUri = Quality.getUri(quality, getResources());
 
         try {
             mPlayer.setDataSource(this, Uri.parse(mStreamUri));
