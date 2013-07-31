@@ -3,11 +3,13 @@
 
     <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml -->
     <string-array name="quality_desc">
+        <item>16 kbps Vorbis. Minimum quality stream for extremely low bandwidth connections.</item>
         <item>64 kbps MP3. Recommended for slow connections or plans with low data caps.</item>
         <item>128 kbps MP3. A good balance between sound quality and data usage.</item>
         <item>320 kbps MP3. Recommended for WiFi or fast cellular connections.</item>
     </string-array>
     <string-array name="quality_pref">
+        <item>Minimum quality</item>
         <item>Low quality</item>
         <item>High quality</item>
         <item>Maximum quality</item>
@@ -17,6 +19,14 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
+    </string-array>
+    <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml -->
+    <string-array name="stream_uri">
+        <item>http://floyd.wcbn.org:8000/wcbn-lo.ogg</item>
+        <item>http://floyd.wcbn.org:8000/wcbn-mid.mp3</item>
+        <item>http://floyd.wcbn.org:8000/wcbn-hi.mp3</item>
+        <item>http://floyd.wcbn.org:8000/wcbn-hd.mp3</item>
     </string-array>
     <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/dimens.xml -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -28,9 +38,6 @@
     <string name="stream_settings">Stream Settings</string>
     <string name="title_now_playing">Now Playing</string>
     <string name="title_playlist">Playlist</string>
-    <string name="uri_quality_hd">http://floyd.wcbn.org:8000/wcbn-hd.mp3</string>
-    <string name="uri_quality_hi">http://floyd.wcbn.org:8000/wcbn-hi.mp3</string>
-    <string name="uri_quality_mid">http://floyd.wcbn.org:8000/wcbn-mid.mp3</string>
     <!-- From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/styles.xml -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="streamscraper">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WCBNPlayer/libs/streamscraper.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

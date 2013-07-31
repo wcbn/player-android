@@ -2,6 +2,7 @@ package org.wcbn.android;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -26,8 +27,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private boolean mBound;
     private final List<Fragment> mFragments = new ArrayList<Fragment>();
     private NowPlayingFragment mNowPlayingFragment = new NowPlayingFragment();
-    private PlaylistFragment mPlaylistFragment = new PlaylistFragment();
+    private ScheduleFragment mScheduleFragment = new ScheduleFragment();
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
+    private Activity mActivity = this;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -48,12 +50,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         android.R.id.text1,
                         new String[] {
                                 getString(R.string.title_now_playing),
-                                getString(R.string.title_playlist)
+                                getString(R.string.title_schedule)
                         }),
                 this);
 
         mFragments.add(mNowPlayingFragment);
-        mFragments.add(mPlaylistFragment);
+        mFragments.add(mScheduleFragment);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.playback, mPlaybackFragment)
@@ -133,7 +135,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             mBound = true;
 
             mPlaybackFragment.setService(mService);
-
         }
 
         @Override

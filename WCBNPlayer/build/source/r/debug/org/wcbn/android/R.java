@@ -16,6 +16,9 @@ public final class R {
         /**  From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/arrays.xml 
          */
         public static final int quality_values=0x7f050002;
+        /**  From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml 
+         */
+        public static final int stream_uri=0x7f050003;
     }
     public static final class attr {
     }
@@ -39,24 +42,25 @@ public final class R {
         public static final int btn_playback_repeat_one=0x7f020009;
         public static final int btn_playback_shuffle=0x7f02000a;
         public static final int btn_playback_shuffle_all=0x7f02000b;
-        public static final int btn_switch_queue=0x7f02000c;
-        public static final int ic_action_favorite=0x7f02000d;
-        public static final int ic_action_pinn_to_home=0x7f02000e;
-        public static final int ic_action_search=0x7f02000f;
-        public static final int ic_action_shop=0x7f020010;
-        public static final int ic_launcher=0x7f020011;
-        public static final int playlist_tile_normal=0x7f020012;
-        public static final int scrubber_primary_holo=0x7f020013;
-        public static final int scrubber_secondary_holo=0x7f020014;
-        public static final int scrubber_track_holo_dark=0x7f020015;
-        public static final int stat_notify_music=0x7f020016;
-        public static final int view_pager_background_texture=0x7f020017;
-        public static final int vpi__tab_selected_focused_holo=0x7f020018;
-        public static final int vpi__tab_selected_holo=0x7f020019;
-        public static final int vpi__tab_selected_pressed_holo=0x7f02001a;
-        public static final int vpi__tab_unselected_focused_holo=0x7f02001b;
-        public static final int vpi__tab_unselected_holo=0x7f02001c;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f02001d;
+        public static final int btn_playback_stop=0x7f02000c;
+        public static final int btn_switch_queue=0x7f02000d;
+        public static final int ic_action_favorite=0x7f02000e;
+        public static final int ic_action_pinn_to_home=0x7f02000f;
+        public static final int ic_action_search=0x7f020010;
+        public static final int ic_action_shop=0x7f020011;
+        public static final int ic_launcher=0x7f020012;
+        public static final int playlist_tile_normal=0x7f020013;
+        public static final int scrubber_primary_holo=0x7f020014;
+        public static final int scrubber_secondary_holo=0x7f020015;
+        public static final int scrubber_track_holo_dark=0x7f020016;
+        public static final int stat_notify_music=0x7f020017;
+        public static final int view_pager_background_texture=0x7f020018;
+        public static final int vpi__tab_selected_focused_holo=0x7f020019;
+        public static final int vpi__tab_selected_holo=0x7f02001a;
+        public static final int vpi__tab_selected_pressed_holo=0x7f02001b;
+        public static final int vpi__tab_unselected_focused_holo=0x7f02001c;
+        public static final int vpi__tab_unselected_holo=0x7f02001d;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f02001e;
     }
     public static final class id {
         public static final int action_settings=0x7f0a0004;
@@ -81,10 +85,7 @@ public final class R {
         public static final int stream_quality=0x7f070002;
         public static final int stream_settings=0x7f070003;
         public static final int title_now_playing=0x7f070004;
-        public static final int title_playlist=0x7f070005;
-        public static final int uri_quality_hd=0x7f070006;
-        public static final int uri_quality_hi=0x7f070007;
-        public static final int uri_quality_mid=0x7f070008;
+        public static final int title_schedule =0x7f070005;
     }
     public static final class style {
         /**  From: file:/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/styles.xml 

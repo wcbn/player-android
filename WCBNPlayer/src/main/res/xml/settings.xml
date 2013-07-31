@@ -14,4 +14,12 @@
                 android:entryValues="@array/quality_values"
                 android:dialogTitle="@string/stream_quality" />
     </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/about_settings">
+        <Preference
+                android:key="version"
+                android:title="@string/version"
+                android:summary="@string/version_current"
+                />
+    </PreferenceCategory>
 </PreferenceScreen>

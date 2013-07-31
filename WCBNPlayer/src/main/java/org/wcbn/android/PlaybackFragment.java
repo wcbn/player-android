@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class PlaybackFragment extends Fragment {
+import net.moraleboost.streamscraper.Stream;
+
+public class PlaybackFragment extends Fragment implements StreamService.OnStateUpdateListener {
 
     // Bound StreamService
     private StreamService mService;
@@ -31,51 +33,65 @@ public class PlaybackFragment extends Fragment {
         return layout;
     }
 
-    private class ClickListener implements Button.OnClickListener {
+    @Override
+    public void onMediaError(MediaPlayer mp, int what, int extra) {
+        updateButtons();
+        setProgressBar(false);
+        mService.reset();
+    }
 
+    @Override
+    public void onMediaPlay() {
+        updateButtons();
+        setProgressBar(false);
+    }
+
+    @Override
+    public void onMediaPause() {
+        updateButtons();
+        setProgressBar(false);
+    }
+
+    @Override
+    public void onMediaStop() {
+        updateButtons();
+        setProgressBar(false);
+    }
+
+    @Override
+    public void updateTrack(Stream stream) {
+        
+    }
+
+    private class ClickListener implements Button.OnClickListener {
         @Override
         public void onClick(View v) {
             if(v.equals(mButtonPlayPause)) {
                 if(!mService.isPlaying()) {
                     startPlayback();
-                    mButtonPlayPause.setImageResource(R.drawable.btn_playback_pause);
                 }
                 else {
                     pausePlayback();
-                    mButtonPlayPause.setImageResource(R.drawable.btn_playback_play);
                 }
             }
             else if(v.equals(mButtonStop)) {
                 stopPlayback();
-                mButtonPlayPause.setImageResource(R.drawable.btn_playback_play);
             }
+            updateButtons();
         }
     }
 
     public void setService(Service streamService) {
         mService = (StreamService) streamService;
-        if(mService.isPlaying()) {
-            mButtonPlayPause.setImageResource(R.drawable.btn_playback_pause);
-        }
-        else {
-            mButtonPlayPause.setImageResource(R.drawable.btn_playback_play);
-        }
-        mButtonStop.setImageResource(R.drawable.btn_playback_repeat);
+        mService.setOnStateUpdateListener(this);
+        updateButtons();
     }
 
     public void startPlayback() {
         if(mService != null) {
-            getActivity().setProgressBarIndeterminateVisibility(true);
-            if(!mService.prepare(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
+            setProgressBar(true);
+            if(!mService.prepare()) {
                 mService.startPlayback();
-                getActivity().setProgressBarIndeterminateVisibility(false);
-            }
-        })) {
-                // MediaPlayer is already prepared, so just start playback
-                mService.startPlayback();
-                getActivity().setProgressBarIndeterminateVisibility(false);
             }
         }
     }
@@ -87,9 +103,25 @@ public class PlaybackFragment extends Fragment {
     }
 
     public void stopPlayback() {
-        getActivity().setProgressBarIndeterminateVisibility(false);
+        setProgressBar(false);
         if(mService != null) {
             mService.stopPlayback();
         }
+    }
+
+    public void setProgressBar(boolean display) {
+        if(getActivity() != null) {
+            getActivity().setProgressBarIndeterminateVisibility(display);
+        }
+    }
+
+    public void updateButtons() {
+        if(mService.isPlaying()) {
+            mButtonPlayPause.setImageResource(R.drawable.btn_playback_pause);
+        }
+        else {
+            mButtonPlayPause.setImageResource(R.drawable.btn_playback_play);
+        }
+        mButtonStop.setImageResource(R.drawable.btn_playback_stop);
     }
 }

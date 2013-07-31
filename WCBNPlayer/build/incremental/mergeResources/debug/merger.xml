@@ -364,6 +364,11 @@
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
+                name="btn_playback_stop"
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_playback_stop.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
                 name="btn_switch_queue"
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/drawable-xhdpi/btn_switch_queue.png"
                 qualifiers="xhdpi"
@@ -479,6 +484,24 @@
                 qualifiers=""
                 type="menu" />
             <file
+                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/arrays.xml"
+                qualifiers="" >
+                <string-array name="quality_values" >
+                    <item>
+0
+                    </item>
+                    <item>
+1
+                    </item>
+                    <item>
+2
+                    </item>
+                    <item>
+3
+                    </item>
+                </string-array>
+            </file>
+            <file
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_horizontal_margin" >16dp
@@ -490,6 +513,9 @@
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/strings.xml"
                 qualifiers="" >
                 <string-array name="quality_desc" >
+                    <item>
+16 kbps Vorbis. Minimum quality stream for extremely low bandwidth connections.
+                    </item>
                     <item>
 64 kbps MP3. Recommended for slow connections or plans with low data caps.
                     </item>
@@ -503,28 +529,15 @@
 
                 <string name="action_settings" >Settings
                 </string>
-                <string name="uri_quality_hd" >http://floyd.wcbn.org:8000/wcbn-hd.mp3
-                </string>
-                <string name="desc_quality_mid" >128 kbps MP3
-                </string>
-                <string name="pref_quality_high" >Maximum quality
-                </string>
-                <string name="uri_quality_mid" >http://floyd.wcbn.org:8000/wcbn-mid.mp3
-                </string>
-                <string name="pref_quality_auto" >Automatic
-                </string>
-                <string name="title_now_playing" >Now Playing
-                </string>
-                <string name="pref_quality_mid" >Medium quality
-                </string>
                 <string name="title_playlist" >Playlist
                 </string>
                 <string name="app_name" >WCBN Player
                 </string>
-                <string name="desc_quality_high" >320 kbps MP3
-                </string>
 
                 <string-array name="quality_pref" >
+                    <item>
+Minimum quality
+                    </item>
                     <item>
 Low quality
                     </item>
@@ -536,16 +549,27 @@ Maximum quality
                     </item>
                 </string-array>
 
-                <string name="stream_settings" >Stream Settings
-                </string>
                 <string name="stream_quality" >Stream Quality
                 </string>
-                <string name="uri_quality_hi" >http://floyd.wcbn.org:8000/wcbn-hi.mp3
+                <string name="stream_settings" >Stream Settings
                 </string>
-                <string name="pref_quality_low" >Low quality
+                <string name="title_now_playing" >Now Playing
                 </string>
-                <string name="desc_quality_low" >64 kbps MP3
-                </string>
+
+                <string-array name="stream_uri" >
+                    <item>
+http://floyd.wcbn.org:8000/wcbn-lo.ogg
+                    </item>
+                    <item>
+http://floyd.wcbn.org:8000/wcbn-mid.mp3
+                    </item>
+                    <item>
+http://floyd.wcbn.org:8000/wcbn-hi.mp3
+                    </item>
+                    <item>
+http://floyd.wcbn.org:8000/wcbn-hd.mp3
+                    </item>
+                </string-array>
             </file>
             <file
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/styles.xml"
@@ -594,21 +618,6 @@ Maximum quality
                 path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/xml/settings.xml"
                 qualifiers=""
                 type="xml" />
-            <file
-                path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/src/main/res/values/arrays.xml"
-                qualifiers="" >
-                <string-array name="quality_values" >
-                    <item>
-0
-                    </item>
-                    <item>
-1
-                    </item>
-                    <item>
-2
-                    </item>
-                </string-array>
-            </file>
         </source>
         <source path="/Users/mike/AndroidStudioProjects/WCBNPlayerProject/WCBNPlayer/build/res/rs/debug" />
     </dataSet>
