@@ -10,6 +10,8 @@ import net.moraleboost.streamscraper.Stream;
  */
 public class StreamExt extends Stream {
     private String dj;
+    private String program;
+    private String artist;
 
     @Override
     public String toString()
@@ -24,7 +26,9 @@ public class StreamExt extends Stream {
                 ", song=" + getCurrentSong() +
                 ", mime=" + getContentType() +
                 ", genre=" + getGenre() +
-                ", dj=" + getDj() + ")");
+                ", artist=" + getArtist() +
+                ", dj=" + getDj() +
+                ", program=" +getProgram() +")");
     }
 
     @Override
@@ -32,14 +36,29 @@ public class StreamExt extends Stream {
     {
         super.clear();
         dj = null;
+        program = null;
     }
 
     @Override
     public void merge(Stream another) {
         super.merge(another);
 
-        if(dj == null && another instanceof StreamExt)
-            dj = ((StreamExt) another).getDj();
+        if(another instanceof StreamExt) {
+            if(dj == null)
+                dj = ((StreamExt) another).getDj();
+            if(program == null)
+                dj = ((StreamExt) another).getDj();
+            if(artist == null)
+                artist = ((StreamExt) another).getDj();
+        }
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getDj() {
@@ -48,6 +67,14 @@ public class StreamExt extends Stream {
 
     public void setDj(String dj) {
         this.dj = dj;
+    }
+
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
     }
 
 }

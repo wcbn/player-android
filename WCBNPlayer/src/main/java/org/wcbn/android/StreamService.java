@@ -1,14 +1,16 @@
 package org.wcbn.android;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -24,6 +26,8 @@ import net.moraleboost.streamscraper.Stream;
 import net.moraleboost.streamscraper.Scraper;
 import net.moraleboost.streamscraper.scraper.IceCastScraper;
 
+import org.wcbn.android.station.WCBNStation;
+
 public class StreamService extends Service {
     public static class Quality {
         public static final String MID = "0";
@@ -35,12 +39,17 @@ public class StreamService extends Service {
         }
     }
 
+    public static final long DELAY_MS = 10000;
+
     private NotificationCompat.Builder mNotificationBuilder;
     private String mStreamUri;
     private final MediaPlayer mPlayer = new MediaPlayer();
-    private final MediaMetadataRetriever mMetadata = new MediaMetadataRetriever();
     private final IBinder mBinder = new StreamBinder();
     private OnStateUpdateListener mUpdateListener;
+    private Handler mMetadataHandler = new Handler();
+    private Runnable mMetadataRunnable = new MetadataUpdateRunnable();
+    private NotificationHelper mNotificationHelper;
+    private NotificationManager mNotificationManager;
 
     public class StreamBinder extends Binder {
         StreamService getService() {
@@ -56,7 +65,7 @@ public class StreamService extends Service {
 
     public boolean prepare() {
         try {
-            startForeground(1, mNotificationBuilder.build());
+            startForeground(1, mNotificationHelper.getNotification());
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -126,25 +135,80 @@ public class StreamService extends Service {
 
         new MetadataUpdateTask().execute();
 
+        mNotificationHelper = new NotificationHelper();
+        mMetadataHandler.post(mMetadataRunnable);
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-       return mBinder;
+        return mBinder;
     }
 
-    private class MetadataUpdateTask extends AsyncTask<Void, Void, String> {
-        @Override
-        protected String doInBackground(Void... params) {
+    @Override
+    public void onDestroy() {
+        mPlayer.release();
+        stopForeground(true);
+    }
 
-            Scraper scraper = new IceCastScraper();
+    private class NotificationHelper {
+
+        private NotificationCompat.Builder mBuilder;
+        private String mDj, mCurrentSong;
+
+
+        NotificationHelper() {
+            mBuilder = new NotificationCompat.Builder(getApplicationContext())
+                .setOngoing(true)
+                ;
+        }
+
+        private void updateBuilder() {
+
+        }
+
+        public void setDj(String dj) {
+            mDj = dj;
+        }
+
+        public String getDj() {
+            return mDj;
+        }
+
+        public void setCurrentSong(String currentSong) {
+            mCurrentSong = currentSong;
+        }
+
+        public String getCurrentSong() {
+            return mCurrentSong;
+        }
+
+        public Notification getNotification() {
+            updateBuilder();
+            return mBuilder.build();
+        }
+
+    }
+
+
+    private class MetadataUpdateRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            new MetadataUpdateTask().execute();
+        }
+    }
+
+    Scraper mScraper = new IceCastScraper();
+    Station mStation = new WCBNStation();
+
+    private class MetadataUpdateTask extends AsyncTask<Stream, Void, Stream> {
+
+        @Override
+        protected Stream doInBackground(Stream... previousStream) {
+
 
             try {
-                List<Stream> streams = scraper.scrape(new URI(mStreamUri));
+                List<Stream> streams = mScraper.scrape(new URI(mStreamUri));
 
-                for (Stream stream: streams) {
-                    Log.d("WCBN", "Song Title: " + stream.getCurrentSong());
-                    Log.d("WCBN", "URI: " + stream.getUri());
-                }
-
-                return null;
+                return mStation.fixMetadata(streams.get(0));
 
             } catch(URISyntaxException e) {
                 e.printStackTrace();
@@ -153,6 +217,12 @@ public class StreamService extends Service {
                 e.printStackTrace();
                 return null;
             }
+        }
+
+        @Override
+        public void onPostExecute(Stream result) {
+            mNotificationManager.notify(1, mNotificationHelper.getNotification());
+            mMetadataHandler.postDelayed(mMetadataRunnable, DELAY_MS);
         }
     }
 
