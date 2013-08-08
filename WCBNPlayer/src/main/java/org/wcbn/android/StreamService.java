@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -41,7 +42,6 @@ public class StreamService extends Service {
 
     public static final long DELAY_MS = 10000;
 
-    private NotificationCompat.Builder mNotificationBuilder;
     private String mStreamUri;
     private final MediaPlayer mPlayer = new MediaPlayer();
     private final IBinder mBinder = new StreamBinder();
@@ -75,32 +75,38 @@ public class StreamService extends Service {
             mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
-                    mUpdateListener.onMediaError(mp, what, extra);
+                    if(mUpdateListener != null)
+                        mUpdateListener.onMediaError(mp, what, extra);
                     Log.d("WCBN", "ERROR: "+what+" "+extra);
                     return true;
                 }
             });
             mPlayer.prepareAsync();
+            mMetadataHandler.post(mMetadataRunnable);
             return true;
         } catch(IllegalStateException e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     public void startPlayback() {
         mPlayer.start();
-        mUpdateListener.onMediaPlay();
+        if(mUpdateListener != null)
+            mUpdateListener.onMediaPlay();
     }
 
     public void stopPlayback() {
         mPlayer.stop();
-        mUpdateListener.onMediaStop();
+        if(mUpdateListener != null)
+            mUpdateListener.onMediaStop();
         stopForeground(true);
     }
 
     public void pausePlayback() {
         mPlayer.pause();
-        mUpdateListener.onMediaPause();
+        if(mUpdateListener != null)
+            mUpdateListener.onMediaPause();
     }
 
     public boolean isPlaying() {
@@ -126,15 +132,6 @@ public class StreamService extends Service {
     public IBinder onBind(Intent intent) {
         initPlayer();
 
-        mNotificationBuilder = new NotificationCompat.Builder(this)
-                .setOngoing(true)
-                .setSmallIcon(android.R.drawable.ic_media_play)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText(getString(R.string.app_name))
-                .setWhen(System.currentTimeMillis());
-
-        new MetadataUpdateTask().execute();
-
         mNotificationHelper = new NotificationHelper();
         mMetadataHandler.post(mMetadataRunnable);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -151,21 +148,41 @@ public class StreamService extends Service {
     private class NotificationHelper {
 
         private NotificationCompat.Builder mBuilder;
-        private String mDj, mCurrentSong;
+        private String mDj, mCurrentSong, mArtist, mProgram;
+        private Bitmap mIcon;
 
 
         NotificationHelper() {
             mBuilder = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
-                ;
+                .setWhen(0)
+                .setSmallIcon(R.drawable.ic_launcher);
         }
 
         private void updateBuilder() {
+            StringBuilder subTextBuilder = new StringBuilder();
+            subTextBuilder.append(getString(R.string.on))
+                    .append(" ")
+                    .append(mProgram);
 
+            if(mDj != null) {
+                subTextBuilder.append(" ")
+                    .append(getString(R.string.with))
+                    .append(" ")
+                    .append(mDj);
+            }
+            mBuilder.setLargeIcon(mIcon);
+            mBuilder.setContentTitle(mCurrentSong);
+            mBuilder.setContentText(mArtist);
+            mBuilder.setSubText(subTextBuilder.toString());
+        }
+
+        public void setBitmap(Bitmap icon) {
+            mIcon = icon;
         }
 
         public void setDj(String dj) {
-            mDj = dj;
+            mDj = Utils.capitalizeString(dj);
         }
 
         public String getDj() {
@@ -173,11 +190,27 @@ public class StreamService extends Service {
         }
 
         public void setCurrentSong(String currentSong) {
-            mCurrentSong = currentSong;
+            mCurrentSong = Utils.capitalizeString(currentSong);
         }
 
         public String getCurrentSong() {
             return mCurrentSong;
+        }
+
+        public void setArtist(String artist) {
+            mArtist = Utils.capitalizeString(artist);
+        }
+
+        public String getArtist() {
+            return mArtist;
+        }
+
+        public void setProgram(String program) {
+            mProgram = program;
+        }
+
+        public String getProgram() {
+            return Utils.capitalizeString(mProgram);
         }
 
         public Notification getNotification() {
@@ -186,7 +219,6 @@ public class StreamService extends Service {
         }
 
     }
-
 
     private class MetadataUpdateRunnable implements Runnable {
 
@@ -198,17 +230,34 @@ public class StreamService extends Service {
 
     Scraper mScraper = new IceCastScraper();
     Station mStation = new WCBNStation();
+    Bitmap mLargeAlbumArt;
+    StreamExt mCurStream;
 
     private class MetadataUpdateTask extends AsyncTask<Stream, Void, Stream> {
 
         @Override
         protected Stream doInBackground(Stream... previousStream) {
 
-
             try {
-                List<Stream> streams = mScraper.scrape(new URI(mStreamUri));
+                Log.d("WCBN", "Updating metadata...");
 
-                return mStation.fixMetadata(streams.get(0));
+                List<Stream> streams = mScraper.scrape(new URI(mStreamUri));
+                StreamExt stream = mStation.fixMetadata(streams.get(0));
+
+                // Check if we're on the same song
+                if(mCurStream == null || !(mCurStream.getCurrentSong()
+                        .equals(stream.getCurrentSong()))) {
+                    mCurStream = stream;
+
+                    Log.d("WCBN", "Grabbing album art...");
+                    if(mLargeAlbumArt != null)
+                        mLargeAlbumArt.recycle();
+                    ItunesScraper scraper = new ItunesScraper(stream.getCurrentSong());
+                    mLargeAlbumArt = scraper.getLargeAlbumArt();
+                    return stream;
+                }
+
+                return null;
 
             } catch(URISyntaxException e) {
                 e.printStackTrace();
@@ -221,7 +270,17 @@ public class StreamService extends Service {
 
         @Override
         public void onPostExecute(Stream result) {
-            mNotificationManager.notify(1, mNotificationHelper.getNotification());
+            if(result != null) {
+                mNotificationHelper.setBitmap(mLargeAlbumArt);
+                mNotificationHelper.setCurrentSong(result.getCurrentSong());
+                mNotificationHelper.setDj(((StreamExt) result).getDj());
+                mNotificationHelper.setArtist(((StreamExt) result).getArtist());
+                mNotificationHelper.setProgram(((StreamExt) result).getProgram());
+                mNotificationManager.notify(1, mNotificationHelper.getNotification());
+
+                if(mUpdateListener != null)
+                    mUpdateListener.updateTrack(result, mLargeAlbumArt);
+            }
             mMetadataHandler.postDelayed(mMetadataRunnable, DELAY_MS);
         }
     }
@@ -235,6 +294,6 @@ public class StreamService extends Service {
         public void onMediaPlay();
         public void onMediaPause();
         public void onMediaStop();
-        public void updateTrack(Stream stream);
+        public void updateTrack(Stream stream, Bitmap albumArt);
     }
 }

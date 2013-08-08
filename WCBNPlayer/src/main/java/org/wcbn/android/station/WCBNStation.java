@@ -38,33 +38,27 @@ public class WCBNStation implements Station {
             Matcher songMatcher = mSongPattern.matcher(currentSong);
             songMatcher.find();
             song = songMatcher.group(1);
-            Log.d("WCBN", "Song " + song);
 
             Matcher artistMatcher = mArtistPattern.matcher(currentSong);
             artistMatcher.find();
             artist = artistMatcher.group(1);
-            Log.d("WCBN", "Artist " + artist);
 
             // currentSong always contains a song, artist, and program, but sometimes not DJ
             if(currentSong.substring(artistMatcher.end()).contains("with")) {
                 Matcher programMatcher = mProgramPattern.matcher(currentSong);
                 programMatcher.find();
                 program = programMatcher.group(1);
-                Log.d("WCBN", "Program " + program);
 
                 dj = currentSong.substring(programMatcher.end());
-                Log.d("WCBN", "Dj " + currentSong.substring(programMatcher.end()));
             }
             else {
                 program = currentSong.substring(artistMatcher.end());
-                Log.d("WCBN", "Program " + currentSong.substring(artistMatcher.end()));
             }
 
             ext.setProgram(program);
             ext.setCurrentSong(song);
             ext.setDj(dj);
             ext.setArtist(artist);
-
         }
 
         ext.merge(stream);

@@ -28,7 +28,6 @@ public class SettingsActivity extends FragmentActivity {
 
             assert preference != null;
             preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
 
                     Integer i = Integer.parseInt((String) newValue);

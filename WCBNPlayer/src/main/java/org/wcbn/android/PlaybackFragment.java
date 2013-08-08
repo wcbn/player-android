@@ -1,6 +1,7 @@
 package org.wcbn.android;
 
 import android.app.Service;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -59,7 +60,7 @@ public class PlaybackFragment extends Fragment implements StreamService.OnStateU
     }
 
     @Override
-    public void updateTrack(Stream stream) {
+    public void updateTrack(Stream stream, Bitmap mAlbumArt) {
         
     }
 

@@ -3,6 +3,9 @@
 
     <string name="version_current">1.0.0</string>
 
+    <string name="on">on</string>
+    <string name="with">with</string>
+
     <string name="app_name">WCBN Player</string>
     <string name="action_settings">Settings</string>
     <string name="title_now_playing">Now Playing</string>
