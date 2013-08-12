@@ -47,9 +47,9 @@ public class StreamExt extends Stream {
             if(dj == null)
                 dj = ((StreamExt) another).getDj();
             if(program == null)
-                dj = ((StreamExt) another).getDj();
+                program = ((StreamExt) another).getProgram();
             if(artist == null)
-                artist = ((StreamExt) another).getDj();
+                artist = ((StreamExt) another).getArtist();
         }
     }
 
