@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.Build;
@@ -17,12 +19,15 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 
+import net.moraleboost.streamscraper.Stream;
+
 import org.wcbn.android.StreamService.StreamBinder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener {
+public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
+        StreamService.OnStateUpdateListener {
     private StreamService mService;
     private boolean mBound;
     private final List<Fragment> mFragments = new ArrayList<Fragment>();
@@ -112,7 +117,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public boolean onOptionsItemSelected (MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class)); return true;
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
         }
         return false;
     }
@@ -143,4 +149,33 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
     };
 
+    @Override
+    public void onMediaError(MediaPlayer mp, int what, int extra) {
+        mNowPlayingFragment.handleMediaError(mp, what, extra);
+        mPlaybackFragment.handleMediaError(mp, what, extra);
+    }
+
+    @Override
+    public void onMediaPlay() {
+        mNowPlayingFragment.handleMediaPlay();
+        mPlaybackFragment.handleMediaPlay();
+    }
+
+    @Override
+    public void onMediaPause() {
+        mNowPlayingFragment.handleMediaPause();
+        mPlaybackFragment.handleMediaPause();
+    }
+
+    @Override
+    public void onMediaStop() {
+        mNowPlayingFragment.handleMediaStop();
+        mPlaybackFragment.handleMediaStop();
+    }
+
+    @Override
+    public void updateTrack(Stream stream, Bitmap albumArt) {
+        mNowPlayingFragment.handleUpdateTrack(stream, albumArt);
+        mPlaybackFragment.handleUpdateTrack(stream, albumArt);
+    }
 }

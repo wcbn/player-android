@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 
 import net.moraleboost.streamscraper.Stream;
 
-public class PlaybackFragment extends Fragment implements StreamService.OnStateUpdateListener {
+public class PlaybackFragment extends Fragment implements InterfaceFragment {
 
     // Bound StreamService
     private StreamService mService;
@@ -35,32 +35,32 @@ public class PlaybackFragment extends Fragment implements StreamService.OnStateU
     }
 
     @Override
-    public void onMediaError(MediaPlayer mp, int what, int extra) {
+    public void handleMediaError(MediaPlayer mp, int what, int extra) {
         updateButtons();
         setProgressBar(false);
         mService.reset();
     }
 
     @Override
-    public void onMediaPlay() {
+    public void handleMediaPlay() {
         updateButtons();
         setProgressBar(false);
     }
 
     @Override
-    public void onMediaPause() {
+    public void handleMediaPause() {
         updateButtons();
         setProgressBar(false);
     }
 
     @Override
-    public void onMediaStop() {
+    public void handleMediaStop() {
         updateButtons();
         setProgressBar(false);
     }
 
     @Override
-    public void updateTrack(Stream stream, Bitmap mAlbumArt) {
+    public void handleUpdateTrack(Stream stream, Bitmap mAlbumArt) {
         
     }
 
@@ -84,7 +84,6 @@ public class PlaybackFragment extends Fragment implements StreamService.OnStateU
 
     public void setService(Service streamService) {
         mService = (StreamService) streamService;
-        mService.setOnStateUpdateListener(this);
         updateButtons();
     }
 

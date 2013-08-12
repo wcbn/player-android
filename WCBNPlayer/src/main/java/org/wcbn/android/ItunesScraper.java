@@ -18,7 +18,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 /**
- * Created by mike on 8/1/13.
+ * Scrapes album art and metadata from iTunes.
  */
 public class ItunesScraper {
     public static final Uri URI_BASE = Uri.parse("https://itunes.apple.com/search?entity=song&limit=1");

@@ -29,6 +29,9 @@ import net.moraleboost.streamscraper.scraper.IceCastScraper;
 
 import org.wcbn.android.station.WCBNStation;
 
+/**
+ * Android Service that handles background music playback and metadata fetch.
+ */
 public class StreamService extends Service {
     public static class Quality {
         public static final String MID = "0";
@@ -182,7 +185,7 @@ public class StreamService extends Service {
         }
 
         public void setDj(String dj) {
-            mDj = Utils.capitalizeString(dj);
+            mDj = Utils.capitalizeTitle(dj);
         }
 
         public String getDj() {
@@ -190,7 +193,7 @@ public class StreamService extends Service {
         }
 
         public void setCurrentSong(String currentSong) {
-            mCurrentSong = Utils.capitalizeString(currentSong);
+            mCurrentSong = Utils.capitalizeTitle(currentSong);
         }
 
         public String getCurrentSong() {
@@ -198,7 +201,7 @@ public class StreamService extends Service {
         }
 
         public void setArtist(String artist) {
-            mArtist = Utils.capitalizeString(artist);
+            mArtist = Utils.capitalizeTitle(artist);
         }
 
         public String getArtist() {
@@ -210,7 +213,7 @@ public class StreamService extends Service {
         }
 
         public String getProgram() {
-            return Utils.capitalizeString(mProgram);
+            return Utils.capitalizeTitle(mProgram);
         }
 
         public Notification getNotification() {
