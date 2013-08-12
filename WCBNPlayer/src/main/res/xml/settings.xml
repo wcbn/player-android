@@ -13,6 +13,15 @@
                 android:entries="@array/quality_pref"
                 android:entryValues="@array/quality_values"
                 android:dialogTitle="@string/stream_quality" />
+        </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/stream_settings">
+        <CheckBoxPreference
+                android:key="grabAlbumArt"
+                android:defaultValue="true"
+                android:title="@string/grab_album_art"
+                android:summary="@string/grab_album_art_desc"
+                />
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/about_settings">

@@ -53,6 +53,7 @@ public class StreamService extends Service {
     private Runnable mMetadataRunnable = new MetadataUpdateRunnable();
     private NotificationHelper mNotificationHelper;
     private NotificationManager mNotificationManager;
+    private boolean mGrabAlbumArt;
 
     public class StreamBinder extends Binder {
         StreamService getService() {
@@ -120,6 +121,7 @@ public class StreamService extends Service {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String quality = prefs.getString("quality", Quality.HI);
+        mGrabAlbumArt = prefs.getBoolean("grabAlbumArt", true);
 
         mStreamUri = Quality.getUri(quality, getResources());
         Log.d("WCBN", "Using URI: "+mStreamUri);
@@ -255,8 +257,11 @@ public class StreamService extends Service {
                     Log.d("WCBN", "Grabbing album art...");
                     if(mLargeAlbumArt != null)
                         mLargeAlbumArt.recycle();
-                    ItunesScraper scraper = new ItunesScraper(stream.getCurrentSong());
-                    mLargeAlbumArt = scraper.getLargeAlbumArt();
+
+                    if(mGrabAlbumArt) {
+                        ItunesScraper scraper = new ItunesScraper(stream.getCurrentSong());
+                        mLargeAlbumArt = scraper.getLargeAlbumArt();
+                    }
                     return stream;
                 }
 
@@ -274,7 +279,9 @@ public class StreamService extends Service {
         @Override
         public void onPostExecute(Stream result) {
             if(result != null) {
-                mNotificationHelper.setBitmap(mLargeAlbumArt);
+                if(mGrabAlbumArt) {
+                    mNotificationHelper.setBitmap(mLargeAlbumArt);
+                }
                 mNotificationHelper.setCurrentSong(result.getCurrentSong());
                 mNotificationHelper.setDj(((StreamExt) result).getDj());
                 mNotificationHelper.setArtist(((StreamExt) result).getArtist());
