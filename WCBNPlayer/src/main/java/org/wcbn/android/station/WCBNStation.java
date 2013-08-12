@@ -28,7 +28,7 @@ public class WCBNStation implements Station {
     public StreamExt fixMetadata(Stream stream) {
         StreamExt ext = new StreamExt();
         String currentSong = stream.getCurrentSong();
-        String program, artist, song, dj = "";
+        String program, artist, song, dj = null;
 
         // currentSong is in the format: "song" by artist on program with dj
         // TODO: make the parser better at handling edge cases ie. no song, no artist etc.

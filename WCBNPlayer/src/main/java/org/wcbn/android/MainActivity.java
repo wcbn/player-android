@@ -138,6 +138,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                                        IBinder service) {
             StreamBinder binder = (StreamBinder) service;
             mService = binder.getService();
+            mService.setOnStateUpdateListener((StreamService.OnStateUpdateListener) mActivity);
             mBound = true;
 
             mPlaybackFragment.setService(mService);
@@ -145,12 +146,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
+            mService.setOnStateUpdateListener(null);
             mBound = false;
         }
     };
 
     @Override
     public void onMediaError(MediaPlayer mp, int what, int extra) {
+        setProgressBarIndeterminateVisibility(false);
+        mPlaybackFragment.handleMediaError(mp, what, extra);
         for(InterfaceFragment f : mFragments) {
             f.handleMediaError(mp, what, extra);
         }
@@ -158,6 +162,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     public void onMediaPlay() {
+        setProgressBarIndeterminateVisibility(false);
+        mPlaybackFragment.handleMediaPlay();
         for(InterfaceFragment f : mFragments) {
             f.handleMediaPlay();
         }
@@ -165,6 +171,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     public void onMediaPause() {
+        setProgressBarIndeterminateVisibility(false);
+        mPlaybackFragment.handleMediaPause();
         for(InterfaceFragment f : mFragments) {
             f.handleMediaPause();
         }
@@ -172,6 +180,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     public void onMediaStop() {
+        setProgressBarIndeterminateVisibility(false);
+        mPlaybackFragment.handleMediaStop();
         for(InterfaceFragment f : mFragments) {
             f.handleMediaStop();
         }
@@ -179,6 +189,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     public void updateTrack(Stream stream, Bitmap albumArt) {
+        mPlaybackFragment.handleUpdateTrack(stream, albumArt);
         for(InterfaceFragment f : mFragments) {
             f.handleUpdateTrack(stream, albumArt);
         }

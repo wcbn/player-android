@@ -37,26 +37,22 @@ public class PlaybackFragment extends Fragment implements InterfaceFragment {
     @Override
     public void handleMediaError(MediaPlayer mp, int what, int extra) {
         updateButtons();
-        setProgressBar(false);
         mService.reset();
     }
 
     @Override
     public void handleMediaPlay() {
         updateButtons();
-        setProgressBar(false);
     }
 
     @Override
     public void handleMediaPause() {
         updateButtons();
-        setProgressBar(false);
     }
 
     @Override
     public void handleMediaStop() {
         updateButtons();
-        setProgressBar(false);
     }
 
     @Override

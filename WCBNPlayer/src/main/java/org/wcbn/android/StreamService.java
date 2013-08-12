@@ -286,7 +286,9 @@ public class StreamService extends Service {
                 mNotificationHelper.setDj(((StreamExt) result).getDj());
                 mNotificationHelper.setArtist(((StreamExt) result).getArtist());
                 mNotificationHelper.setProgram(((StreamExt) result).getProgram());
-                mNotificationManager.notify(1, mNotificationHelper.getNotification());
+
+                if(mPlayer.isPlaying())
+                    mNotificationManager.notify(1, mNotificationHelper.getNotification());
 
                 if(mUpdateListener != null)
                     mUpdateListener.updateTrack(result, mLargeAlbumArt);
