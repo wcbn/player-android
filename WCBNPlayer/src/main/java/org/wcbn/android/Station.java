@@ -7,5 +7,6 @@ import net.moraleboost.streamscraper.Stream;
  */
 public interface Station {
     public int getWebsite();
+    public int getNumber();
     public StreamExt fixMetadata (Stream stream);
 }

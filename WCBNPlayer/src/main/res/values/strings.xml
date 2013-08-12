@@ -20,6 +20,8 @@
 
     <string name="default_website">http://wcbn.org/</string>
     <string name="wcbn_website">http://wcbn.org/</string>
+    <string name="default_number">17347633500</string>
+    <string name="wcbn_number">17347633500</string>
 
     <string-array name="stream_uri">
         <item>http://floyd.wcbn.org:8000/wcbn-mid.mp3</item>

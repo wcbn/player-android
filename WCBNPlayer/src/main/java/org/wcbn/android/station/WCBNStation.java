@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class WCBNStation implements Station {
 
     public static final int WEBSITE = R.string.wcbn_website;
+    public static final int NUMBER = R.string.wcbn_number;
 
     static Pattern mSongPattern = Pattern.compile("\"(.*?)\"");
     static Pattern mArtistPattern = Pattern.compile(" by (.*?) on ");
@@ -22,6 +23,11 @@ public class WCBNStation implements Station {
     @Override
     public int getWebsite() {
         return WEBSITE;
+    }
+
+    @Override
+    public int getNumber() {
+        return NUMBER;
     }
 
     @Override
