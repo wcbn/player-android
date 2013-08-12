@@ -46,7 +46,6 @@ public class SettingsActivity extends FragmentActivity {
                     .getStringArray(R.array.quality_desc)[i]);
             preference.setTitle(getResources()
                     .getStringArray(R.array.quality_pref)[i]);
-
         }
     }
 }

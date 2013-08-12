@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         StreamService.OnStateUpdateListener {
     private StreamService mService;
     private boolean mBound;
-    private final List<Fragment> mFragments = new ArrayList<Fragment>();
+    private final List<InterfaceFragment> mFragments = new ArrayList<InterfaceFragment>();
     private NowPlayingFragment mNowPlayingFragment = new NowPlayingFragment();
     private ScheduleFragment mScheduleFragment = new ScheduleFragment();
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
@@ -125,9 +125,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     public boolean onNavigationItemSelected(int position, long id) {
-        Fragment fragment = mFragments.get(position);
+        InterfaceFragment fragment = mFragments.get(position);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
+                .replace(R.id.container, (Fragment) fragment)
                 .commit();
         return true;
     }
@@ -151,31 +151,36 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     public void onMediaError(MediaPlayer mp, int what, int extra) {
-        mNowPlayingFragment.handleMediaError(mp, what, extra);
-        mPlaybackFragment.handleMediaError(mp, what, extra);
+        for(InterfaceFragment f : mFragments) {
+            f.handleMediaError(mp, what, extra);
+        }
     }
 
     @Override
     public void onMediaPlay() {
-        mNowPlayingFragment.handleMediaPlay();
-        mPlaybackFragment.handleMediaPlay();
+        for(InterfaceFragment f : mFragments) {
+            f.handleMediaPlay();
+        }
     }
 
     @Override
     public void onMediaPause() {
-        mNowPlayingFragment.handleMediaPause();
-        mPlaybackFragment.handleMediaPause();
+        for(InterfaceFragment f : mFragments) {
+            f.handleMediaPause();
+        }
     }
 
     @Override
     public void onMediaStop() {
-        mNowPlayingFragment.handleMediaStop();
-        mPlaybackFragment.handleMediaStop();
+        for(InterfaceFragment f : mFragments) {
+            f.handleMediaStop();
+        }
     }
 
     @Override
     public void updateTrack(Stream stream, Bitmap albumArt) {
-        mNowPlayingFragment.handleUpdateTrack(stream, albumArt);
-        mPlaybackFragment.handleUpdateTrack(stream, albumArt);
+        for(InterfaceFragment f : mFragments) {
+            f.handleUpdateTrack(stream, albumArt);
+        }
     }
 }
