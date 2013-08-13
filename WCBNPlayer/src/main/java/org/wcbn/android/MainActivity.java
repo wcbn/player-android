@@ -143,6 +143,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             mBound = true;
 
             mPlaybackFragment.setService(mService);
+            mNowPlayingFragment.setService(mService);
+            mScheduleFragment.setService(mService);
         }
 
         @Override

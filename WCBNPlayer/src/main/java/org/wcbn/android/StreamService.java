@@ -54,6 +54,10 @@ public class StreamService extends Service {
     private NotificationHelper mNotificationHelper;
     private NotificationManager mNotificationManager;
     private boolean mGrabAlbumArt;
+    private Scraper mScraper = new IceCastScraper();
+    private Station mStation = new WCBNStation();
+    private Bitmap mLargeAlbumArt;
+    private StreamExt mCurStream;
 
     public class StreamBinder extends Binder {
         StreamService getService() {
@@ -74,8 +78,6 @@ public class StreamService extends Service {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     startPlayback();
-                    mMetadataHandler.post(mMetadataRunnable);
-
                 }
             });
             mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -87,6 +89,7 @@ public class StreamService extends Service {
                     return true;
                 }
             });
+            mMetadataHandler.post(mMetadataRunnable);
             mPlayer.prepareAsync();
             return true;
         } catch(IllegalStateException e) {
@@ -229,15 +232,9 @@ public class StreamService extends Service {
 
         @Override
         public void run() {
-            if(mPlayer.isPlaying())
-                new MetadataUpdateTask().execute();
+            new MetadataUpdateTask().execute();
         }
     }
-
-    Scraper mScraper = new IceCastScraper();
-    Station mStation = new WCBNStation();
-    Bitmap mLargeAlbumArt;
-    StreamExt mCurStream;
 
     private class MetadataUpdateTask extends AsyncTask<Stream, Void, Stream> {
 
@@ -245,17 +242,14 @@ public class StreamService extends Service {
         protected Stream doInBackground(Stream... previousStream) {
 
             try {
-                Log.d("WCBN", "Updating metadata...");
-
                 List<Stream> streams = mScraper.scrape(new URI(mStreamUri));
                 StreamExt stream = mStation.fixMetadata(streams.get(0));
 
-                // Check if we're on the same song
+                // Check if we're on the same song. If not, refresh metadata.
                 if(mCurStream == null || !(mCurStream.getCurrentSong()
                         .equals(stream.getCurrentSong()))) {
                     mCurStream = stream;
 
-                    Log.d("WCBN", "Grabbing album art...");
                     if(mLargeAlbumArt != null)
                         mLargeAlbumArt.recycle();
 
@@ -299,6 +293,10 @@ public class StreamService extends Service {
 
     public void setOnStateUpdateListener(OnStateUpdateListener listener) {
         mUpdateListener = listener;
+    }
+
+    public Bitmap getAlbumArt() {
+        return mLargeAlbumArt;
     }
 
     public interface OnStateUpdateListener {

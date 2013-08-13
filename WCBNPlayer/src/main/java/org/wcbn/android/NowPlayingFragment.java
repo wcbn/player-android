@@ -17,6 +17,7 @@ public class NowPlayingFragment extends Fragment implements UiFragment {
 
     private ImageView mAlbumArtView;
     private Bitmap mAlbumArtBitmap;
+    private StreamService mService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +35,12 @@ public class NowPlayingFragment extends Fragment implements UiFragment {
 
     @Override
     public void setService(Service service) {
+        mService = (StreamService) service;
 
+        mAlbumArtBitmap = mService.getAlbumArt();
+        if(mAlbumArtBitmap != null) {
+            mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
+        }
     }
 
 
