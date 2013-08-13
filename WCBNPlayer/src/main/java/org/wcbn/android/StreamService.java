@@ -2,8 +2,12 @@ package org.wcbn.android;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -15,6 +19,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import java.io.IOException;
@@ -33,6 +38,10 @@ import org.wcbn.android.station.WCBNStation;
  * Android Service that handles background music playback and metadata fetch.
  */
 public class StreamService extends Service {
+
+    public static final String ACTION_PLAY_PAUSE = "org.wcbn.android.intent.ACTION_PLAY_PAUSE";
+    public static final String ACTION_STOP = "org.wcbn.android.intent.ACTION_STOP";
+
     public static class Quality {
         public static final String MID = "0";
         public static final String HI = "1";
@@ -58,6 +67,7 @@ public class StreamService extends Service {
     private Station mStation = new WCBNStation();
     private Bitmap mLargeAlbumArt;
     private StreamExt mCurStream;
+    private boolean mIsPaused = true;
 
     public class StreamBinder extends Binder {
         StreamService getService() {
@@ -71,9 +81,34 @@ public class StreamService extends Service {
         initPlayer();
     }
 
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(ACTION_PLAY_PAUSE.equals(intent.getAction())) {
+                if(mIsPaused) {
+                    startPlayback();
+                    mNotificationHelper.setPlaying(true);
+                }
+                else {
+                    pausePlayback();
+                    mNotificationHelper.setPlaying(false);
+                }
+                mNotificationManager.notify(1, mNotificationHelper.getNotification());
+            }
+            else if(ACTION_STOP.equals(intent.getAction())) {
+                stopPlayback();
+            }
+        }
+    };
+
     public boolean prepare() {
         try {
             startForeground(1, mNotificationHelper.getNotification());
+            mMetadataHandler.post(mMetadataRunnable);
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ACTION_PLAY_PAUSE);
+            filter.addAction(ACTION_STOP);
+            registerReceiver(mReceiver, filter);
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -89,7 +124,6 @@ public class StreamService extends Service {
                     return true;
                 }
             });
-            mMetadataHandler.post(mMetadataRunnable);
             mPlayer.prepareAsync();
             return true;
         } catch(IllegalStateException e) {
@@ -100,6 +134,7 @@ public class StreamService extends Service {
 
     public void startPlayback() {
         mPlayer.start();
+        mIsPaused = false;
         if(mUpdateListener != null)
             mUpdateListener.onMediaPlay();
     }
@@ -109,10 +144,12 @@ public class StreamService extends Service {
         if(mUpdateListener != null)
             mUpdateListener.onMediaStop();
         stopForeground(true);
+        unregisterReceiver(mReceiver);
     }
 
     public void pausePlayback() {
         mPlayer.pause();
+        mIsPaused = true;
         if(mUpdateListener != null)
             mUpdateListener.onMediaPause();
     }
@@ -158,13 +195,38 @@ public class StreamService extends Service {
         private NotificationCompat.Builder mBuilder;
         private String mDj, mCurrentSong, mArtist, mProgram;
         private Bitmap mIcon;
-
+        private PendingIntent mPlayPauseIntent, mStopIntent;
 
         NotificationHelper() {
             mBuilder = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
                 .setWhen(0)
                 .setSmallIcon(R.drawable.ic_launcher);
+
+            Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
+            stackBuilder.addParentStack(MainActivity.class);
+            stackBuilder.addNextIntent(resultIntent);
+            PendingIntent resultPendingIntent =
+                    stackBuilder.getPendingIntent(
+                            0,
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    );
+            mBuilder.setContentIntent(resultPendingIntent);
+
+            Intent playPause = new Intent(ACTION_PLAY_PAUSE);
+            Intent stop = new Intent(ACTION_STOP);
+            playPause.setClass(getApplicationContext(), StreamService.class);
+            stop.setClass(getApplicationContext(), StreamService.class);
+            mPlayPauseIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, playPause, 0);
+            mStopIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, playPause, 0);
+            mBuilder.addAction(R.drawable.btn_playback_pause,
+                    getString(R.string.pause),
+                    mPlayPauseIntent);
+            mBuilder.addAction(R.drawable.btn_playback_stop,
+                    getString(R.string.stop),
+                    mStopIntent);
+
         }
 
         private void updateBuilder() {
@@ -221,6 +283,20 @@ public class StreamService extends Service {
             return Utils.capitalizeTitle(mProgram);
         }
 
+        // Notification action update. Only on JELLY_BEAN and above.
+        public void setPlaying(boolean playing) {
+            if(playing) {
+                mBuilder.addAction(R.drawable.btn_playback_pause,
+                        getString(R.string.pause),
+                        mPlayPauseIntent);
+            }
+            else {
+                mBuilder.addAction(R.drawable.btn_playback_play,
+                        getString(R.string.play),
+                        mPlayPauseIntent);
+            }
+        }
+
         public Notification getNotification() {
             updateBuilder();
             return mBuilder.build();
@@ -229,7 +305,6 @@ public class StreamService extends Service {
     }
 
     private class MetadataUpdateRunnable implements Runnable {
-
         @Override
         public void run() {
             new MetadataUpdateTask().execute();

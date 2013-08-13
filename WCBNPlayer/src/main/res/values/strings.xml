@@ -11,6 +11,10 @@
     <string name="title_now_playing">Now Playing</string>
     <string name="title_schedule">Schedule</string>
 
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+
     <string name="stream_settings">Stream Settings</string>
     <string name="about_settings">About</string>
     <string name="stream_quality">Stream Quality</string>
