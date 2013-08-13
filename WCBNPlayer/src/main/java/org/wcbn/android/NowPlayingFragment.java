@@ -30,6 +30,10 @@ public class NowPlayingFragment extends Fragment implements UiFragment {
             mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
         }
 
+        if(mAlbumArtBitmap != null) {
+            mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
+        }
+
         return view;
     }
 
@@ -38,9 +42,6 @@ public class NowPlayingFragment extends Fragment implements UiFragment {
         mService = (StreamService) service;
 
         mAlbumArtBitmap = mService.getAlbumArt();
-        if(mAlbumArtBitmap != null) {
-            mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
-        }
     }
 
 

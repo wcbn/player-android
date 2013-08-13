@@ -39,6 +39,8 @@ import org.wcbn.android.station.WCBNStation;
  */
 public class StreamService extends Service {
 
+    public static final String TAG = "WCBN StreamService";
+
     public static final String ACTION_PLAY_PAUSE = "org.wcbn.android.intent.ACTION_PLAY_PAUSE";
     public static final String ACTION_STOP = "org.wcbn.android.intent.ACTION_STOP";
 
@@ -77,6 +79,7 @@ public class StreamService extends Service {
 
     public void reset() {
         stopForeground(true);
+        mPlayer.release();
         mPlayer.reset();
         initPlayer();
     }
@@ -84,14 +87,14 @@ public class StreamService extends Service {
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, intent.getAction());
+
             if(ACTION_PLAY_PAUSE.equals(intent.getAction())) {
                 if(mIsPaused) {
                     startPlayback();
-                    mNotificationHelper.setPlaying(true);
                 }
                 else {
                     pausePlayback();
-                    mNotificationHelper.setPlaying(false);
                 }
                 mNotificationManager.notify(1, mNotificationHelper.getNotification());
             }
@@ -103,6 +106,8 @@ public class StreamService extends Service {
 
     public boolean prepare() {
         try {
+            mNotificationHelper.setPlaying(true);
+            mIsPaused = false;
             startForeground(1, mNotificationHelper.getNotification());
             mMetadataHandler.post(mMetadataRunnable);
             IntentFilter filter = new IntentFilter();
@@ -120,7 +125,7 @@ public class StreamService extends Service {
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     if(mUpdateListener != null)
                         mUpdateListener.onMediaError(mp, what, extra);
-                    Log.d("WCBN", "ERROR: "+what+" "+extra);
+                    Log.d(TAG, "ERROR: "+what+" "+extra);
                     return true;
                 }
             });
@@ -135,27 +140,35 @@ public class StreamService extends Service {
     public void startPlayback() {
         mPlayer.start();
         mIsPaused = false;
+        mNotificationHelper.setPlaying(true);
         if(mUpdateListener != null)
             mUpdateListener.onMediaPlay();
     }
 
     public void stopPlayback() {
-        mPlayer.stop();
         if(mUpdateListener != null)
             mUpdateListener.onMediaStop();
         stopForeground(true);
-        unregisterReceiver(mReceiver);
+
+        mMetadataHandler.removeCallbacks(mMetadataRunnable);
+
+        try {
+            unregisterReceiver(mReceiver);
+        } catch(IllegalArgumentException e) {
+            e.printStackTrace(); // Already unregistered
+        }
     }
 
     public void pausePlayback() {
         mPlayer.pause();
         mIsPaused = true;
+        mNotificationHelper.setPlaying(false);
         if(mUpdateListener != null)
             mUpdateListener.onMediaPause();
     }
 
     public boolean isPlaying() {
-        return mPlayer.isPlaying() || mPlayer.isLooping();
+        return mPlayer.isPlaying() || mPlayer.isLooping() || !mIsPaused;
     }
 
     public void initPlayer() {
@@ -165,7 +178,7 @@ public class StreamService extends Service {
         mGrabAlbumArt = prefs.getBoolean("grabAlbumArt", true);
 
         mStreamUri = Quality.getUri(quality, getResources());
-        Log.d("WCBN", "Using URI: "+mStreamUri);
+        Log.d(TAG, "Using URI: "+mStreamUri);
 
         try {
             mPlayer.setDataSource(this, Uri.parse(mStreamUri));
@@ -186,19 +199,25 @@ public class StreamService extends Service {
 
     @Override
     public void onDestroy() {
-        mPlayer.release();
+        if(mPlayer != null)
+            mPlayer.release();
         stopForeground(true);
     }
 
     private class NotificationHelper {
 
-        private NotificationCompat.Builder mBuilder;
+        private NotificationCompat.Builder mBuilderPlaying, mBuilderPaused;
+        private NotificationCompat.Builder mCurrentBuilder;
         private String mDj, mCurrentSong, mArtist, mProgram;
         private Bitmap mIcon;
         private PendingIntent mPlayPauseIntent, mStopIntent;
 
         NotificationHelper() {
-            mBuilder = new NotificationCompat.Builder(getApplicationContext())
+            mBuilderPlaying = new NotificationCompat.Builder(getApplicationContext())
+                .setOngoing(true)
+                .setWhen(0)
+                .setSmallIcon(R.drawable.ic_launcher);
+            mBuilderPaused = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
                 .setWhen(0)
                 .setSmallIcon(R.drawable.ic_launcher);
@@ -212,20 +231,27 @@ public class StreamService extends Service {
                             0,
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
-            mBuilder.setContentIntent(resultPendingIntent);
+            mBuilderPlaying.setContentIntent(resultPendingIntent);
+            mBuilderPaused.setContentIntent(resultPendingIntent);
 
             Intent playPause = new Intent(ACTION_PLAY_PAUSE);
             Intent stop = new Intent(ACTION_STOP);
-            playPause.setClass(getApplicationContext(), StreamService.class);
-            stop.setClass(getApplicationContext(), StreamService.class);
             mPlayPauseIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, playPause, 0);
-            mStopIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, playPause, 0);
-            mBuilder.addAction(R.drawable.btn_playback_pause,
+            mStopIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, stop, 0);
+            mBuilderPlaying.addAction(R.drawable.btn_playback_pause,
                     getString(R.string.pause),
                     mPlayPauseIntent);
-            mBuilder.addAction(R.drawable.btn_playback_stop,
+            mBuilderPaused.addAction(R.drawable.btn_playback_play,
+                    getString(R.string.play),
+                    mPlayPauseIntent);
+            mBuilderPlaying.addAction(R.drawable.btn_playback_stop,
                     getString(R.string.stop),
                     mStopIntent);
+            mBuilderPaused.addAction(R.drawable.btn_playback_stop,
+                    getString(R.string.stop),
+                    mStopIntent);
+
+            mCurrentBuilder = mBuilderPlaying;
 
         }
 
@@ -241,10 +267,10 @@ public class StreamService extends Service {
                     .append(" ")
                     .append(mDj);
             }
-            mBuilder.setLargeIcon(mIcon);
-            mBuilder.setContentTitle(mCurrentSong);
-            mBuilder.setContentText(mArtist);
-            mBuilder.setSubText(subTextBuilder.toString());
+            mCurrentBuilder.setLargeIcon(mIcon);
+            mCurrentBuilder.setContentTitle(mCurrentSong);
+            mCurrentBuilder.setContentText(mArtist);
+            mCurrentBuilder.setSubText(subTextBuilder.toString());
         }
 
         public void setBitmap(Bitmap icon) {
@@ -286,20 +312,16 @@ public class StreamService extends Service {
         // Notification action update. Only on JELLY_BEAN and above.
         public void setPlaying(boolean playing) {
             if(playing) {
-                mBuilder.addAction(R.drawable.btn_playback_pause,
-                        getString(R.string.pause),
-                        mPlayPauseIntent);
+                mCurrentBuilder = mBuilderPlaying;
             }
             else {
-                mBuilder.addAction(R.drawable.btn_playback_play,
-                        getString(R.string.play),
-                        mPlayPauseIntent);
+                mCurrentBuilder = mBuilderPaused;
             }
         }
 
         public Notification getNotification() {
             updateBuilder();
-            return mBuilder.build();
+            return mCurrentBuilder.build();
         }
 
     }
@@ -356,6 +378,13 @@ public class StreamService extends Service {
                 mNotificationHelper.setDj(((StreamExt) result).getDj());
                 mNotificationHelper.setArtist(((StreamExt) result).getArtist());
                 mNotificationHelper.setProgram(((StreamExt) result).getProgram());
+
+                if(mIsPaused) {
+                    mNotificationHelper.setPlaying(false);
+                }
+                else {
+                    mNotificationHelper.setPlaying(true);
+                }
 
                 mNotificationManager.notify(1, mNotificationHelper.getNotification());
 
