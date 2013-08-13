@@ -1,8 +1,8 @@
 package org.wcbn.android;
 
+import android.app.Service;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
-import android.support.v4.app.Fragment;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -12,4 +12,5 @@ public interface UiFragment {
     public void handleMediaPause();
     public void handleMediaStop();
     public void handleUpdateTrack(Stream stream, Bitmap albumArt);
+    public void setService(Service service);
 }

@@ -1,5 +1,6 @@
 package org.wcbn.android;
 
+import android.app.Service;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -30,6 +31,12 @@ public class NowPlayingFragment extends Fragment implements UiFragment {
 
         return view;
     }
+
+    @Override
+    public void setService(Service service) {
+
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

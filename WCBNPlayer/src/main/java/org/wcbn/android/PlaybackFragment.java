@@ -78,8 +78,9 @@ public class PlaybackFragment extends Fragment implements UiFragment {
         }
     }
 
-    public void setService(Service streamService) {
-        mService = (StreamService) streamService;
+    @Override
+    public void setService(Service service) {
+        mService = (StreamService) service;
         updateButtons();
     }
 
