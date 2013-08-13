@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 import net.moraleboost.streamscraper.Stream;
 
-public interface InterfaceFragment {
+public interface UiFragment {
     public void handleMediaError(MediaPlayer mp, int what, int extra);
     public void handleMediaPlay();
     public void handleMediaPause();

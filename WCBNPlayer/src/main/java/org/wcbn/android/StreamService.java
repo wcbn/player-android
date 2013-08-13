@@ -74,6 +74,8 @@ public class StreamService extends Service {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     startPlayback();
+                    mMetadataHandler.post(mMetadataRunnable);
+
                 }
             });
             mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -86,7 +88,6 @@ public class StreamService extends Service {
                 }
             });
             mPlayer.prepareAsync();
-            mMetadataHandler.post(mMetadataRunnable);
             return true;
         } catch(IllegalStateException e) {
             e.printStackTrace();
@@ -138,7 +139,6 @@ public class StreamService extends Service {
         initPlayer();
 
         mNotificationHelper = new NotificationHelper();
-        mMetadataHandler.post(mMetadataRunnable);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         return mBinder;
@@ -229,7 +229,8 @@ public class StreamService extends Service {
 
         @Override
         public void run() {
-            new MetadataUpdateTask().execute();
+            if(mPlayer.isPlaying())
+                new MetadataUpdateTask().execute();
         }
     }
 
@@ -287,8 +288,7 @@ public class StreamService extends Service {
                 mNotificationHelper.setArtist(((StreamExt) result).getArtist());
                 mNotificationHelper.setProgram(((StreamExt) result).getProgram());
 
-                if(mPlayer.isPlaying())
-                    mNotificationManager.notify(1, mNotificationHelper.getNotification());
+                mNotificationManager.notify(1, mNotificationHelper.getNotification());
 
                 if(mUpdateListener != null)
                     mUpdateListener.updateTrack(result, mLargeAlbumArt);

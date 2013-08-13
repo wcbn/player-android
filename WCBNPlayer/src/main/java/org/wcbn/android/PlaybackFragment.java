@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 
 import net.moraleboost.streamscraper.Stream;
 
-public class PlaybackFragment extends Fragment implements InterfaceFragment {
+public class PlaybackFragment extends Fragment implements UiFragment {
 
     // Bound StreamService
     private StreamService mService;

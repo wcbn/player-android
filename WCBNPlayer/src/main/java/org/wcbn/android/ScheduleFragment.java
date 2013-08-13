@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import net.moraleboost.streamscraper.Stream;
 
-public class ScheduleFragment extends Fragment implements InterfaceFragment {
+public class ScheduleFragment extends Fragment implements UiFragment {
 
     @Override
     public void handleMediaError(MediaPlayer mp, int what, int extra) {
