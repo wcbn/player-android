@@ -37,7 +37,6 @@ public class PlaybackFragment extends Fragment implements UiFragment {
     @Override
     public void handleMediaError(MediaPlayer mp, int what, int extra) {
         updateButtons();
-        mService.reset();
     }
 
     @Override

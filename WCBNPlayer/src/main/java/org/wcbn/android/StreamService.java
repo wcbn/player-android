@@ -57,7 +57,7 @@ public class StreamService extends Service {
     public static final long DELAY_MS = 10000;
 
     private String mStreamUri;
-    private final MediaPlayer mPlayer = new MediaPlayer();
+    private MediaPlayer mPlayer;
     private final IBinder mBinder = new StreamBinder();
     private OnStateUpdateListener mUpdateListener;
     private Handler mMetadataHandler = new Handler();
@@ -80,7 +80,6 @@ public class StreamService extends Service {
     public void reset() {
         stopForeground(true);
         mPlayer.release();
-        mPlayer.reset();
         initPlayer();
     }
 
@@ -96,7 +95,6 @@ public class StreamService extends Service {
                 else {
                     pausePlayback();
                 }
-                mNotificationManager.notify(1, mNotificationHelper.getNotification());
             }
             else if(ACTION_STOP.equals(intent.getAction())) {
                 stopPlayback();
@@ -114,6 +112,8 @@ public class StreamService extends Service {
             filter.addAction(ACTION_PLAY_PAUSE);
             filter.addAction(ACTION_STOP);
             registerReceiver(mReceiver, filter);
+            if(mPlayer.isPlaying())
+                reset();
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -123,9 +123,9 @@ public class StreamService extends Service {
             mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
+                    Log.d(TAG, "ERROR: "+what+" "+extra);
                     if(mUpdateListener != null)
                         mUpdateListener.onMediaError(mp, what, extra);
-                    Log.d(TAG, "ERROR: "+what+" "+extra);
                     return true;
                 }
             });
@@ -141,6 +141,7 @@ public class StreamService extends Service {
         mPlayer.start();
         mIsPaused = false;
         mNotificationHelper.setPlaying(true);
+        mNotificationManager.notify(1, mNotificationHelper.getNotification());
         if(mUpdateListener != null)
             mUpdateListener.onMediaPlay();
     }
@@ -151,6 +152,9 @@ public class StreamService extends Service {
         stopForeground(true);
 
         mMetadataHandler.removeCallbacks(mMetadataRunnable);
+
+        reset();
+        mIsPaused = true;
 
         try {
             unregisterReceiver(mReceiver);
@@ -163,16 +167,19 @@ public class StreamService extends Service {
         mPlayer.pause();
         mIsPaused = true;
         mNotificationHelper.setPlaying(false);
+        mNotificationManager.notify(1, mNotificationHelper.getNotification());
         if(mUpdateListener != null)
             mUpdateListener.onMediaPause();
     }
 
     public boolean isPlaying() {
-        return mPlayer.isPlaying() || mPlayer.isLooping() || !mIsPaused;
+        return !mIsPaused;
     }
 
     public void initPlayer() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        mPlayer = new MediaPlayer();
 
         String quality = prefs.getString("quality", Quality.HI);
         mGrabAlbumArt = prefs.getBoolean("grabAlbumArt", true);
@@ -252,7 +259,6 @@ public class StreamService extends Service {
                     mStopIntent);
 
             mCurrentBuilder = mBuilderPlaying;
-
         }
 
         private void updateBuilder() {
