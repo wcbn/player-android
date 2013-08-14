@@ -9,14 +9,17 @@
     <string name="app_name">WCBN Player</string>
     <string name="action_settings">Settings</string>
     <string name="action_share">Share</string>
-    <string name="title_now_playing">Now Playing</string>
-    <string name="title_schedule">Schedule</string>
+    <string name="title_now_playing">Listen</string>
+    <string name="title_schedule">What\'s next</string>
 
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
 
     <string name="loading">Loading…</string>
+
+    <string name="share_string">I\'m listening to %1$s on %2$s on WCBN-FM! Tune in at http://wcbn.org/</string>
+    <string name="share_string_default">I\'m listening to WCBN-FM! Tune in at http://wcbn.org/</string>
 
     <string name="stream_settings">Stream Settings</string>
     <string name="about_settings">About</string>

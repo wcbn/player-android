@@ -14,10 +14,12 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ShareActionProvider;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
         StreamService.OnStateUpdateListener {
+    private ShareActionProvider mShareActionProvider;
     private StreamService mService;
     private boolean mBound;
     private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
@@ -130,6 +133,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
+        if(mShareActionProvider != null) {
+            Intent intent = new Intent();
+            intent.setType("text/plain");
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_string_default));
+            mShareActionProvider.setShareIntent(intent);
+        }
         return true;
     }
 
@@ -228,8 +243,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void updateTrack(Stream stream, Station station, Bitmap albumArt) {
         mPlaybackFragment.handleUpdateTrack(stream, station, albumArt);
         mSongInfoFragment.handleUpdateTrack(stream, station, albumArt);
+
         for(UiFragment f : mFragments) {
             f.handleUpdateTrack(stream, station, albumArt);
+        }
+
+        if(mShareActionProvider != null && mBound) {
+            Intent intent = new Intent();
+            intent.setType("text/plain");
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, String.format(
+                    getString(R.string.share_string),
+                    Utils.capitalizeTitle(stream.getCurrentSong()),
+                    Utils.capitalizeTitle(((StreamExt) stream).getProgram())));
+            mShareActionProvider.setShareIntent(intent);
         }
     }
 }
