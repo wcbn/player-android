@@ -1,9 +1,18 @@
 package org.wcbn.android;
 
+import org.wcbn.android.station.WCBNStation;
+
 /**
  * Misc. Utilities
  */
 public class Utils {
+
+    /**
+     * Get the Station
+     */
+    public static Class<? extends Station> getStation() {
+        return WCBNStation.class;
+    }
 
     /**
      * Capitalizes the first letter of every word in a String, as in a title.

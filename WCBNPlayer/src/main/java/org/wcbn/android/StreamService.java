@@ -33,8 +33,6 @@ import net.moraleboost.streamscraper.Stream;
 import net.moraleboost.streamscraper.Scraper;
 import net.moraleboost.streamscraper.scraper.IceCastScraper;
 
-import org.wcbn.android.station.WCBNStation;
-
 /**
  * Android Service that handles background music playback and metadata fetch.
  */
@@ -67,10 +65,21 @@ public class StreamService extends Service {
     private NotificationManager mNotificationManager;
     private boolean mGrabAlbumArt;
     private Scraper mScraper = new IceCastScraper();
-    private Station mStation = new WCBNStation();
+    private Station mStation;
     private Bitmap mLargeAlbumArt;
     private StreamExt mCurStream;
     private boolean mIsPaused = true, mIsPreparing = false, mIsForeground = false, mRefresh = false;
+
+    public StreamService() {
+        super();
+        try {
+            mStation = Utils.getStation().newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
     public class StreamBinder extends Binder {
         StreamService getService() {
@@ -246,12 +255,12 @@ public class StreamService extends Service {
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .setWhen(0)
-                .setSmallIcon(R.drawable.ic_notification);
+                .setSmallIcon(R.drawable.ic_stat_notify_notification);
             mBuilderPaused = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .setWhen(0)
-                .setSmallIcon(R.drawable.ic_notification);
+                .setSmallIcon(R.drawable.ic_stat_notify_notification);
 
             mBuilderPlaying.setPriority(NotificationCompat.PRIORITY_MAX);
             mBuilderPaused.setPriority(NotificationCompat.PRIORITY_MAX);

@@ -67,6 +67,8 @@ public class WCBNStation implements Station {
 
         // currentSong is in the format: "song" by artist on program with dj
         // TODO: make the parser better at handling edge cases ie. no song, no artist etc.
+        // "Droppin' Puns on Cspan!" by Vermin Supreme on Freeform with Greg H.
+        // on Cspan!" by V...
         if(currentSong != null) {
             Log.d("WCBN", "Metadata string "+currentSong);
 
@@ -80,8 +82,9 @@ public class WCBNStation implements Station {
 
             // currentSong always contains a song, artist, and program, but sometimes not DJ
             if(currentSong.substring(artistMatcher.end()).contains("with")) {
-                Matcher programMatcher = mProgramPattern.matcher(currentSong);
-                programMatcher.find();
+                Matcher programMatcher = mProgramPattern
+                        .matcher(currentSong);
+                programMatcher.find(artistMatcher.end() - 4);
                 program = programMatcher.group(1);
 
                 dj = currentSong.substring(programMatcher.end());

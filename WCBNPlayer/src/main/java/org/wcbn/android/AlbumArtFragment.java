@@ -34,10 +34,6 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
             mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
         }
 
-        else {
-
-        }
-
         return view;
     }
 

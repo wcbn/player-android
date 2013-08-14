@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private boolean mBound;
     private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
     private AlbumArtFragment mAlbumArtFragment = new AlbumArtFragment();
-    private ScheduleFragment mScheduleFragment = new ScheduleFragment();
+    private WCBNScheduleFragment mScheduleFragment = new WCBNScheduleFragment();
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
     private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
     private Activity mActivity = this;

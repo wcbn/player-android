@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="2dp"
+              android:layout_marginRight="2dp">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="4:00 am to 5:00 am"
+            android:id="@+id/time_text"
+            android:singleLine="true"
+
+            android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentLeft="true"
+            android:textColor="#666666"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="in 01:24:35"
+            android:id="@+id/countdown_text"
+            android:singleLine="true"
+            android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentRight="true"
+            android:textColor="#666666"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:text="Freeform"
+            android:id="@+id/program_text"
+            android:singleLine="true"
+            android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_below="@+id/time_text"
+
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="with Matt Rich"
+            android:id="@+id/dj_text"
+            android:singleLine="true"
+            android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_below="@+id/program_text"
+            />
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#888888"
+            android:id="@+id/line_1"
+            android:layout_below="@+id/dj_text"
+            />
+</RelativeLayout>

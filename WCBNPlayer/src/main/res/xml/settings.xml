@@ -6,6 +6,7 @@
     <PreferenceCategory
             android:title="@string/stream_quality">
         <ListPreference
+                android:icon="@drawable/ic_menu_music"
                 android:key="quality"
                 android:defaultValue="1"
                 android:title="%s"
@@ -17,6 +18,7 @@
     <PreferenceCategory
             android:title="@string/stream_settings">
         <CheckBoxPreference
+                android:icon="@drawable/ic_menu_picture"
                 android:key="grabAlbumArt"
                 android:defaultValue="true"
                 android:title="@string/grab_album_art"
@@ -26,16 +28,19 @@
     <PreferenceCategory
             android:title="@string/about_settings">
         <Preference
+                android:icon="@drawable/ic_menu_globe"
                 android:key="website"
                 android:title="@string/website"
                 android:summary="@string/wcbn_website"
                 />
         <Preference
+                android:icon="@drawable/ic_menu_call"
                 android:key="request_number"
                 android:title="@string/request_number"
                 android:summary="@string/wcbn_number"
                 />
         <Preference
+                android:icon="@drawable/ic_menu_about"
                 android:key="version"
                 android:title="@string/version"
                 android:summary="@string/version_current"
