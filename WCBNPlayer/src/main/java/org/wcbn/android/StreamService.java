@@ -1,6 +1,5 @@
 package org.wcbn.android;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -247,12 +246,12 @@ public class StreamService extends Service {
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .setWhen(0)
-                .setSmallIcon(R.drawable.ic_launcher);
+                .setSmallIcon(R.drawable.ic_notification);
             mBuilderPaused = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
                 .setWhen(0)
-                .setSmallIcon(R.drawable.ic_launcher);
+                .setSmallIcon(R.drawable.ic_notification);
 
             mBuilderPlaying.setPriority(NotificationCompat.PRIORITY_MAX);
             mBuilderPaused.setPriority(NotificationCompat.PRIORITY_MAX);
