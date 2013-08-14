@@ -11,6 +11,6 @@ public interface UiFragment {
     public void handleMediaPlay();
     public void handleMediaPause();
     public void handleMediaStop();
-    public void handleUpdateTrack(Stream stream, Bitmap albumArt);
+    public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt);
     public void setService(Service service);
 }

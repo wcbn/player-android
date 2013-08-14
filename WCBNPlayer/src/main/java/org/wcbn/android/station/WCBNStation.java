@@ -1,5 +1,6 @@
 package org.wcbn.android.station;
 
+import android.content.Context;
 import android.util.Log;
 
 import net.moraleboost.streamscraper.Stream;
@@ -7,6 +8,7 @@ import net.moraleboost.streamscraper.Stream;
 import org.wcbn.android.R;
 import org.wcbn.android.Station;
 import org.wcbn.android.StreamExt;
+import org.wcbn.android.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +30,33 @@ public class WCBNStation implements Station {
     @Override
     public int getNumber() {
         return NUMBER;
+    }
+
+    @Override
+    public String getSongName(StreamExt stream, Context context) {
+        return Utils.capitalizeTitle(stream.getCurrentSong());
+    }
+
+    @Override
+    public String getArtistName(StreamExt stream, Context context) {
+        return Utils.capitalizeTitle(stream.getArtist());
+    }
+
+    @Override
+    public String getDescription(StreamExt stream, Context context) {
+        StringBuilder subTextBuilder = new StringBuilder();
+        subTextBuilder.append(context.getString(R.string.on))
+                .append(" ")
+                .append(stream.getProgram());
+
+        if(stream.getDj() != null) {
+            subTextBuilder.append(" ")
+                    .append(context.getString(R.string.with))
+                    .append(" ")
+                    .append(Utils.capitalizeTitle(stream.getDj()));
+        }
+
+        return subTextBuilder.toString();
     }
 
     @Override

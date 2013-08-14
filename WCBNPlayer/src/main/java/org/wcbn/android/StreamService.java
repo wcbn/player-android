@@ -117,7 +117,10 @@ public class StreamService extends Service {
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    startPlayback();
+                    // Check if we're not paused in case the user presses the pause button during
+                    // preparation.
+                    if(!mIsPaused)
+                        startPlayback();
                 }
             });
             mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -147,6 +150,7 @@ public class StreamService extends Service {
     }
 
     public void stopPlayback() {
+        mIsPaused = true;
         if(mUpdateListener != null)
             mUpdateListener.onMediaStop();
         stopForeground(true);
@@ -154,7 +158,6 @@ public class StreamService extends Service {
         mMetadataHandler.removeCallbacks(mMetadataRunnable);
 
         reset();
-        mIsPaused = true;
 
         try {
             unregisterReceiver(mReceiver);
@@ -215,7 +218,7 @@ public class StreamService extends Service {
 
         private NotificationCompat.Builder mBuilderPlaying, mBuilderPaused;
         private NotificationCompat.Builder mCurrentBuilder;
-        private String mDj, mCurrentSong, mArtist, mProgram;
+        private String mTitle, mText, mSubText;
         private Bitmap mIcon;
         private PendingIntent mPlayPauseIntent, mStopIntent;
 
@@ -262,57 +265,26 @@ public class StreamService extends Service {
         }
 
         private void updateBuilder() {
-            StringBuilder subTextBuilder = new StringBuilder();
-            subTextBuilder.append(getString(R.string.on))
-                    .append(" ")
-                    .append(mProgram);
-
-            if(mDj != null) {
-                subTextBuilder.append(" ")
-                    .append(getString(R.string.with))
-                    .append(" ")
-                    .append(mDj);
-            }
             mCurrentBuilder.setLargeIcon(mIcon);
-            mCurrentBuilder.setContentTitle(mCurrentSong);
-            mCurrentBuilder.setContentText(mArtist);
-            mCurrentBuilder.setSubText(subTextBuilder.toString());
+            mCurrentBuilder.setContentTitle(mTitle);
+            mCurrentBuilder.setContentText(mText);
+            mCurrentBuilder.setSubText(mSubText);
         }
 
         public void setBitmap(Bitmap icon) {
             mIcon = icon;
         }
 
-        public void setDj(String dj) {
-            mDj = Utils.capitalizeTitle(dj);
+        public void setTitle(String title) {
+            mTitle = title;
         }
 
-        public String getDj() {
-            return mDj;
+        public void setText(String text) {
+            mText = text;
         }
 
-        public void setCurrentSong(String currentSong) {
-            mCurrentSong = Utils.capitalizeTitle(currentSong);
-        }
-
-        public String getCurrentSong() {
-            return mCurrentSong;
-        }
-
-        public void setArtist(String artist) {
-            mArtist = Utils.capitalizeTitle(artist);
-        }
-
-        public String getArtist() {
-            return mArtist;
-        }
-
-        public void setProgram(String program) {
-            mProgram = program;
-        }
-
-        public String getProgram() {
-            return Utils.capitalizeTitle(mProgram);
+        public void setSubText(String subText) {
+            mSubText = subText;
         }
 
         // Notification action update. Only on JELLY_BEAN and above.
@@ -380,10 +352,13 @@ public class StreamService extends Service {
                 if(mGrabAlbumArt) {
                     mNotificationHelper.setBitmap(mLargeAlbumArt);
                 }
-                mNotificationHelper.setCurrentSong(result.getCurrentSong());
-                mNotificationHelper.setDj(((StreamExt) result).getDj());
-                mNotificationHelper.setArtist(((StreamExt) result).getArtist());
-                mNotificationHelper.setProgram(((StreamExt) result).getProgram());
+
+                mNotificationHelper.setTitle(mStation.getSongName((StreamExt) result
+                        , getApplicationContext()));
+                mNotificationHelper.setText(mStation.getArtistName((StreamExt) result
+                        , getApplicationContext()));
+                mNotificationHelper.setSubText(mStation.getDescription((StreamExt) result
+                        , getApplicationContext()));
 
                 if(mIsPaused) {
                     mNotificationHelper.setPlaying(false);
@@ -395,7 +370,7 @@ public class StreamService extends Service {
                 mNotificationManager.notify(1, mNotificationHelper.getNotification());
 
                 if(mUpdateListener != null)
-                    mUpdateListener.updateTrack(result, mLargeAlbumArt);
+                    mUpdateListener.updateTrack(result, mStation, mLargeAlbumArt);
             }
             mMetadataHandler.postDelayed(mMetadataRunnable, DELAY_MS);
         }
@@ -409,11 +384,19 @@ public class StreamService extends Service {
         return mLargeAlbumArt;
     }
 
+    public Station getStation() {
+        return mStation;
+    }
+
+    public StreamExt getStream() {
+        return mCurStream;
+    }
+
     public interface OnStateUpdateListener {
         public void onMediaError(MediaPlayer mp, int what, int extra);
         public void onMediaPlay();
         public void onMediaPause();
         public void onMediaStop();
-        public void updateTrack(Stream stream, Bitmap albumArt);
+        public void updateTrack(Stream stream, Station station, Bitmap albumArt);
     }
 }

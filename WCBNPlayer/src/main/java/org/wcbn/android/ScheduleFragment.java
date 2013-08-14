@@ -36,7 +36,7 @@ public class ScheduleFragment extends Fragment implements UiFragment {
     }
 
     @Override
-    public void handleUpdateTrack(Stream stream, Bitmap albumArt) {
+    public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
 
     }
 }

@@ -31,9 +31,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private StreamService mService;
     private boolean mBound;
     private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
-    private NowPlayingFragment mNowPlayingFragment = new NowPlayingFragment();
+    private AlbumArtFragment mAlbumArtFragment = new AlbumArtFragment();
     private ScheduleFragment mScheduleFragment = new ScheduleFragment();
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
+    private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
     private Activity mActivity = this;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
@@ -59,11 +60,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         }),
                 this);
 
-        mFragments.add(mNowPlayingFragment);
+        mFragments.add(mAlbumArtFragment);
         mFragments.add(mScheduleFragment);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.playback, mPlaybackFragment)
+                .commit();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.info, mSongInfoFragment)
                 .commit();
     }
 
@@ -143,8 +148,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             mBound = true;
 
             mPlaybackFragment.setService(mService);
-            mNowPlayingFragment.setService(mService);
+            mAlbumArtFragment.setService(mService);
             mScheduleFragment.setService(mService);
+            mSongInfoFragment.setService(mService);
         }
 
         @Override
@@ -158,6 +164,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onMediaError(MediaPlayer mp, int what, int extra) {
         setProgressBarIndeterminateVisibility(false);
         mPlaybackFragment.handleMediaError(mp, what, extra);
+        mSongInfoFragment.handleMediaError(mp, what, extra);
         for(UiFragment f : mFragments) {
             f.handleMediaError(mp, what, extra);
         }
@@ -167,6 +174,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onMediaPlay() {
         setProgressBarIndeterminateVisibility(false);
         mPlaybackFragment.handleMediaPlay();
+        mSongInfoFragment.handleMediaPlay();
         for(UiFragment f : mFragments) {
             f.handleMediaPlay();
         }
@@ -176,6 +184,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onMediaPause() {
         setProgressBarIndeterminateVisibility(false);
         mPlaybackFragment.handleMediaPause();
+        mSongInfoFragment.handleMediaPause();
         for(UiFragment f : mFragments) {
             f.handleMediaPause();
         }
@@ -185,16 +194,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onMediaStop() {
         setProgressBarIndeterminateVisibility(false);
         mPlaybackFragment.handleMediaStop();
+        mSongInfoFragment.handleMediaStop();
         for(UiFragment f : mFragments) {
             f.handleMediaStop();
         }
     }
 
     @Override
-    public void updateTrack(Stream stream, Bitmap albumArt) {
-        mPlaybackFragment.handleUpdateTrack(stream, albumArt);
+    public void updateTrack(Stream stream, Station station, Bitmap albumArt) {
+        mPlaybackFragment.handleUpdateTrack(stream, station, albumArt);
+        mSongInfoFragment.handleUpdateTrack(stream, station, albumArt);
         for(UiFragment f : mFragments) {
-            f.handleUpdateTrack(stream, albumArt);
+            f.handleUpdateTrack(stream, station, albumArt);
         }
     }
 }
