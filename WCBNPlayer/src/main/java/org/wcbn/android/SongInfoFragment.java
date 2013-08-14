@@ -88,9 +88,9 @@ public class SongInfoFragment extends Fragment implements UiFragment {
 
     @Override
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
-        mSongText.setText(station.getSongName(((StreamExt) stream), getActivity()));
-        mArtistText.setText(station.getArtistName(((StreamExt) stream), getActivity()));
-        mDescriptionText.setText(station.getDescription(((StreamExt) stream), getActivity()));
+        mSongText.setText(station.getSongName(((StreamExt) stream), mService));
+        mArtistText.setText(station.getArtistName(((StreamExt) stream), mService));
+        mDescriptionText.setText(station.getDescription(((StreamExt) stream), mService));
 
         mStation = station;
         mStream = new StreamExt();
