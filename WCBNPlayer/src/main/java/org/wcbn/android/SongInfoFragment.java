@@ -38,8 +38,6 @@ public class SongInfoFragment extends Fragment implements UiFragment {
         mDescriptionText.setTypeface(robotoLight);
 
         if(mStation != null && mStream != null) {
-            Log.d("WCBN", "First");
-
             mSongText.setText(mStation.getSongName(mStream, getActivity()));
             mArtistText.setText(mStation.getArtistName(mStream, getActivity()));
             mDescriptionText.setText(mStation.getDescription((mStream), getActivity()));
@@ -48,8 +46,6 @@ public class SongInfoFragment extends Fragment implements UiFragment {
         else if(savedInstanceState != null && savedInstanceState.containsKey("song") &&
                 savedInstanceState.containsKey("artist") &&
                 savedInstanceState.containsKey("description")) {
-            Log.d("WCBN", "Second");
-
             mSongText.setText(savedInstanceState.getString("song"));
             mArtistText.setText(savedInstanceState.getString("artist"));
             mDescriptionText.setText(savedInstanceState.getString("description"));
@@ -109,7 +105,12 @@ public class SongInfoFragment extends Fragment implements UiFragment {
 
         mStation = mService.getStation();
         mStream = new StreamExt();
-        if(mService.getStream() != null)
+        if(mService.getStream() != null) {
             mStream.merge(mService.getStream());
+
+            mSongText.setText(mStation.getSongName(((StreamExt) mStream), getActivity()));
+            mArtistText.setText(mStation.getArtistName(((StreamExt) mStream), getActivity()));
+            mDescriptionText.setText(mStation.getDescription(((StreamExt) mStream), getActivity()));
+        }
     }
 }
