@@ -329,7 +329,8 @@ public class StreamService extends Service {
                         mLargeAlbumArt.recycle();
 
                     if(mGrabAlbumArt) {
-                        ItunesScraper scraper = new ItunesScraper(stream.getCurrentSong());
+                        ItunesScraper scraper = new ItunesScraper(stream.getCurrentSong() + " " +
+                            stream.getArtist());
                         mLargeAlbumArt = scraper.getLargeAlbumArt();
                     }
                     return stream;

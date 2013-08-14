@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,9 +107,9 @@ public class SongInfoFragment extends Fragment implements UiFragment {
         if(mService.getStream() != null) {
             mStream.merge(mService.getStream());
 
-            mSongText.setText(mStation.getSongName(((StreamExt) mStream), getActivity()));
-            mArtistText.setText(mStation.getArtistName(((StreamExt) mStream), getActivity()));
-            mDescriptionText.setText(mStation.getDescription(((StreamExt) mStream), getActivity()));
+            mSongText.setText(mStation.getSongName(mStream, getActivity()));
+            mArtistText.setText(mStation.getArtistName(mStream, getActivity()));
+            mDescriptionText.setText(mStation.getDescription(mStream, getActivity()));
         }
     }
 }
