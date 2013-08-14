@@ -26,6 +26,16 @@
     <PreferenceCategory
             android:title="@string/about_settings">
         <Preference
+                android:key="website"
+                android:title="@string/website"
+                android:summary="@string/wcbn_website"
+                />
+        <Preference
+                android:key="request_number"
+                android:title="@string/request_number"
+                android:summary="@string/wcbn_number"
+                />
+        <Preference
                 android:key="version"
                 android:title="@string/version"
                 android:summary="@string/version_current"

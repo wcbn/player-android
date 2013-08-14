@@ -16,12 +16,16 @@
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
 
+    <string name="loading">Loading…</string>
+
     <string name="stream_settings">Stream Settings</string>
     <string name="about_settings">About</string>
     <string name="stream_quality">Stream Quality</string>
-    <string name="grab_album_art">Grab Album Art</string>
+    <string name="grab_album_art">Grab album art</string>
     <string name="grab_album_art_desc">Uses some additional bandwidth. May not always be accurate.</string>
     <string name="version">Version</string>
+    <string name="website">Website</string>
+    <string name="request_number">Request number</string>
 
     <string name="default_website">http://wcbn.org/</string>
     <string name="wcbn_website">http://wcbn.org/</string>

@@ -83,8 +83,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     protected void onResume() {
         super.onResume();
+        if(mBound)
+            mService.setMetadataRefresh(true);
+    }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mBound)
+            mService.setMetadataRefresh(false);
     }
 
     @Override
@@ -156,6 +163,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
             if(mService.isPreparing()) {
                 setProgressBarIndeterminateVisibility(true);
+            }
+            else {
+                setProgressBarIndeterminateVisibility(false);
             }
 
             mPlaybackFragment.setService(mService);
