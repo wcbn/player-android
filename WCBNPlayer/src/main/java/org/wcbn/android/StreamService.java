@@ -333,6 +333,11 @@ public class StreamService extends Service {
                             stream.getArtist());
                         mLargeAlbumArt = scraper.getLargeAlbumArt();
                     }
+
+                    if(mLargeAlbumArt == null) {
+                        // Placeholder album art here
+                    }
+
                     return stream;
                 }
 
