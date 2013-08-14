@@ -281,16 +281,16 @@ public class StreamService extends Service {
             Intent stop = new Intent(ACTION_STOP);
             mPlayPauseIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, playPause, 0);
             mStopIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, stop, 0);
-            mBuilderPlaying.addAction(R.drawable.btn_playback_pause,
+            mBuilderPlaying.addAction(R.drawable.btn_playback_pause_dark,
                     getString(R.string.pause),
                     mPlayPauseIntent);
-            mBuilderPaused.addAction(R.drawable.btn_playback_play,
+            mBuilderPaused.addAction(R.drawable.btn_playback_play_dark,
                     getString(R.string.play),
                     mPlayPauseIntent);
-            mBuilderPlaying.addAction(R.drawable.btn_playback_stop,
+            mBuilderPlaying.addAction(R.drawable.btn_playback_stop_dark,
                     getString(R.string.stop),
                     mStopIntent);
-            mBuilderPaused.addAction(R.drawable.btn_playback_stop,
+            mBuilderPaused.addAction(R.drawable.btn_playback_stop_dark,
                     getString(R.string.stop),
                     mStopIntent);
 
@@ -368,12 +368,6 @@ public class StreamService extends Service {
                                     stream.getArtist(), "album");
                             mLargeAlbumArt = scraper.getLargeAlbumArt();
                         }
-                        // Finally, resort back to the placeholder album art
-                        if(mLargeAlbumArt == null) {
-                            mLargeAlbumArt = BitmapFactory
-                                    .decodeResource(getApplicationContext().getResources(),
-                                    R.drawable.logo_large);
-                        }
                     }
                     return stream;
                 }
@@ -392,7 +386,17 @@ public class StreamService extends Service {
         @Override
         public void onPostExecute(Stream result) {
             if(result != null) {
-                if(mGrabAlbumArt) {
+                // Finally, resort back to the placeholder album art
+                if(mLargeAlbumArt == null) {
+                    mLargeAlbumArt = BitmapFactory
+                            .decodeResource(getApplicationContext().getResources(),
+                                    R.drawable.logo_large);
+                    mNotificationHelper.setBitmap(BitmapFactory
+                            .decodeResource(getApplicationContext().getResources(),
+                                    R.drawable.ic_menu_logo));
+                }
+
+                else if(mGrabAlbumArt) {
                     mNotificationHelper.setBitmap(mLargeAlbumArt);
                 }
 
