@@ -1,5 +1,6 @@
 package org.wcbn.android;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -69,7 +71,7 @@ public class StreamService extends Service {
     private Station mStation = new WCBNStation();
     private Bitmap mLargeAlbumArt;
     private StreamExt mCurStream;
-    private boolean mIsPaused = true;
+    private boolean mIsPaused = true, mIsPreparing = false, mIsForeground = false, mRefresh = false;
 
     public class StreamBinder extends Binder {
         StreamService getService() {
@@ -103,10 +105,12 @@ public class StreamService extends Service {
     };
 
     public boolean prepare() {
+        mIsPreparing = true;
         try {
             mNotificationHelper.setPlaying(true);
             mIsPaused = false;
             startForeground(1, mNotificationHelper.getNotification());
+            mIsForeground = true;
             mMetadataHandler.post(mMetadataRunnable);
             IntentFilter filter = new IntentFilter();
             filter.addAction(ACTION_PLAY_PAUSE);
@@ -117,6 +121,7 @@ public class StreamService extends Service {
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
+                    mIsPreparing = false;
                     // Check if we're not paused in case the user presses the pause button during
                     // preparation.
                     if(!mIsPaused)
@@ -127,6 +132,7 @@ public class StreamService extends Service {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     Log.d(TAG, "ERROR: "+what+" "+extra);
+                    mIsPreparing = false;
                     if(mUpdateListener != null)
                         mUpdateListener.onMediaError(mp, what, extra);
                     return true;
@@ -135,6 +141,7 @@ public class StreamService extends Service {
             mPlayer.prepareAsync();
             return true;
         } catch(IllegalStateException e) {
+            mIsPreparing = false;
             e.printStackTrace();
             return false;
         }
@@ -143,6 +150,7 @@ public class StreamService extends Service {
     public void startPlayback() {
         mPlayer.start();
         mIsPaused = false;
+        mIsPreparing = false;
         mNotificationHelper.setPlaying(true);
         mNotificationManager.notify(1, mNotificationHelper.getNotification());
         if(mUpdateListener != null)
@@ -151,11 +159,14 @@ public class StreamService extends Service {
 
     public void stopPlayback() {
         mIsPaused = true;
+        mIsPreparing = false;
         if(mUpdateListener != null)
             mUpdateListener.onMediaStop();
         stopForeground(true);
+        mIsForeground = false;
 
-        mMetadataHandler.removeCallbacks(mMetadataRunnable);
+        if(!mRefresh)
+            mMetadataHandler.removeCallbacks(mMetadataRunnable);
 
         reset();
 
@@ -169,6 +180,7 @@ public class StreamService extends Service {
     public void pausePlayback() {
         mPlayer.pause();
         mIsPaused = true;
+        mIsPreparing = false;
         mNotificationHelper.setPlaying(false);
         mNotificationManager.notify(1, mNotificationHelper.getNotification());
         if(mUpdateListener != null)
@@ -177,6 +189,10 @@ public class StreamService extends Service {
 
     public boolean isPlaying() {
         return !mIsPaused;
+    }
+
+    public boolean isPreparing() {
+        return mIsPreparing;
     }
 
     public void initPlayer() {
@@ -200,6 +216,10 @@ public class StreamService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         initPlayer();
+
+        mLargeAlbumArt = BitmapFactory.
+                decodeResource(getResources(),
+                R.drawable.logo_large);
 
         mNotificationHelper = new NotificationHelper();
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -225,12 +245,17 @@ public class StreamService extends Service {
         NotificationHelper() {
             mBuilderPlaying = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
+                .setOnlyAlertOnce(true)
                 .setWhen(0)
                 .setSmallIcon(R.drawable.ic_launcher);
             mBuilderPaused = new NotificationCompat.Builder(getApplicationContext())
                 .setOngoing(true)
+                .setOnlyAlertOnce(true)
                 .setWhen(0)
                 .setSmallIcon(R.drawable.ic_launcher);
+
+            mBuilderPlaying.setPriority(NotificationCompat.PRIORITY_MAX);
+            mBuilderPaused.setPriority(NotificationCompat.PRIORITY_MAX);
 
             Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
@@ -287,7 +312,7 @@ public class StreamService extends Service {
             mSubText = subText;
         }
 
-        // Notification action update. Only on JELLY_BEAN and above.
+        // Notification action update. Only available on JELLY_BEAN and above.
         public void setPlaying(boolean playing) {
             if(playing) {
                 mCurrentBuilder = mBuilderPlaying;
@@ -325,18 +350,24 @@ public class StreamService extends Service {
                         .equals(stream.getCurrentSong()))) {
                     mCurStream = stream;
 
-                    if(mLargeAlbumArt != null)
-                        mLargeAlbumArt.recycle();
-
                     if(mGrabAlbumArt) {
                         ItunesScraper scraper = new ItunesScraper(stream.getCurrentSong() + " " +
-                            stream.getArtist());
+                        stream.getArtist(), "song");
                         mLargeAlbumArt = scraper.getLargeAlbumArt();
+                        // Try getting the album's picture instead of the specific song picture
+                        if(mLargeAlbumArt == null) {
+                            scraper = new ItunesScraper(stream.getCurrentSong() + " " +
+                                    stream.getArtist(), "album");
+                            mLargeAlbumArt = scraper.getLargeAlbumArt();
+                        }
+                        // Finally, resort back to the placeholder album art
+                        if(mLargeAlbumArt == null) {
+                            mLargeAlbumArt = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                                    R.drawable.logo_large);
+                        }
                     }
 
-                    if(mLargeAlbumArt == null) {
-                        // Placeholder album art here
-                    }
+
 
                     return stream;
                 }
@@ -373,7 +404,8 @@ public class StreamService extends Service {
                     mNotificationHelper.setPlaying(true);
                 }
 
-                mNotificationManager.notify(1, mNotificationHelper.getNotification());
+                if(mIsForeground)
+                    mNotificationManager.notify(1, mNotificationHelper.getNotification());
 
                 if(mUpdateListener != null)
                     mUpdateListener.updateTrack(result, mStation, mLargeAlbumArt);
@@ -396,6 +428,16 @@ public class StreamService extends Service {
 
     public StreamExt getStream() {
         return mCurStream;
+    }
+
+    public void setMetadataRefresh(boolean refresh) {
+        if(refresh) {
+            mMetadataHandler.post(mMetadataRunnable);
+        }
+        else if(!mIsForeground) {
+            mMetadataHandler.removeCallbacks(mMetadataRunnable);
+        }
+        mRefresh = refresh;
     }
 
     public interface OnStateUpdateListener {

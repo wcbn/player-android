@@ -21,13 +21,16 @@ import java.nio.charset.Charset;
  * Scrapes album art and metadata from iTunes.
  */
 public class ItunesScraper {
-    public static final Uri URI_BASE = Uri.parse("https://itunes.apple.com/search?entity=song&limit=1");
+    public static final Uri URI_BASE = Uri.parse("https://itunes.apple.com/search?limit=1&version=2");
     private Uri mUri;
     private String mSearchTerm;
     private JSONObject mObj;
 
-    ItunesScraper(String searchTerm) {
-        mUri = URI_BASE.buildUpon().appendQueryParameter("term",searchTerm).build();
+    ItunesScraper(String searchTerm, String entity) {
+        mUri = URI_BASE.buildUpon()
+            .appendQueryParameter("term", searchTerm)
+            .appendQueryParameter("entity", entity)
+            .build();
     }
 
     public String getSearchTerm() {
@@ -64,6 +67,10 @@ public class ItunesScraper {
 
         if(mObj == null)
             mObj = query();
+
+        if(mObj == null) {
+            return null;
+        }
 
         String artUri;
         try {

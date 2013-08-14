@@ -15,6 +15,9 @@
             android:layout_gravity="left|center_vertical"
             android:singleLine="true"
             android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             />
 
     <TextView
@@ -26,6 +29,9 @@
             android:layout_gravity="left|center_vertical"
             android:singleLine="true"
             android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             />
     <TextView
             android:layout_width="wrap_content"
@@ -36,5 +42,8 @@
             android:layout_gravity="left|center_vertical"
             android:singleLine="true"
             android:layout_marginLeft="2dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             />
 </LinearLayout>

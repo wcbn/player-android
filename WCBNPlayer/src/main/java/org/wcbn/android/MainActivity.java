@@ -81,6 +81,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         if (mBound) {
@@ -147,16 +154,23 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             mService.setOnStateUpdateListener((StreamService.OnStateUpdateListener) mActivity);
             mBound = true;
 
+            if(mService.isPreparing()) {
+                setProgressBarIndeterminateVisibility(true);
+            }
+
             mPlaybackFragment.setService(mService);
             mAlbumArtFragment.setService(mService);
             mScheduleFragment.setService(mService);
             mSongInfoFragment.setService(mService);
+
+            mService.setMetadataRefresh(true);
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName arg0) {
+        public void onServiceDisconnected(ComponentName className) {
             mService.setOnStateUpdateListener(null);
             mBound = false;
+            mService.setMetadataRefresh(false);
         }
     };
 
