@@ -81,7 +81,7 @@ public class WCBNStation implements Station {
             artist = artistMatcher.group(1);
 
             // currentSong always contains a song, artist, and program, but sometimes not DJ
-            if(currentSong.substring(artistMatcher.end()).contains("with")) {
+            if(currentSong.substring(artistMatcher.end()).contains(" with ")) {
                 Matcher programMatcher = mProgramPattern
                         .matcher(currentSong);
                 programMatcher.find(artistMatcher.end() - 4);

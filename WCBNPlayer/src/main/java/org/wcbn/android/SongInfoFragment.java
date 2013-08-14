@@ -50,8 +50,6 @@ public class SongInfoFragment extends Fragment implements UiFragment {
             mDescriptionText.setText(savedInstanceState.getString("description"));
         }
 
-
-
         return view;
     }
 

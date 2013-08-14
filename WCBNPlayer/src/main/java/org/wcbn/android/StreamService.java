@@ -43,6 +43,8 @@ public class StreamService extends Service {
     public static final String ACTION_PLAY_PAUSE = "org.wcbn.android.intent.ACTION_PLAY_PAUSE";
     public static final String ACTION_STOP = "org.wcbn.android.intent.ACTION_STOP";
 
+    public static final long DELAY_MS = 10000;
+
     public static class Quality {
         public static final String MID = "0";
         public static final String HI = "1";
@@ -53,8 +55,6 @@ public class StreamService extends Service {
         }
     }
 
-    public static final long DELAY_MS = 10000;
-
     private String mStreamUri;
     private MediaPlayer mPlayer;
     private final IBinder mBinder = new StreamBinder();
@@ -63,12 +63,12 @@ public class StreamService extends Service {
     private Runnable mMetadataRunnable = new MetadataUpdateRunnable();
     private NotificationHelper mNotificationHelper;
     private NotificationManager mNotificationManager;
-    private boolean mGrabAlbumArt;
     private Scraper mScraper = new IceCastScraper();
     private Station mStation;
     private Bitmap mLargeAlbumArt;
     private StreamExt mCurStream;
-    private boolean mIsPaused = true, mIsPreparing = false, mIsForeground = false, mRefresh = false;
+    private boolean mIsPaused = true, mIsPreparing = false, mIsForeground = false, mRefresh = false,
+        mGrabAlbumArt;
 
     public StreamService() {
         super();
@@ -370,13 +370,11 @@ public class StreamService extends Service {
                         }
                         // Finally, resort back to the placeholder album art
                         if(mLargeAlbumArt == null) {
-                            mLargeAlbumArt = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            mLargeAlbumArt = BitmapFactory
+                                    .decodeResource(getApplicationContext().getResources(),
                                     R.drawable.logo_large);
                         }
                     }
-
-
-
                     return stream;
                 }
 
