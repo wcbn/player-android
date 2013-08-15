@@ -217,8 +217,13 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             }
 
             // Update our views
-            if(mDj != null)
+            if(mDj != null) {
+                mView.findViewById(R.id.dj_text).setVisibility(View.VISIBLE);
                 ((TextView) mView.findViewById(R.id.dj_text)).setText(mDj);
+            }
+            else {
+                mView.findViewById(R.id.dj_text).setVisibility(View.INVISIBLE);
+            }
             ((TextView) mView.findViewById(R.id.program_text)).setText(mProgram);
             ((TextView) mView.findViewById(R.id.time_text)).setText(mTime);
             if(mUri != null) {
