@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 
 public class SettingsFragment extends PreferenceFragment {
 
+    private Station mStation = Utils.getStation();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class SettingsFragment extends PreferenceFragment {
 
                 startActivity(new Intent()
                         .setAction(Intent.ACTION_VIEW)
-                        .setData(Uri.parse(getString(R.string.wcbn_website))));
+                        .setData(Uri.parse(getString(mStation.getWebsite()))));
 
                 return false;
             }
@@ -67,7 +69,7 @@ public class SettingsFragment extends PreferenceFragment {
 
                 startActivity(new Intent()
                         .setAction(Intent.ACTION_DIAL)
-                        .setData(Uri.parse("tel:"+getString(R.string.wcbn_number))));
+                        .setData(Uri.parse("tel:"+getString(mStation.getNumber()))));
 
                 return false;
             }
