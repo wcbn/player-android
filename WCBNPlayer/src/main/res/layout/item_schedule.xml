@@ -21,6 +21,7 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
             >
         <ImageView
             android:id="@+id/icon_link"
