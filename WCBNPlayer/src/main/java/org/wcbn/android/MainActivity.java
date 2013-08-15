@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -24,6 +23,7 @@ import android.widget.ShareActionProvider;
 import net.moraleboost.streamscraper.Stream;
 
 import org.wcbn.android.StreamService.StreamBinder;
+import org.wcbn.android.station.wcbn.WCBNScheduleFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +34,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private StreamService mService;
     private boolean mBound;
     private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
-    private AlbumArtFragment mAlbumArtFragment = new AlbumArtFragment();
-    private WCBNScheduleFragment mScheduleFragment = new WCBNScheduleFragment();
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
     private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
     private Activity mActivity = this;
     private String mShareString;
+    private Station mStation;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+
+    public MainActivity() {
+        super();
+        mStation = Utils.getStation();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         setContentView(R.layout.activity_main);
 
         final ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
@@ -58,14 +63,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         getActionBarThemedContextCompat(),
                         android.R.layout.simple_list_item_1,
                         android.R.id.text1,
-                        new String[] {
-                                getString(R.string.title_now_playing),
-                                getString(R.string.title_schedule)
-                        }),
+                        getResources().getStringArray(mStation.getTabNames())),
                 this);
 
-        mFragments.add(mAlbumArtFragment);
-        mFragments.add(mScheduleFragment);
+        for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
+            try {
+                mFragments.add(cls.newInstance());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.playback, mPlaybackFragment)
@@ -204,9 +213,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             }
 
             mPlaybackFragment.setService(mService);
-            mAlbumArtFragment.setService(mService);
-            mScheduleFragment.setService(mService);
             mSongInfoFragment.setService(mService);
+
+            for(UiFragment fragment : mFragments) {
+                fragment.setService(mService);
+            }
 
             mService.setMetadataRefresh(true);
 

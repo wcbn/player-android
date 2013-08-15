@@ -5,4 +5,8 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="wcbn_tab_names">
+        <item>Listen</item>
+        <item>Up next</item>
+    </string-array>
 </resources>

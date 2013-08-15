@@ -1,4 +1,4 @@
-package org.wcbn.android;
+package org.wcbn.android.station.wcbn;
 
 import android.app.Service;
 import android.graphics.Bitmap;
@@ -6,6 +6,9 @@ import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 
 import net.moraleboost.streamscraper.Stream;
+
+import org.wcbn.android.Station;
+import org.wcbn.android.UiFragment;
 
 public class WCBNPlaylistFragment extends Fragment implements UiFragment {
     @Override

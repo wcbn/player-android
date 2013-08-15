@@ -1,4 +1,4 @@
-package org.wcbn.android;
+package org.wcbn.android.station.wcbn;
 
 
 import android.app.Service;
@@ -25,6 +25,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.wcbn.android.R;
+import org.wcbn.android.Station;
+import org.wcbn.android.UiFragment;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

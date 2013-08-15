@@ -1,19 +1,19 @@
 package org.wcbn.android;
 
-import org.wcbn.android.station.WCBNStation;
+import org.wcbn.android.station.wcbn.WCBNStation;
 
 /**
  * Misc. Utilities
  */
 public class Utils {
 
-    private static final Class<? extends Station> STATION_CLASS = WCBNStation.class;
+    private static final Station sStation = new WCBNStation();
 
     /**
      * Get the Station
      */
-    public static Class<? extends Station> getStation() {
-        return STATION_CLASS;
+    public static Station getStation() {
+        return sStation;
     }
 
     /**

@@ -72,13 +72,7 @@ public class StreamService extends Service {
 
     public StreamService() {
         super();
-        try {
-            mStation = Utils.getStation().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        mStation = Utils.getStation();
     }
 
     public class StreamBinder extends Binder {

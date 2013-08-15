@@ -1,15 +1,19 @@
-package org.wcbn.android.station;
+package org.wcbn.android.station.wcbn;
 
 import android.content.Context;
 import android.util.Log;
 
 import net.moraleboost.streamscraper.Stream;
 
+import org.wcbn.android.AlbumArtFragment;
 import org.wcbn.android.R;
 import org.wcbn.android.Station;
 import org.wcbn.android.StreamExt;
+import org.wcbn.android.UiFragment;
 import org.wcbn.android.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,10 +21,21 @@ public class WCBNStation implements Station {
 
     public static final int WEBSITE = R.string.wcbn_website;
     public static final int NUMBER = R.string.wcbn_number;
+    public static final int TAB_NAMES = R.array.wcbn_tab_names;
 
     static final Pattern sSongPattern = Pattern.compile("\"(.*?)\"");
     static final Pattern sArtistPattern = Pattern.compile(" by (.*?) on ");
     static final Pattern sProgramPattern = Pattern.compile(" on (.*?) with ");
+
+    static final List<Class<? extends UiFragment>> sFragments =
+            new ArrayList<Class<? extends UiFragment>>();
+
+    static {
+        sFragments.add(AlbumArtFragment.class);
+        sFragments.add(WCBNScheduleFragment.class);
+        // sFragments.add(WCBNPlaylistFragment.class);
+        // ...
+    }
 
     @Override
     public int getWebsite() {
@@ -115,5 +130,15 @@ public class WCBNStation implements Station {
 
         ext.merge(stream);
         return ext;
+    }
+
+    @Override
+    public List<Class<? extends UiFragment>> getUiFragments() {
+        return sFragments;
+    }
+
+    @Override
+    public int getTabNames() {
+        return TAB_NAMES;
     }
 }
