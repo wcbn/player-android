@@ -209,7 +209,7 @@ public class StreamService extends Service {
         mPlayer = new MediaPlayer();
 
         String quality = prefs.getString("quality", Quality.HI);
-        mGrabAlbumArt = prefs.getBoolean("grabAlbumArt", true);
+        mGrabAlbumArt = prefs.getBoolean("grab_album_art", true);
 
         mStreamUri = Quality.getUri(quality, getResources());
         Log.d(TAG, "Using URI: "+mStreamUri);

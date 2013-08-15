@@ -29,6 +29,18 @@ public class SettingsFragment extends PreferenceFragment {
                 preference.setTitle(getResources()
                         .getStringArray(R.array.quality_pref)[i]);
 
+                resetService();
+
+                return true;
+            }
+        });
+
+        Preference albumArtPreference = findPreference("grab_album_art");
+        assert albumArtPreference != null;
+        albumArtPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                resetService();
                 return true;
             }
         });
@@ -67,6 +79,13 @@ public class SettingsFragment extends PreferenceFragment {
                 .getStringArray(R.array.quality_desc)[i]);
         qualityPreference.setTitle(getResources()
                 .getStringArray(R.array.quality_pref)[i]);
+    }
+
+    public void resetService() {
+        if(getActivity() != null) {
+            getActivity().stopService(new Intent(getActivity(), StreamService.class));
+            getActivity().startService(new Intent(getActivity(), StreamService.class));
+        }
     }
 }
 

@@ -19,7 +19,7 @@
             android:title="@string/stream_settings">
         <CheckBoxPreference
                 android:icon="@drawable/ic_menu_picture"
-                android:key="grabAlbumArt"
+                android:key="grab_album_art"
                 android:defaultValue="true"
                 android:title="@string/grab_album_art"
                 android:summary="@string/grab_album_art_desc"
