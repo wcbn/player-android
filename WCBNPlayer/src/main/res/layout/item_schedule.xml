@@ -28,7 +28,8 @@
             />
      </LinearLayout>
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_toLeftOf="@+id/btn_link"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="@string/loading"
@@ -58,7 +59,8 @@
             android:layout_marginLeft="5dp"
             />
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_toLeftOf="@+id/btn_link"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="@string/loading"
