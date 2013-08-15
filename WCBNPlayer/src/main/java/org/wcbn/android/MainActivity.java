@@ -160,6 +160,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             Intent intent = new Intent();
             intent.setType("text/plain");
             intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
             if(mBound && mService.getStream() != null) {
                 mShareString = String.format(
                         getString(R.string.share_string),
@@ -230,6 +231,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         Utils.capitalizeTitle(mService.getStream().getCurrentSong()),
                         (mService.getStream()).getProgram());
                 intent.putExtra(Intent.EXTRA_TEXT, mShareString);
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
                 mShareActionProvider.setShareIntent(intent);
             }
         }
@@ -300,6 +302,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                     Utils.capitalizeTitle(stream.getCurrentSong()),
                     ((StreamExt) stream).getProgram());
             intent.putExtra(Intent.EXTRA_TEXT, mShareString);
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
             mShareActionProvider.setShareIntent(intent);
         }
     }

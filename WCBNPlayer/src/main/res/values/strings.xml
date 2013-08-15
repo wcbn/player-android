@@ -16,6 +16,7 @@
 
     <string name="loading">Loading…</string>
 
+    <string name="share_title">I\'m listening to WCBN-FM!</string>
     <string name="share_string">I\'m listening to %1$s on %2$s on WCBN-FM! Tune in at http://wcbn.org/</string>
     <string name="share_string_default">I\'m listening to WCBN-FM! Tune in at http://wcbn.org/</string>
 
