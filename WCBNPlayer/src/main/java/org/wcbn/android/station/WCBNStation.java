@@ -18,9 +18,9 @@ public class WCBNStation implements Station {
     public static final int WEBSITE = R.string.wcbn_website;
     public static final int NUMBER = R.string.wcbn_number;
 
-    static Pattern mSongPattern = Pattern.compile("\"(.*?)\"");
-    static Pattern mArtistPattern = Pattern.compile(" by (.*?) on ");
-    static Pattern mProgramPattern = Pattern.compile(" on (.*?) with ");
+    static Pattern sSongPattern = Pattern.compile("\"(.*?)\"");
+    static Pattern sArtistPattern = Pattern.compile(" by (.*?) on ");
+    static Pattern sProgramPattern = Pattern.compile(" on (.*?) with ");
 
     @Override
     public int getWebsite() {
@@ -70,7 +70,7 @@ public class WCBNStation implements Station {
         if(currentSong != null) {
             Log.d("WCBN", "Metadata string "+currentSong);
 
-            Matcher songMatcher = mSongPattern.matcher(currentSong);
+            Matcher songMatcher = sSongPattern.matcher(currentSong);
             if(songMatcher.find()) {
                 song = songMatcher.group(1);
             }
@@ -78,7 +78,7 @@ public class WCBNStation implements Station {
                 song = "";
             }
 
-            Matcher artistMatcher = mArtistPattern.matcher(currentSong);
+            Matcher artistMatcher = sArtistPattern.matcher(currentSong);
             int artistEnd;
             if(artistMatcher.find()) {
                 artist = artistMatcher.group(1);
@@ -92,7 +92,7 @@ public class WCBNStation implements Station {
 
             // currentSong always contains a song, artist, and program, but sometimes not DJ
             if(currentSong.substring(artistEnd).contains(" with ")) {
-                Matcher programMatcher = mProgramPattern
+                Matcher programMatcher = sProgramPattern
                         .matcher(currentSong);
                 if(programMatcher.find(artistEnd - 4)) {
                     program = programMatcher.group(1);
