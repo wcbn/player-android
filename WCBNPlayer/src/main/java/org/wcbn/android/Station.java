@@ -7,7 +7,9 @@ import net.moraleboost.streamscraper.Stream;
 import java.util.List;
 
 /**
- * Place all station-specific code in a Station.
+ * Represents a Station.
+ *
+ * Place all station-specific code in a Station and associated classes.
  */
 public interface Station {
     public int getWebsite();

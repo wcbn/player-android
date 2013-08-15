@@ -7,6 +7,7 @@ import org.wcbn.android.station.wcbn.WCBNStation;
  */
 public class Utils {
 
+    // Hard code the Station we're using here.
     private static final Station sStation = new WCBNStation();
 
     /**

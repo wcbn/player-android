@@ -12,7 +12,9 @@ import android.widget.ImageView;
 
 import net.moraleboost.streamscraper.Stream;
 
-
+/**
+ * Displays album art.
+ */
 public class AlbumArtFragment extends Fragment implements UiFragment {
 
     private ImageView mAlbumArtView;

@@ -6,6 +6,11 @@ import android.media.MediaPlayer;
 
 import net.moraleboost.streamscraper.Stream;
 
+/**
+ * Contains helpful methods, mostly for the playback Service to update the state of the app UI.
+ *
+ * All Fragments in the UI should implement this interface.
+ */
 public interface UiFragment {
     public void handleMediaError(MediaPlayer mp, int what, int extra);
     public void handleMediaPlay();

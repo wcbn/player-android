@@ -13,6 +13,9 @@ import android.widget.ImageButton;
 
 import net.moraleboost.streamscraper.Stream;
 
+/**
+ * Displays playback controls and sends commands to playback Service when controls are manipulated.
+ */
 public class PlaybackFragment extends Fragment implements UiFragment {
 
     // Bound StreamService

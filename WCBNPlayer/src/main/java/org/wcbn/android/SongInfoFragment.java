@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import net.moraleboost.streamscraper.Stream;
 
+/**
+ * Displays information about the current track.
+ */
 public class SongInfoFragment extends Fragment implements UiFragment {
 
     private TextView mSongText, mArtistText, mDescriptionText;

@@ -45,6 +45,7 @@ public class StreamService extends Service {
 
     public static final long DELAY_MS = 10000;
 
+    // TODO: Move quality handling to WCBN-specific code.
     public static class Quality {
         public static final String MID = "0";
         public static final String HI = "1";

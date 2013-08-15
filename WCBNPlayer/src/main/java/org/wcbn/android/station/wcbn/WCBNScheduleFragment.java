@@ -90,37 +90,38 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
     @Override
     public void setService(Service service) {
-
+        // Nothing
     }
 
     @Override
     public void handleMediaError(MediaPlayer mp, int what, int extra) {
-
+        // Nothing
     }
 
     @Override
     public void handleMediaPlay() {
-
+        // Nothing
     }
 
     @Override
     public void handleMediaPause() {
-
+        // Nothing
     }
 
     @Override
     public void handleMediaStop() {
-
+        // Nothing
     }
 
     @Override
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
-
+        // Nothing
     }
 
     // TODO: Make the matching algorithm more robust and more able to handle edge cases.
 
-    static final Pattern sDjPattern = Pattern.compile(" w/ (.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
+    static final Pattern sDjPattern =
+            Pattern.compile(" w/ (.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
     static final Pattern sProgramPattern = Pattern.compile("^(.*?) w/");
     static final Pattern sProgramPatternNoDj = Pattern
             .compile("^(.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
@@ -292,6 +293,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                         .get();
             } catch(IOException e) {
                 Log.d(TAG, "Error downloading schedule");
+                e.printStackTrace();
                 return null;
             }
             return doc;
