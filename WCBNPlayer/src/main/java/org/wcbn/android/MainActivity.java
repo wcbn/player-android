@@ -130,6 +130,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 getActionBar().getSelectedNavigationIndex());
     }
 
+    private boolean mShareIntentSet = false;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -137,13 +139,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         MenuItem item = menu.findItem(R.id.menu_item_share);
 
         mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-
-        if(mShareActionProvider != null) {
+        if(mShareActionProvider != null && !mShareIntentSet) {
             Intent intent = new Intent();
             intent.setType("text/plain");
             intent.setAction(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_string_default));
             mShareActionProvider.setShareIntent(intent);
+            mShareIntentSet = true;
         }
         return true;
     }
@@ -255,7 +257,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             intent.putExtra(Intent.EXTRA_TEXT, String.format(
                     getString(R.string.share_string),
                     Utils.capitalizeTitle(stream.getCurrentSong()),
-                    Utils.capitalizeTitle(((StreamExt) stream).getProgram())));
+                    ((StreamExt) stream).getProgram()));
             mShareActionProvider.setShareIntent(intent);
         }
     }

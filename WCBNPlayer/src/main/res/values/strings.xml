@@ -10,7 +10,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_share">Share</string>
     <string name="title_now_playing">Listen</string>
-    <string name="title_schedule">What\'s next</string>
+    <string name="title_schedule">Up next</string>
 
     <string name="play">Play</string>
     <string name="pause">Pause</string>

@@ -2,8 +2,11 @@ package org.wcbn.android;
 
 
 import android.app.Service;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,12 +43,20 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     public static final String SCHEDULE_URI = "http://wcbn.org/schedule";
     private List<ScheduleItem> mItems;
     private LayoutInflater mInflater;
+    private Typeface mTypeface;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mInflater = inflater;
+
+        mTypeface = Typeface.createFromAsset(inflater.getContext().getAssets(), "Roboto-Light.ttf");
 
         mItems = new ArrayList<ScheduleItem>();
         for(int i = 0; i < NUM_ENTRIES; i++) {
@@ -68,6 +80,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         }
 
         mItems.get(mItems.size()-1).setLast(true);
+
 
         return view;
     }
@@ -119,6 +132,10 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
         public ScheduleItem() {
             mView = (ViewGroup) mInflater.inflate(R.layout.item_schedule, null);
+
+            ((TextView) mView.findViewById(R.id.time_text)).setTypeface(mTypeface);
+            ((TextView) mView.findViewById(R.id.program_text)).setTypeface(mTypeface);
+            ((TextView) mView.findViewById(R.id.dj_text)).setTypeface(mTypeface);
         }
 
         public void setLast(boolean last) {
@@ -143,6 +160,11 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         }
 
         public void setElement(Element element) {
+
+            mProgram = null;
+            mDj = null;
+            mUri = null;
+            mTime = null;
 
             Elements links = element.select("a[href]");
             if(!links.isEmpty()) {
@@ -192,7 +214,30 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             }
 
             // Update our views
-
+            if(mDj != null)
+                ((TextView) mView.findViewById(R.id.dj_text)).setText(mDj);
+            ((TextView) mView.findViewById(R.id.program_text)).setText(mProgram);
+            ((TextView) mView.findViewById(R.id.time_text)).setText(mTime);
+            if(mUri != null) {
+                ((ImageView) mView.findViewById(R.id.icon_link))
+                        .setImageResource(R.drawable.ic_menu_globe);
+                mView.findViewById(R.id.btn_link).setClickable(true);
+                mView.findViewById(R.id.btn_link).setFocusable(true);
+                mView.findViewById(R.id.btn_link).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent()
+                            .setAction(Intent.ACTION_VIEW)
+                            .setData(Uri.parse(mUri)));
+                    }
+                });
+            }
+            else {
+                ((ImageView) mView.findViewById(R.id.icon_link))
+                        .setImageResource(R.drawable.ic_menu_globe_disabled);
+                mView.findViewById(R.id.btn_link).setClickable(false);
+                mView.findViewById(R.id.btn_link).setFocusable(false);
+            }
         }
 
         public String getTime() {
