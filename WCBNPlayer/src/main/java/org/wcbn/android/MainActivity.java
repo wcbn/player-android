@@ -151,15 +151,25 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             Intent intent = new Intent();
             intent.setType("text/plain");
             intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_string_default));
-            mShareActionProvider.setShareIntent(intent);
+            if(mBound && mService.getStream() != null) {
+                mShareString = String.format(
+                        getString(R.string.share_string),
+                        Utils.capitalizeTitle(mService.getStream().getCurrentSong()),
+                        (mService.getStream()).getProgram());
+                intent.putExtra(Intent.EXTRA_TEXT, mShareString);
+                mShareActionProvider.setShareIntent(intent);
+            }
+            else {
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_string_default));
+                mShareActionProvider.setShareIntent(intent);
+            }
             mShareIntentSet = true;
         }
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -199,6 +209,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             mSongInfoFragment.setService(mService);
 
             mService.setMetadataRefresh(true);
+
+            if(mShareActionProvider != null && mService.getStream() != null) {
+                Intent intent = new Intent();
+                intent.setType("text/plain");
+                intent.setAction(Intent.ACTION_SEND);
+                mShareString = String.format(
+                        getString(R.string.share_string),
+                        Utils.capitalizeTitle(mService.getStream().getCurrentSong()),
+                        (mService.getStream()).getProgram());
+                intent.putExtra(Intent.EXTRA_TEXT, mShareString);
+                mShareActionProvider.setShareIntent(intent);
+            }
         }
 
         @Override
