@@ -8,9 +8,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -20,37 +23,53 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
-    // TODO: Parse the entire table. We're hardcoding three entires for now.
+    // TODO: Parse the entire table (from the Google Calendar?).
+    // We're hardcoding three entires for now.
 
+    public static final int NUM_ENTRIES = 3;
     public static final String TAG = "WCBNScheduleFragment";
     public static final String SCHEDULE_URI = "http://wcbn.org/schedule";
     private List<ScheduleItem> mItems;
+    private LayoutInflater mInflater;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mItems = new ArrayList<ScheduleItem>();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mInflater = inflater;
+
+        mItems = new ArrayList<ScheduleItem>();
+        for(int i = 0; i < NUM_ENTRIES; i++) {
+            mItems.add(new ScheduleItem());
+        }
+
         new ScheduleUpdateTask().execute(SCHEDULE_URI);
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        params.gravity= Gravity.CENTER;
 
+        LinearLayout view = new LinearLayout(inflater.getContext());
+        view.setGravity(Gravity.CENTER);
+        view.setLayoutParams(params);
+        view.setOrientation(LinearLayout.VERTICAL);
 
-        return null;
+        for(ScheduleItem item : mItems) {
+            view.addView(item.getView());
+        }
+
+        mItems.get(mItems.size()-1).setLast(true);
+
+        return view;
     }
 
     @Override
@@ -96,6 +115,24 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         private String mDj;
         private String mProgram;
         private String mUri;
+        private ViewGroup mView;
+
+        public ScheduleItem() {
+            mView = (ViewGroup) mInflater.inflate(R.layout.item_schedule, null);
+        }
+
+        public void setLast(boolean last) {
+            if(last) {
+                mView.findViewById(R.id.line_1).setVisibility(View.INVISIBLE);
+            }
+            else {
+                mView.findViewById(R.id.line_1).setVisibility(View.VISIBLE);
+            }
+        }
+
+        public ViewGroup getView() {
+            return mView;
+        }
 
         @Override
         public String toString() {
@@ -113,7 +150,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             }
 
             String text = element.text().trim();
-            boolean nextDay = false;
 
             if(text != null) {
                 Matcher djMatcher = sDjPattern.matcher(text);
@@ -137,9 +173,26 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                 }
 
                 if(timeStart != 0) {
-                    mTime = text.substring(timeStart-4);
+                    mTime = text.substring(timeStart - 4).trim();
+                    String[] times =  mTime.split("-");
+                    String startTime = times[0];
+                    String endTime = times[1];
+
+                    if(!(startTime.contains("am") || startTime.contains("pm"))) {
+                        if(endTime.contains("am")) {
+                            startTime = startTime + "am";
+                        }
+                        else if(endTime.contains("pm")) {
+                            startTime = startTime + "pm";
+                        }
+                    }
+
+                    mTime = startTime + " - " + endTime;
                 }
             }
+
+            // Update our views
+
         }
 
         public String getTime() {
@@ -203,11 +256,8 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                 Elements elements = result
                         .select("ul[id=whatsnext]")
                         .select("li");
-                for(Element e : elements) {
-                    Log.d("WCBN", e.text());
-                    ScheduleItem item = new ScheduleItem();
-                    item.setElement(e);
-                    Log.d("WCBN", item.toString());
+                for(int i = 0; i < elements.size(); i++) {
+                    mItems.get(i).setElement(elements.get(i));
                 }
             }
         }
