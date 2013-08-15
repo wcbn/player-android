@@ -39,6 +39,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
     private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
     private Activity mActivity = this;
+    private String mShareString;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -121,6 +122,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             getActionBar().setSelectedNavigationItem(
                     savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
         }
+        if(savedInstanceState.containsKey("share_string")) {
+            mShareString = savedInstanceState.getString("share_string");
+            mShareIntentSet = true;
+        }
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -128,6 +133,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt(STATE_SELECTED_NAVIGATION_ITEM,
                 getActionBar().getSelectedNavigationIndex());
+        if(mShareString != null)
+            outState.putString("share_string", mShareString);
+        super.onSaveInstanceState(outState);
     }
 
     private boolean mShareIntentSet = false;
@@ -254,10 +262,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             Intent intent = new Intent();
             intent.setType("text/plain");
             intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, String.format(
+            mShareString = String.format(
                     getString(R.string.share_string),
                     Utils.capitalizeTitle(stream.getCurrentSong()),
-                    ((StreamExt) stream).getProgram()));
+                    ((StreamExt) stream).getProgram());
+            intent.putExtra(Intent.EXTRA_TEXT, mShareString);
             mShareActionProvider.setShareIntent(intent);
         }
     }
