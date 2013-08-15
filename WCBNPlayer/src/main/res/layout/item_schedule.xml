@@ -6,9 +6,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="2dp"
               android:layout_marginRight="2dp"
-              android:background="#DDDDDD"
-                >
-
+              android:background="#DDDDDD">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:orientation="horizontal"
                     android:layout_width="48dp"
@@ -21,18 +19,14 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center"
-            >
+                    android:gravity="center">
         <ImageView
             android:id="@+id/icon_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_menu_globe_disabled"
             />
-
      </LinearLayout>
-
-
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +40,6 @@
             android:textColor="#666666"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
-
             />
     <TextView
             android:layout_marginTop="10dp"

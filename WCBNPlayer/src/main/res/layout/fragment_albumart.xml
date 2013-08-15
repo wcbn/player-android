@@ -4,9 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_gravity="center"
-        >
-
+              android:layout_gravity="center">
     <ImageView
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -14,6 +12,5 @@
         android:src="@drawable/logo_large"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    />
-
+        />
 </LinearLayout>
