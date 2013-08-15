@@ -18,9 +18,9 @@ public class WCBNStation implements Station {
     public static final int WEBSITE = R.string.wcbn_website;
     public static final int NUMBER = R.string.wcbn_number;
 
-    static Pattern sSongPattern = Pattern.compile("\"(.*?)\"");
-    static Pattern sArtistPattern = Pattern.compile(" by (.*?) on ");
-    static Pattern sProgramPattern = Pattern.compile(" on (.*?) with ");
+    static final Pattern sSongPattern = Pattern.compile("\"(.*?)\"");
+    static final Pattern sArtistPattern = Pattern.compile(" by (.*?) on ");
+    static final Pattern sProgramPattern = Pattern.compile(" on (.*?) with ");
 
     @Override
     public int getWebsite() {

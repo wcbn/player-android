@@ -117,11 +117,10 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
     // TODO: Make the matching algorithm more robust and more able to handle edge cases.
 
-    static Pattern sDjPattern = Pattern.compile(" w/ (.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
-    static Pattern sProgramPattern = Pattern.compile("^(.*?) w/");
-    static Pattern sProgramPatternNoDj = Pattern
+    static final Pattern sDjPattern = Pattern.compile(" w/ (.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
+    static final Pattern sProgramPattern = Pattern.compile("^(.*?) w/");
+    static final Pattern sProgramPatternNoDj = Pattern
             .compile("^(.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
-    static SimpleDateFormat sDateFormatter = new SimpleDateFormat("h:mma");
 
     private class ScheduleItem {
         private String mTime;

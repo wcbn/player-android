@@ -7,11 +7,13 @@ import org.wcbn.android.station.WCBNStation;
  */
 public class Utils {
 
+    private static final Class<? extends Station> STATION_CLASS = WCBNStation.class;
+
     /**
      * Get the Station
      */
     public static Class<? extends Station> getStation() {
-        return WCBNStation.class;
+        return STATION_CLASS;
     }
 
     /**

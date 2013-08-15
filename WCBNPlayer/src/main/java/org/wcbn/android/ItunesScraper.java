@@ -21,16 +21,21 @@ import java.nio.charset.Charset;
  * Scrapes album art and metadata, specifically from iTunes.
  */
 public class ItunesScraper {
-    public static final Uri URI_BASE = Uri.parse("https://itunes.apple.com/search?limit=1&version=2");
-    private Uri mUri;
-    private String mSearchTerm;
-    private JSONObject mObj;
+    public static final Uri URI_BASE =
+            Uri.parse("https://itunes.apple.com/search?limit=1&version=2");
+    private final Uri mUri;
+    private final String mSearchTerm;
+    private final JSONObject mObj;
 
     ItunesScraper(String searchTerm, String entity) {
+        mSearchTerm = searchTerm;
+
         mUri = URI_BASE.buildUpon()
             .appendQueryParameter("term", searchTerm)
             .appendQueryParameter("entity", entity)
             .build();
+
+        mObj = query();
     }
 
     public String getSearchTerm() {
@@ -38,9 +43,9 @@ public class ItunesScraper {
     }
 
     public String getArtist() {
-        if(mObj == null)
-            mObj = query();
-
+        if(mObj == null) {
+            return null;
+        }
         try {
             return mObj.getJSONArray("results")
                     .getJSONObject(0)
@@ -51,9 +56,9 @@ public class ItunesScraper {
     }
 
     public String getTrack() {
-        if(mObj == null)
-            mObj = query();
-
+        if(mObj == null) {
+            return null;
+        }
         try {
             return mObj.getJSONArray("results")
                     .getJSONObject(0)
@@ -64,10 +69,6 @@ public class ItunesScraper {
     }
 
     public Bitmap getLargeAlbumArt() {
-
-        if(mObj == null)
-            mObj = query();
-
         if(mObj == null) {
             return null;
         }
@@ -109,47 +110,11 @@ public class ItunesScraper {
 
     }
 
-    public Bitmap getSmallAlbumArt() {
-        JSONObject json = query();
-        String artUri;
-        try {
-            artUri = json.getJSONArray("results")
-                    .getJSONObject(0) // First result
-                    .getString("artworkUrl100"); // 100x100 album art
-        }
-        catch(JSONException e) {
-            return null;
-        }
-
-        try {
-            URL url = new URL(artUri);
-            InputStream in = url.openConnection().getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(in,1024*8);
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-            int len;
-            byte[] buffer = new byte[1024];
-            while((len = bis.read(buffer)) != -1){
-                out.write(buffer, 0, len);
-            }
-            out.close();
-            bis.close();
-
-            byte[] data = out.toByteArray();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            return bitmap;
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     private JSONObject query() {
         try {
             InputStream is = new URL(mUri.toString()).openStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is,
+                    Charset.forName("UTF-8")));
 
             StringBuilder total = new StringBuilder();
             String line;
@@ -173,8 +138,4 @@ public class ItunesScraper {
             return null;
         }
     }
-
-
-
-
 }

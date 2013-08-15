@@ -243,12 +243,11 @@ public class StreamService extends Service {
     }
 
     private class NotificationHelper {
-
-        private NotificationCompat.Builder mBuilderPlaying, mBuilderPaused;
+        private final NotificationCompat.Builder mBuilderPlaying, mBuilderPaused;
         private NotificationCompat.Builder mCurrentBuilder;
         private String mTitle, mText, mSubText;
         private Bitmap mIcon;
-        private PendingIntent mPlayPauseIntent, mStopIntent;
+        private final PendingIntent mPlayPauseIntent, mStopIntent;
 
         NotificationHelper() {
             mBuilderPlaying = new NotificationCompat.Builder(getApplicationContext())
@@ -348,7 +347,6 @@ public class StreamService extends Service {
 
         @Override
         protected Stream doInBackground(Stream... previousStream) {
-
             try {
                 List<Stream> streams = mScraper.scrape(new URI(mStreamUri));
                 StreamExt stream = mStation.fixMetadata(streams.get(0));
@@ -371,9 +369,7 @@ public class StreamService extends Service {
                     }
                     return stream;
                 }
-
                 return null;
-
             } catch(URISyntaxException e) {
                 e.printStackTrace();
                 return null;
