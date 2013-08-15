@@ -198,7 +198,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                 }
 
                 if(timeStart != 0) {
-                    mTime = text.substring(timeStart - 4).trim();
+                    mTime = text.substring(timeStart - 5).trim();
                     String[] times =  mTime.split("-");
                     String startTime = times[0];
                     String endTime = times[1];
