@@ -9,13 +9,13 @@ import org.wcbn.android.station.wcbn.WCBNStation;
 public class Utils {
 
     // Hard code the Station we're using here.
-    private static final Station sStation = new WCBNStation();
+    private static final Station STATION = new WCBNStation();
 
     /**
      * Get the Station
      */
     public static Station getStation() {
-        return sStation;
+        return STATION;
     }
 
     /**
