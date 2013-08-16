@@ -41,7 +41,7 @@ import org.wcbn.android.station.Station;
 /**
  * Android Service that handles background music playback and metadata fetch.
  */
-public class StreamService extends Service {
+public class StreamService extends Service implements AudioManager.OnAudioFocusChangeListener {
 
     public static final String TAG = "WCBN StreamService";
 
@@ -50,6 +50,36 @@ public class StreamService extends Service {
 
     public static final long DELAY_MS = 10000;
 
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        switch (focusChange) {
+            case AudioManager.AUDIOFOCUS_GAIN:
+
+                if(mIsPaused && !mIsPreparing && mPlayer != null) {
+                    startPlayback();
+                    mPlayer.setVolume(1.0f, 1.0f);
+                }
+                break;
+
+            case AudioManager.AUDIOFOCUS_LOSS:
+                if(mPlayer != null && !mIsPreparing) {
+                    stopPlayback();
+                }
+                break;
+
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                if(mPlayer.isPlaying()) {
+                    pausePlayback();
+                }
+                break;
+
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                if (mPlayer.isPlaying()) {
+                    mPlayer.setVolume(0.1f, 0.1f);
+                }
+                break;
+        }
+    }
     // TODO: Move quality handling to WCBN-specific code.
     public static class Quality {
         public static final String MID = "0";
@@ -161,11 +191,20 @@ public class StreamService extends Service {
     }
 
     public void startPlayback() {
+
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN);
+
+        if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            return;
+        }
+
         mPlayer.start();
         mIsPaused = false;
         mIsPreparing = false;
         mNotificationHelper.setPlaying(true);
-        mNotificationManager.notify(1, mNotificationHelper.getNotification());
+        startForeground(1, mNotificationHelper.getNotification());
         if(mUpdateListener != null)
             mUpdateListener.onMediaPlay();
     }
