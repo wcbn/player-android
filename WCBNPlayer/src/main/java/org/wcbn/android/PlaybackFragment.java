@@ -25,6 +25,13 @@ public class PlaybackFragment extends Fragment implements UiFragment {
     private ClickListener mClickListener = new ClickListener();
     private ImageButton mButtonPlayPause, mButtonStop;
 
+    public static final String FRAGMENT_TAG = "PlaybackFragment";
+
+    @Override
+    public String getFragmentTag() {
+        return FRAGMENT_TAG;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

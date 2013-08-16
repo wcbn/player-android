@@ -23,6 +23,13 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
     private Bitmap mAlbumArtBitmap;
     private StreamService mService;
 
+    public static final String FRAGMENT_TAG = "AlbumArtFragment";
+
+    @Override
+    public String getFragmentTag() {
+        return FRAGMENT_TAG;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

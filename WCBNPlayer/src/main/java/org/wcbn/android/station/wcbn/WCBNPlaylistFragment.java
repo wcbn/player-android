@@ -40,4 +40,9 @@ public class WCBNPlaylistFragment extends Fragment implements UiFragment {
     public void setService(Service service) {
 
     }
+
+    @Override
+    public String getFragmentTag() {
+        return null;
+    }
 }

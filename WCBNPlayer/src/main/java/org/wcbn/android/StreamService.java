@@ -64,7 +64,6 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
     public void onAudioFocusChange(int focusChange) {
         switch (focusChange) {
             case AudioManager.AUDIOFOCUS_GAIN:
-
                 if(mIsPaused && !mIsPreparing && mPlayer != null) {
                     startPlayback();
                     mPlayer.setVolume(1.0f, 1.0f);
