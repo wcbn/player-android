@@ -109,6 +109,9 @@ public class StreamService extends Service {
             else if(ACTION_STOP.equals(intent.getAction())) {
                 stopPlayback();
             }
+            else if(AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())) {
+                pausePlayback();
+            }
         }
     };
 
@@ -123,6 +126,7 @@ public class StreamService extends Service {
             IntentFilter filter = new IntentFilter();
             filter.addAction(ACTION_PLAY_PAUSE);
             filter.addAction(ACTION_STOP);
+            filter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
             registerReceiver(mReceiver, filter);
             if(mPlayer.isPlaying())
                 reset();
