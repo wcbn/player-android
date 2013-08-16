@@ -3,7 +3,6 @@ package org.wcbn.android.station.wcbn;
 
 import android.app.Service;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import net.moraleboost.streamscraper.Stream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.wcbn.android.Station;
+import org.wcbn.android.station.Station;
 import org.wcbn.android.UiFragment;
 
 import java.io.IOException;
@@ -37,8 +36,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     public static final String TAG = "WCBNScheduleFragment";
     public static final String SCHEDULE_URI = "http://wcbn.org/schedule";
     private List<WCBNScheduleItem> mItems;
-    private LayoutInflater mInflater;
-    private Typeface mTypeface;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +46,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mInflater = inflater;
-
         mItems = new ArrayList<WCBNScheduleItem>();
         for(int i = 0; i < NUM_ENTRIES; i++) {
             mItems.add(new WCBNScheduleItem(inflater));

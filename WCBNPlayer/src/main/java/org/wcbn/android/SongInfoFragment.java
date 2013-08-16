@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import net.moraleboost.streamscraper.Stream;
 
+import org.wcbn.android.station.Station;
+
 /**
  * Displays information about the current track.
  */

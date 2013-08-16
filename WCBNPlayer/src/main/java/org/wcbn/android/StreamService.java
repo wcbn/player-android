@@ -33,6 +33,8 @@ import net.moraleboost.streamscraper.Stream;
 import net.moraleboost.streamscraper.Scraper;
 import net.moraleboost.streamscraper.scraper.IceCastScraper;
 
+import org.wcbn.android.station.Station;
+
 /**
  * Android Service that handles background music playback and metadata fetch.
  */

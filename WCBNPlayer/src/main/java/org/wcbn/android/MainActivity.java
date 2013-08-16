@@ -23,7 +23,7 @@ import android.widget.ShareActionProvider;
 import net.moraleboost.streamscraper.Stream;
 
 import org.wcbn.android.StreamService.StreamBinder;
-import org.wcbn.android.station.wcbn.WCBNScheduleFragment;
+import org.wcbn.android.station.Station;
 
 import java.util.ArrayList;
 import java.util.List;

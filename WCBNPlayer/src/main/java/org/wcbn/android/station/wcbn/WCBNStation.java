@@ -7,7 +7,7 @@ import net.moraleboost.streamscraper.Stream;
 
 import org.wcbn.android.AlbumArtFragment;
 import org.wcbn.android.R;
-import org.wcbn.android.Station;
+import org.wcbn.android.station.Station;
 import org.wcbn.android.StreamExt;
 import org.wcbn.android.UiFragment;
 import org.wcbn.android.Utils;

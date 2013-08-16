@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import net.moraleboost.streamscraper.Stream;
 
+import org.wcbn.android.station.Station;
+
 /**
  * Displays album art.
  */

@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 
 import net.moraleboost.streamscraper.Stream;
 
+import org.wcbn.android.station.Station;
+
 /**
  * Displays playback controls and sends commands to playback Service when controls are manipulated.
  */

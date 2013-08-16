@@ -1,5 +1,6 @@
 package org.wcbn.android;
 
+import org.wcbn.android.station.Station;
 import org.wcbn.android.station.wcbn.WCBNStation;
 
 /**

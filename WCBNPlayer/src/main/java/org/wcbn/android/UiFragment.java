@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 
 import net.moraleboost.streamscraper.Stream;
 
+import org.wcbn.android.station.Station;
+
 /**
  * Contains helpful methods, mostly for the playback Service to update the state of the app UI.
  *

@@ -8,6 +8,8 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import org.wcbn.android.station.Station;
+
 public class SettingsFragment extends PreferenceFragment {
 
     private Station mStation = Utils.getStation();

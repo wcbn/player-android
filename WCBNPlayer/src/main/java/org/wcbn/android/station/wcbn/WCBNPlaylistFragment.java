@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import net.moraleboost.streamscraper.Stream;
 
-import org.wcbn.android.Station;
+import org.wcbn.android.station.Station;
 import org.wcbn.android.UiFragment;
 
 public class WCBNPlaylistFragment extends Fragment implements UiFragment {

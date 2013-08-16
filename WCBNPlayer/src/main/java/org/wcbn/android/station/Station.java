@@ -1,8 +1,11 @@
-package org.wcbn.android;
+package org.wcbn.android.station;
 
 import android.content.Context;
 
 import net.moraleboost.streamscraper.Stream;
+
+import org.wcbn.android.StreamExt;
+import org.wcbn.android.UiFragment;
 
 import java.util.List;
 
