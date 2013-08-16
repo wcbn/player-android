@@ -110,7 +110,8 @@ public class StreamService extends Service {
                 stopPlayback();
             }
             else if(AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())) {
-                pausePlayback();
+                if(!mIsPaused)
+                    pausePlayback();
             }
         }
     };
