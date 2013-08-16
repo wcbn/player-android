@@ -15,7 +15,6 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Handler;
@@ -50,6 +49,17 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
 
     public static final long DELAY_MS = 10000;
 
+    // TODO: Move quality handling to WCBN-specific code.
+    public static class Quality {
+        public static final String MID = "0";
+        public static final String HI = "1";
+        public static final String HD = "2";
+
+        public static String getUri(String quality, Resources res) {
+            return res.getStringArray(R.array.stream_uri)[Integer.parseInt(quality)];
+        }
+    }
+
     @Override
     public void onAudioFocusChange(int focusChange) {
         switch (focusChange) {
@@ -78,16 +88,6 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
                     mPlayer.setVolume(0.1f, 0.1f);
                 }
                 break;
-        }
-    }
-    // TODO: Move quality handling to WCBN-specific code.
-    public static class Quality {
-        public static final String MID = "0";
-        public static final String HI = "1";
-        public static final String HD = "2";
-
-        public static String getUri(String quality, Resources res) {
-            return res.getStringArray(R.array.stream_uri)[Integer.parseInt(quality)];
         }
     }
 
