@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -91,7 +90,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("items", (ArrayList<? extends Parcelable>) mItems);
+        outState.putParcelableArrayList("items", (ArrayList) mItems);
         super.onSaveInstanceState(outState);
     }
 
