@@ -69,7 +69,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
         mItems.get(mItems.size()-1).setLast(true);
 
-
         return view;
     }
 
@@ -112,10 +111,12 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             .compile("^(.*?) ([0-9]|0[0-9]|1[0-2]):[0-5][0-9]$*");
 
     private class ScheduleUpdateTask extends AsyncTask<String, Void, Document> {
-
         @Override
         protected Document doInBackground(String... Uris) {
             Document doc;
+            for(WCBNScheduleItem item : mItems) {
+                item.setLoading(true);
+            }
             try {
                 doc = Jsoup.connect(Uris[0])
                         .userAgent("Android")
@@ -136,6 +137,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                         .select("li");
                 for(int i = 0; i < elements.size(); i++) {
                     mItems.get(i).setElement(elements.get(i));
+                    mItems.get(i).setLoading(false);
                 }
             }
         }

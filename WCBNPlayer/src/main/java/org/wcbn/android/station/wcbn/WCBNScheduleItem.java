@@ -59,6 +59,15 @@ class WCBNScheduleItem {
                 " Time: "+mTime;
     }
 
+    public void setLoading(boolean loading) {
+        if(loading) {
+            mView.findViewById(R.id.loading).setVisibility(View.VISIBLE);
+        }
+        else {
+            mView.findViewById(R.id.loading).setVisibility(View.GONE);
+        }
+    }
+
     public void setElement(Element element) {
 
         mProgram = null;

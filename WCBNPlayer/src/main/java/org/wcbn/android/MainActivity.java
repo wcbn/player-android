@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -66,7 +68,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         getResources().getStringArray(mStation.getTabNames())),
                 this);
 
+        if(mFragments.isEmpty())
         for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
+
+            Log.d("WCBN", "Adding Fragment");
+
             try {
                 mFragments.add(cls.newInstance());
             } catch (InstantiationException e) {
