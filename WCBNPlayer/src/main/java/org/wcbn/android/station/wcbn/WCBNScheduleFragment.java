@@ -1,5 +1,6 @@
 package org.wcbn.android.station.wcbn;
 
+
 import android.app.Service;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
@@ -31,17 +32,10 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     // TODO: Parse the entire table (from the Google Calendar?).
     // We're hardcoding three entires for now.
 
-    public static final String FRAGMENT_TAG = "WCBNScheduleFragment";
-
     public static final int NUM_ENTRIES = 3;
     public static final String TAG = "WCBNScheduleFragment";
     public static final String SCHEDULE_URI = "http://wcbn.org/schedule";
     private List<WCBNScheduleItem> mItems;
-
-    @Override
-    public String getFragmentTag() {
-        return FRAGMENT_TAG;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,19 +46,9 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if(savedInstanceState == null || !savedInstanceState.containsKey("items")) {
-            mItems = new ArrayList<WCBNScheduleItem>();
-            for(int i = 0; i < NUM_ENTRIES; i++) {
-                mItems.add(new WCBNScheduleItem(inflater.getContext()));
-            }
-        }
-        else {
-            mItems = savedInstanceState.getParcelableArrayList("items");
-            for(WCBNScheduleItem item : mItems) {
-                item.initViews(inflater.getContext());
-                item.updateViews();
-            }
+        mItems = new ArrayList<WCBNScheduleItem>();
+        for(int i = 0; i < NUM_ENTRIES; i++) {
+            mItems.add(new WCBNScheduleItem(inflater));
         }
 
         new ScheduleUpdateTask().execute(SCHEDULE_URI);
@@ -85,13 +69,8 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
         mItems.get(mItems.size()-1).setLast(true);
 
-        return view;
-    }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("items", (ArrayList) mItems);
-        super.onSaveInstanceState(outState);
+        return view;
     }
 
     @Override

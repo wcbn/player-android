@@ -14,7 +14,6 @@ import org.wcbn.android.station.Station;
  * All Fragments in the UI should implement this interface.
  */
 public interface UiFragment {
-    public String getFragmentTag();
     public void handleMediaError(MediaPlayer mp, int what, int extra);
     public void handleMediaPlay();
     public void handleMediaPause();

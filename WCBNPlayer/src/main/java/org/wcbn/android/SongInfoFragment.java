@@ -25,13 +25,6 @@ public class SongInfoFragment extends Fragment implements UiFragment {
     private Station mStation;
     private StreamExt mStream;
 
-    public static final String FRAGMENT_TAG = "SongInfoFragment";
-
-    @Override
-    public String getFragmentTag() {
-        return FRAGMENT_TAG;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
