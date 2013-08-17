@@ -85,8 +85,12 @@ public class PlaybackFragment extends Fragment implements UiFragment {
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
         mStream = (StreamExt) stream;
         if(!isDetached())
+            try {
             mListenerCount.setText(String.format(getString(R.string.listeners),
                     stream.getCurrentListenerCount()));
+            } catch(IllegalStateException e) {
+                e.printStackTrace();
+            }
     }
 
     private class ClickListener implements Button.OnClickListener {

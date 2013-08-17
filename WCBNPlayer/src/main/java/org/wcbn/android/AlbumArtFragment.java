@@ -79,11 +79,9 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
 
     @Override
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
-        if(albumArt != null && isVisible()) {
+        if(albumArt != null) {
             mAlbumArtView.setImageBitmap(albumArt);
             mAlbumArtBitmap = albumArt;
         }
-
-        stream.getCurrentListenerCount();
     }
 }
