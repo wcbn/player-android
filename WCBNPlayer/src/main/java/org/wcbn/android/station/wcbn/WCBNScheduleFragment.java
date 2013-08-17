@@ -2,6 +2,7 @@ package org.wcbn.android.station.wcbn;
 
 
 import android.app.Service;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -10,6 +11,9 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -19,6 +23,8 @@ import net.moraleboost.streamscraper.Stream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.wcbn.android.R;
+import org.wcbn.android.SettingsActivity;
 import org.wcbn.android.StreamService;
 import org.wcbn.android.station.Station;
 import org.wcbn.android.UiFragment;
@@ -50,6 +56,8 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
@@ -71,6 +79,26 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
         return view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.schedule, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_item_refresh:
+                for(int i = 0; i < NUM_ENTRIES; i++) {
+                    mItems.get(i).setLoading(true);
+                }
+                new ScheduleUpdateTask().execute(SCHEDULE_URI);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
