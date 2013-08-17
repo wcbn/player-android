@@ -1,8 +1,12 @@
 package org.wcbn.android.station.wcbn;
 
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,27 +19,17 @@ import org.wcbn.android.R;
 
 import java.util.regex.Matcher;
 
-/**
-* Created by mike on 8/15/13.
-*/
-class WCBNScheduleItem {
+class WCBNScheduleItem implements Parcelable {
     private String mTime;
     private String mDj;
     private String mProgram;
     private String mUri;
-    private final ViewGroup mView;
-    private final LayoutInflater mInflater;
-    private final Typeface mTypeface;
+    private ViewGroup mView;
+    private LayoutInflater mInflater;
+    private Typeface mTypeface;
 
-    public WCBNScheduleItem(LayoutInflater inflater) {
-        mTypeface = Typeface.createFromAsset(inflater.getContext().getAssets()
-                , "Roboto-Light.ttf");
-        mInflater = inflater;
-        mView = (ViewGroup) inflater.inflate(R.layout.item_schedule, null);
-
-        ((TextView) mView.findViewById(R.id.time_text)).setTypeface(mTypeface);
-        ((TextView) mView.findViewById(R.id.program_text)).setTypeface(mTypeface);
-        ((TextView) mView.findViewById(R.id.dj_text)).setTypeface(mTypeface);
+    public WCBNScheduleItem(Context context) {
+        initViews(context);
     }
 
     public void setLast(boolean last) {
@@ -122,6 +116,21 @@ class WCBNScheduleItem {
             }
         }
 
+        updateViews();
+    }
+
+    public void initViews(Context context) {
+        mTypeface = Typeface.createFromAsset(context.getAssets()
+                , "Roboto-Light.ttf");
+        mInflater = (LayoutInflater) context.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
+        mView = (ViewGroup) mInflater.inflate(R.layout.item_schedule, null);
+
+        ((TextView) mView.findViewById(R.id.time_text)).setTypeface(mTypeface);
+        ((TextView) mView.findViewById(R.id.program_text)).setTypeface(mTypeface);
+        ((TextView) mView.findViewById(R.id.dj_text)).setTypeface(mTypeface);
+    }
+
+    public void updateViews() {
         // Update our views
         if(mDj != null) {
             mView.findViewById(R.id.dj_text).setVisibility(View.VISIBLE);
@@ -141,8 +150,9 @@ class WCBNScheduleItem {
                 @Override
                 public void onClick(View v) {
                     mInflater.getContext().startActivity(new Intent()
-                        .setAction(Intent.ACTION_VIEW)
-                        .setData(Uri.parse(mUri)));
+                            .setAction(Intent.ACTION_VIEW)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .setData(Uri.parse(mUri)));
                 }
             });
         }
@@ -190,5 +200,37 @@ class WCBNScheduleItem {
             return true;
         }
         return false;
+    }
+
+    public WCBNScheduleItem(Parcel in) {
+        mTime = in.readString();
+        mDj = in.readString();
+        mProgram = in.readString();
+        mUri = in.readString();
+
+    }
+
+    public static final Parcelable.Creator<WCBNScheduleItem> CREATOR
+            = new Parcelable.Creator<WCBNScheduleItem>() {
+        public WCBNScheduleItem createFromParcel(Parcel in) {
+            return new WCBNScheduleItem(in);
+        }
+
+        public WCBNScheduleItem[] newArray(int size) {
+            return new WCBNScheduleItem[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString("mTime");
+        dest.writeString("mDj");
+        dest.writeString("mProgram");
+        dest.writeString("mUri");
     }
 }

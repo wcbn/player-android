@@ -63,6 +63,7 @@
             android:focusableInTouchMode="true"
             android:layout_below="@+id/time_text"
             android:layout_marginLeft="5dp"
+            android:textColor="#000000"
             />
     <TextView
             android:layout_width="match_parent"
@@ -77,6 +78,7 @@
             android:focusableInTouchMode="true"
             android:layout_below="@+id/program_text"
             android:layout_marginLeft="5dp"
+            android:textColor="#000000"
             />
     <View
             android:layout_width="match_parent"

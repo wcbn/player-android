@@ -17,8 +17,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -64,7 +66,6 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
     public void onAudioFocusChange(int focusChange) {
         switch (focusChange) {
             case AudioManager.AUDIOFOCUS_GAIN:
-
                 if(mIsPaused && !mIsPreparing && mPlayer != null) {
                     startPlayback();
                     mPlayer.setVolume(1.0f, 1.0f);
@@ -105,6 +106,7 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
     private StreamExt mCurStream;
     private boolean mIsPaused = true, mIsPreparing = false, mIsForeground = false, mRefresh = false,
         mGrabAlbumArt;
+    private Bundle mPersistData = new Bundle();
 
     public StreamService() {
         super();
@@ -491,6 +493,10 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
             mMetadataHandler.removeCallbacks(mMetadataRunnable);
         }
         mRefresh = refresh;
+    }
+
+    public Bundle getPersistData() {
+        return mPersistData;
     }
 
     public interface OnStateUpdateListener {

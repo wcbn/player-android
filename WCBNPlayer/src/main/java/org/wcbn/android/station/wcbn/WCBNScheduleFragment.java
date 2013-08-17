@@ -19,6 +19,7 @@ import net.moraleboost.streamscraper.Stream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.wcbn.android.StreamService;
 import org.wcbn.android.station.Station;
 import org.wcbn.android.UiFragment;
 
@@ -31,11 +32,14 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
     // TODO: Parse the entire table (from the Google Calendar?).
     // We're hardcoding three entires for now.
+    // Persistence is done pretty badly right now.
 
     public static final int NUM_ENTRIES = 3;
     public static final String TAG = "WCBNScheduleFragment";
     public static final String SCHEDULE_URI = "http://wcbn.org/schedule";
     private List<WCBNScheduleItem> mItems;
+    private StreamService mService;
+    private LinearLayout mView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,12 +50,11 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mItems = new ArrayList<WCBNScheduleItem>();
-        for(int i = 0; i < NUM_ENTRIES; i++) {
-            mItems.add(new WCBNScheduleItem(inflater));
-        }
-
         new ScheduleUpdateTask().execute(SCHEDULE_URI);
+
+        for(WCBNScheduleItem item : mItems) {
+            item.setLoading(true);
+        }
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -63,18 +66,49 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         view.setLayoutParams(params);
         view.setOrientation(LinearLayout.VERTICAL);
 
-        for(WCBNScheduleItem item : mItems) {
-            view.addView(item.getView());
-        }
+        mView = view;
 
-        mItems.get(mItems.size()-1).setLast(true);
+        for(WCBNScheduleItem item : mItems) {
+            ViewGroup parent = (ViewGroup) item.getView().getParent();
+            if(parent != null)
+                parent.removeView(item.getView());
+            mView.addView(item.getView());
+        }
 
         return view;
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(mItems != null && !mItems.isEmpty()) {
+            mService.getPersistData().putParcelableArrayList(TAG+".schedule_items",
+                    (ArrayList<WCBNScheduleItem>) mItems);
+        }
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void setService(Service service) {
-        // Nothing
+        mService = (StreamService) service;
+
+        if(mService.getPersistData().containsKey(TAG+".schedule_items")) {
+            mItems = mService.getPersistData().getParcelableArrayList(TAG+".schedule_items");
+            mService.getPersistData().remove(TAG+".schedule_items");
+
+            for(WCBNScheduleItem item : mItems) {
+                item.initViews(mService.getApplicationContext());
+                item.updateViews();
+            }
+        }
+        else {
+            mItems = new ArrayList<WCBNScheduleItem>();
+            for(int i = 0; i < NUM_ENTRIES; i++) {
+                mItems.add(new WCBNScheduleItem(mService.getApplicationContext()));
+            }
+        }
+
+        mItems.get(mItems.size()-1).setLast(true);
     }
 
     @Override
@@ -114,9 +148,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         @Override
         protected Document doInBackground(String... Uris) {
             Document doc;
-            for(WCBNScheduleItem item : mItems) {
-                item.setLoading(true);
-            }
+
             try {
                 doc = Jsoup.connect(Uris[0])
                         .userAgent("Android")
