@@ -83,5 +83,7 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
             mAlbumArtView.setImageBitmap(albumArt);
             mAlbumArtBitmap = albumArt;
         }
+
+        stream.getCurrentListenerCount();
     }
 }

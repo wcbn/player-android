@@ -398,7 +398,7 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
         protected Stream doInBackground(Stream... previousStream) {
             try {
                 List<Stream> streams = mScraper.scrape(new URI(mStreamUri));
-                StreamExt stream = mStation.fixMetadata(streams.get(0));
+                StreamExt stream = mStation.fixMetadata(streams);
 
                 // Check if we're on the same song. If not, refresh metadata.
                 if(mCurStream == null || !(mCurStream.getCurrentSong()

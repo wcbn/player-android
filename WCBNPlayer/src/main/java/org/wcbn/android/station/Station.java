@@ -21,6 +21,6 @@ public interface Station {
     public String getSongName(StreamExt stream, Context context);
     public String getArtistName(StreamExt stream, Context context);
     public String getDescription(StreamExt stream, Context context);
-    public StreamExt fixMetadata (Stream stream);
+    public StreamExt fixMetadata (List<Stream> streams);
     public List<Class<? extends UiFragment>> getUiFragments();
 }

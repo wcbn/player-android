@@ -75,7 +75,19 @@ public class WCBNStation implements Station {
     }
 
     @Override
-    public StreamExt fixMetadata(Stream stream) {
+    public StreamExt fixMetadata(List<Stream> streams) {
+        Stream stream = streams.get(0);
+
+        int currentListenerCount = 0;
+        int peakListenerCount = 0;
+        int maxListenerCount = 0;
+
+        for(Stream s : streams) {
+            currentListenerCount += s.getCurrentListenerCount();
+            peakListenerCount += s.getPeakListenerCount();
+            maxListenerCount += s.getMaxListenerCount();
+        }
+
         StreamExt ext = new StreamExt();
         String currentSong = stream.getCurrentSong();
         String program, artist, song, dj = null;
@@ -126,6 +138,9 @@ public class WCBNStation implements Station {
             ext.setCurrentSong(song);
             ext.setDj(dj);
             ext.setArtist(artist);
+            ext.setMaxListenerCount(maxListenerCount);
+            ext.setCurrentListenerCount(currentListenerCount);
+            ext.setPeakListenerCount(peakListenerCount);
         }
 
         ext.merge(stream);

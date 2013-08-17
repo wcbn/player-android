@@ -102,7 +102,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        if(mItems != null && !mItems.isEmpty()) {
+        if(mItems != null && !mItems.isEmpty() && mItems.get(0).getDj() != null) {
             mService.getPersistData().putParcelableArrayList(TAG+".schedule_items",
                     (ArrayList<WCBNScheduleItem>) mItems);
         }
@@ -195,6 +195,11 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                 for(int i = 0; i < elements.size(); i++) {
                     mItems.get(i).setElement(elements.get(i));
                     mItems.get(i).setLoading(false);
+                }
+            }
+            else {
+                for(WCBNScheduleItem item : mItems) {
+                    item.setLoading(false);
                 }
             }
         }

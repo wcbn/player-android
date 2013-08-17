@@ -2,6 +2,7 @@ package org.wcbn.android;
 
 import android.app.Service;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -24,19 +26,39 @@ public class PlaybackFragment extends Fragment implements UiFragment {
     private StreamService mService;
     private ClickListener mClickListener = new ClickListener();
     private ImageButton mButtonPlayPause, mButtonStop;
+    private TextView mListenerCount;
+    private StreamExt mStream;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_playback, null);
 
+        Typeface robotoLight = Typeface.createFromAsset(getActivity().getAssets(),
+                "Roboto-Light.ttf");
+
         mButtonPlayPause = (ImageButton) layout.findViewById(R.id.button_play_pause);
         mButtonStop = (ImageButton) layout.findViewById(R.id.button_stop);
+        mListenerCount = (TextView) layout.findViewById(R.id.listener_count);
+        mListenerCount.setTypeface(robotoLight);
+
+        if(savedInstanceState != null && savedInstanceState.getString("listener_count") != null) {
+            mListenerCount.setText(savedInstanceState.getString("listener_count"));
+        }
 
         mButtonPlayPause.setOnClickListener(mClickListener);
         mButtonStop.setOnClickListener(mClickListener);
 
         return layout;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        if(mStream != null) {
+            savedInstanceState.putString("listener_count", (String) mListenerCount.getText());
+        }
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -61,7 +83,10 @@ public class PlaybackFragment extends Fragment implements UiFragment {
 
     @Override
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
-        
+        mStream = (StreamExt) stream;
+        if(!isDetached())
+            mListenerCount.setText(String.format(getString(R.string.listeners),
+                    stream.getCurrentListenerCount()));
     }
 
     private class ClickListener implements Button.OnClickListener {
@@ -86,6 +111,14 @@ public class PlaybackFragment extends Fragment implements UiFragment {
     public void setService(Service service) {
         mService = (StreamService) service;
         updateButtons();
+
+        mStream = new StreamExt();
+        if(mService.getStream() != null) {
+            mStream.merge(mService.getStream());
+
+            mListenerCount.setText(String.format(getString(R.string.listeners),
+                    mStream.getCurrentListenerCount()));
+        }
     }
 
     public void startPlayback() {
