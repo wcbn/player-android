@@ -70,9 +70,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         if(mFragments.isEmpty())
         for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
-
-            Log.d("WCBN", "Adding Fragment");
-
             try {
                 mFragments.add(cls.newInstance());
             } catch (InstantiationException e) {
