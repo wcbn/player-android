@@ -50,12 +50,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        new ScheduleUpdateTask().execute(SCHEDULE_URI);
-
-        for(WCBNScheduleItem item : mItems) {
-            item.setLoading(true);
-        }
-
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
@@ -99,13 +93,16 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             for(WCBNScheduleItem item : mItems) {
                 item.initViews(mService.getApplicationContext());
                 item.updateViews();
+                item.setLoading(false);
             }
         }
         else {
             mItems = new ArrayList<WCBNScheduleItem>();
             for(int i = 0; i < NUM_ENTRIES; i++) {
                 mItems.add(new WCBNScheduleItem(mService.getApplicationContext()));
+                mItems.get(i).setLoading(true);
             }
+            new ScheduleUpdateTask().execute(SCHEDULE_URI);
         }
 
         mItems.get(mItems.size()-1).setLast(true);
