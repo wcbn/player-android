@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -25,15 +26,19 @@ import net.moraleboost.streamscraper.Stream;
 import org.wcbn.android.StreamService.StreamBinder;
 import org.wcbn.android.station.Station;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.BIND_IMPORTANT;
 
 public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
         StreamService.OnStateUpdateListener {
     private ShareActionProvider mShareActionProvider;
     private StreamService mService;
     private boolean mBound;
-    private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
+    private List<UiFragment> mFragments;
+    private List<String> mFragmentTags;
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
     private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
     private Activity mActivity = this;
@@ -63,25 +68,55 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         getActionBarThemedContextCompat(),
                         android.R.layout.simple_list_item_1,
                         android.R.id.text1,
-                        getResources().getStringArray(mStation.getTabNames())),
-                this);
+                        getResources().getStringArray(mStation.getTabNames())), this);
+
+        mFragments = new ArrayList<UiFragment>();
+
+        if(savedInstanceState != null && savedInstanceState.containsKey("fragments")) {
+            mFragmentTags = savedInstanceState.getStringArrayList("fragments");
+        }
+        else {
+            mFragmentTags = new ArrayList<String>();
+        }
 
         for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
             try {
-                mFragments.add(cls.newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                UiFragment fragment = cls.newInstance();
+                String str = (String) cls.getDeclaredMethod("getFragmentTag")
+                        .invoke(fragment);
+
+                if(mFragmentTags.contains(str) &&
+                    getSupportFragmentManager().findFragmentByTag(str) != null) {
+                        mFragments.add((UiFragment) getSupportFragmentManager()
+                            .findFragmentByTag(str));
+                    }
+                else {
+                    mFragments.add(fragment);
+                }
+
+                if(!mFragmentTags.contains(str)) {
+                    mFragmentTags.add(str);
+                }
+
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+
+        Log.d("WCBN", "Beginning transactions...");
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.playback, mPlaybackFragment)
+                .replace(R.id.playback, mPlaybackFragment, mPlaybackFragment.getFragmentTag())
                 .commit();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.info, mSongInfoFragment)
+                .replace(R.id.info, mSongInfoFragment, mSongInfoFragment.getFragmentTag())
                 .commit();
     }
 
@@ -144,6 +179,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 getActionBar().getSelectedNavigationIndex());
         if(mShareString != null)
             outState.putString("share_string", mShareString);
+        if(mFragmentTags != null) {
+            outState.putStringArrayList("fragments", (ArrayList<String>) mFragmentTags);
+        }
         super.onSaveInstanceState(outState);
     }
 
@@ -192,7 +230,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public boolean onNavigationItemSelected(int position, long id) {
         UiFragment fragment = mFragments.get(position);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, (Fragment) fragment)
+                .replace(R.id.container, (Fragment) fragment, fragment.getFragmentTag())
                 .commit();
         return true;
     }
