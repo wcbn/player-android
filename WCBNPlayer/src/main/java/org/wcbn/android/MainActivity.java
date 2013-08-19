@@ -47,7 +47,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private Activity mActivity = this;
     private String mShareString;
     private CharSequence mTitle, mDrawerTitle;
-    private Station mStation;
+    private static final Station sStation;
     private ListView mDrawerList;
     private String[] mTabNames;
     private DrawerLayout mDrawerLayout;
@@ -56,9 +56,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
-    public MainActivity() {
-        super();
-        mStation = Utils.getStation();
+    static {
+        sStation = Utils.getStation();
     }
 
     @Override
@@ -67,9 +66,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main_drawer);
 
-        final ActionBar actionBar = getActionBar();
-
-        mTabNames = getResources().getStringArray(mStation.getTabNames());
+        mTabNames = getResources().getStringArray(sStation.getTabNames());
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -103,10 +100,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         getActionBar().setHomeButtonEnabled(true);
 
         if(mFragments.isEmpty()) {
-
-            Log.d("WCBNPlayer", "Adding fragments…");
-
-            for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
+            for(Class<? extends UiFragment> cls : sStation.getUiFragments()) {
                 try {
                         mFragments.add(cls.newInstance());
                     } catch (InstantiationException e) {
@@ -280,9 +274,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
-
-            Log.d("WCBNPlayer", "Service connected!");
-
             StreamBinder binder = (StreamBinder) service;
             mService = binder.getService();
             mService.setOnStateUpdateListener((StreamService.OnStateUpdateListener) mActivity);
