@@ -38,6 +38,9 @@
     <string name="wcbn_number">+1–734–763–3500</string>
     <string name="to">to</string>
 
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+
     <string-array name="stream_uri">
         <item>http://floyd.wcbn.org:8000/wcbn-mid.mp3</item>
         <item>http://floyd.wcbn.org:8000/wcbn-hi.mp3</item>

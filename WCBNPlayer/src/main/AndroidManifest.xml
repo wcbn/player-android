@@ -19,7 +19,10 @@
         android:theme="@style/WCBNTheme.AppTheme" >
         <activity
             android:name="org.wcbn.android.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/WCBNDrawerTheme.AppTheme"
+
+                >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,7 +32,6 @@
                 android:name="org.wcbn.android.SettingsActivity"
                 android:label="@string/action_settings"
                 android:parentActivityName="org.wcbn.android.MainActivity"
-                android:theme="@style/WCBNTheme.AppTheme"
                 >
                 <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
