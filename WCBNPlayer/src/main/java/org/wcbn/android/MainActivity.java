@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -36,7 +38,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         StreamService.OnStateUpdateListener {
     private ShareActionProvider mShareActionProvider;
     private StreamService mService;
-    private boolean mBound;
+    private boolean mBound, mIsManualOpen = false;
     private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
     private PlaybackFragment mPlaybackFragment = new PlaybackFragment();
     private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
@@ -49,6 +51,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private int mCurItem;
+    private SharedPreferences mPrefs;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -61,6 +64,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
+
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         mTabNames = getResources().getStringArray(sStation.getTabNames());
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -86,6 +91,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                if(mIsManualOpen) {
+                    SharedPreferences.Editor prefEditor = mPrefs.edit();
+                    prefEditor.putBoolean("drawer_opened", true);
+                    prefEditor.commit();
+                }
             }
         };
 
@@ -292,6 +302,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             selectItem(mCurItem);
 
             mService.setMetadataRefresh(true);
+
+            if(!mPrefs.getBoolean("drawer_opened", false)) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+
+            mIsManualOpen = true;
 
             if(mShareActionProvider != null && mService.getStream() != null) {
                 Intent intent = new Intent();
