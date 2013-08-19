@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -51,6 +52,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private String[] mTabNames;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private int mCurItem;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -77,8 +79,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        mTitle = mDrawerTitle = getTitle();
+        mTitle = mDrawerTitle = getString(R.string.wcbn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
@@ -102,25 +105,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         getActionBar().setHomeButtonEnabled(true);
 
         assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        // actionBar.setDisplayShowTitleEnabled(false);
+        // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        actionBar.setListNavigationCallbacks(
+        /*actionBar.setListNavigationCallbacks(
                 new ArrayAdapter<String>(
                         getActionBarThemedContextCompat(),
                         android.R.layout.simple_list_item_1,
                         android.R.id.text1,
                         getResources().getStringArray(mStation.getTabNames())),
-                this);
+                this);*/
 
-        if(mFragments.isEmpty())
-        for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
-            try {
-                mFragments.add(cls.newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+        if(mFragments.isEmpty()) {
+
+            Log.d("WCBNPlayer", "Adding fragments…");
+
+            for(Class<? extends UiFragment> cls : mStation.getUiFragments()) {
+                try {
+                        mFragments.add(cls.newInstance());
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
             }
         }
 
@@ -131,6 +138,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.info, mSongInfoFragment)
                 .commit();
+
+        if(savedInstanceState == null ||
+                !savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
+            mCurItem = 0;
+        }
+        else {
+            mCurItem = savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM);
+        }
     }
 
     @Override
@@ -148,18 +163,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
     }
 
-    /** Swaps fragments in the main content view */
     private void selectItem(int position) {
-        // Create a new fragment and specify the planet to show based on position
-        UiFragment fragment = mFragments.get(position);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, (Fragment) fragment)
-                .commit();
+        if(mBound) {
+            // Create a new fragment and specify the planet to show based on position
+            UiFragment fragment = mFragments.get(position);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, (Fragment) fragment)
+                    .commit();
 
-        // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mTabNames[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
+            // Highlight the selected item, update the title, and close the drawer
+            mDrawerList.setItemChecked(position, true);
+            setTitle(mTabNames[position]);
+            mDrawerLayout.closeDrawer(mDrawerList);
+        }
+
+        mCurItem = position;
     }
 
     @Override
@@ -199,21 +217,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private Context getActionBarThemedContextCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return getActionBar().getThemedContext();
-        } else {
-            return this;
-        }
-    }
-
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-            getActionBar().setSelectedNavigationItem(
-                    savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
-        }
         if(savedInstanceState.containsKey("share_string")) {
             mShareString = savedInstanceState.getString("share_string");
             mShareIntentSet = true;
@@ -224,7 +229,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt(STATE_SELECTED_NAVIGATION_ITEM,
-                getActionBar().getSelectedNavigationIndex());
+                mCurItem);
         if(mShareString != null)
             outState.putString("share_string", mShareString);
         super.onSaveInstanceState(outState);
@@ -289,6 +294,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
+
+            Log.d("WCBNPlayer", "Service connected!");
+
             StreamBinder binder = (StreamBinder) service;
             mService = binder.getService();
             mService.setOnStateUpdateListener((StreamService.OnStateUpdateListener) mActivity);
@@ -307,6 +315,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             for(UiFragment fragment : mFragments) {
                 fragment.setService(mService);
             }
+
+            selectItem(mCurItem);
 
             mService.setMetadataRefresh(true);
 

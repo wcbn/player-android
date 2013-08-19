@@ -50,7 +50,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
     }
 
     @Override
@@ -70,12 +69,13 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
         mView = view;
 
-        for(WCBNScheduleItem item : mItems) {
-            ViewGroup parent = (ViewGroup) item.getView().getParent();
-            if(parent != null)
-                parent.removeView(item.getView());
-            mView.addView(item.getView());
-        }
+        if(mItems != null)
+            for(WCBNScheduleItem item : mItems) {
+                ViewGroup parent = (ViewGroup) item.getView().getParent();
+                if(parent != null)
+                    parent.removeView(item.getView());
+                mView.addView(item.getView());
+            }
 
         return view;
     }
@@ -102,7 +102,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        if(mItems != null && !mItems.isEmpty() && mItems.get(0).getDj() != null) {
+        if(mItems != null && !mItems.isEmpty() && mItems.get(0).getProgram() != null) {
             mService.getPersistData().putParcelableArrayList(TAG+".schedule_items",
                     (ArrayList<WCBNScheduleItem>) mItems);
         }
@@ -134,6 +134,15 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         }
 
         mItems.get(mItems.size()-1).setLast(true);
+
+        if(mView != null && mView.getChildAt(0) == null) {
+            for(WCBNScheduleItem item : mItems) {
+                ViewGroup parent = (ViewGroup) item.getView().getParent();
+                if(parent != null)
+                    parent.removeView(item.getView());
+                mView.addView(item.getView());
+            }
+        }
     }
 
     @Override
