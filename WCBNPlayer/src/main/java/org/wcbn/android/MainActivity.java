@@ -85,13 +85,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
@@ -103,18 +101,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
-        assert actionBar != null;
-        // actionBar.setDisplayShowTitleEnabled(false);
-        // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-        /*actionBar.setListNavigationCallbacks(
-                new ArrayAdapter<String>(
-                        getActionBarThemedContextCompat(),
-                        android.R.layout.simple_list_item_1,
-                        android.R.id.text1,
-                        getResources().getStringArray(mStation.getTabNames())),
-                this);*/
 
         if(mFragments.isEmpty()) {
 
