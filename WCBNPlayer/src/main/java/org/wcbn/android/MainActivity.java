@@ -15,11 +15,15 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ShareActionProvider;
 
 import net.moraleboost.streamscraper.Stream;
@@ -40,7 +44,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private SongInfoFragment mSongInfoFragment = new SongInfoFragment();
     private Activity mActivity = this;
     private String mShareString;
+    private CharSequence mTitle;
     private Station mStation;
+    private ListView mDrawerList;
+    private String[] mTabNames;
+    private DrawerLayout mDrawerLayout;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
@@ -53,7 +61,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_drawer);
+
+        mTabNames = getResources().getStringArray(mStation.getTabNames());
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mTabNames));
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         final ActionBar actionBar = getActionBar();
         assert actionBar != null;
@@ -86,6 +104,33 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.info, mSongInfoFragment)
                 .commit();
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    /** Swaps fragments in the main content view */
+    private void selectItem(int position) {
+        // Create a new fragment and specify the planet to show based on position
+        UiFragment fragment = mFragments.get(position);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, (Fragment) fragment)
+                .commit();
+
+        // Highlight the selected item, update the title, and close the drawer
+        mDrawerList.setItemChecked(position, true);
+        setTitle(mTabNames[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
     }
 
     @Override

@@ -37,7 +37,6 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
             mAlbumArtBitmap = (Bitmap) savedInstanceState.get("bitmap");
             mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
         }
-
         return view;
     }
 

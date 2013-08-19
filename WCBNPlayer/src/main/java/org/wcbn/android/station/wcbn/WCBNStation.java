@@ -19,6 +19,8 @@ import java.util.regex.Pattern;
 
 public class WCBNStation implements Station {
 
+    public static final String TAG = "WCBNStation";
+
     public static final int WEBSITE = R.string.wcbn_website;
     public static final int NUMBER = R.string.wcbn_number;
     public static final int TAB_NAMES = R.array.wcbn_tab_names;
@@ -95,7 +97,7 @@ public class WCBNStation implements Station {
         // currentSong is in the format: "song" by artist on program with dj
         // TODO: make the parser better at handling edge cases ie. no song, no artist etc.
         if(currentSong != null) {
-            Log.d("WCBN", "Metadata string "+currentSong);
+            Log.d(TAG, "Metadata string "+currentSong);
 
             Matcher songMatcher = sSongPattern.matcher(currentSong);
             if(songMatcher.find()) {
