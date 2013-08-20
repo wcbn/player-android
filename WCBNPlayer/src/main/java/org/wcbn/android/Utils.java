@@ -34,7 +34,11 @@ public class Utils {
             if (!found && Character.isLetter(chars[i])) {
                 chars[i] = Character.toUpperCase(chars[i]);
                 found = true;
-            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.') {
+            }
+            else if(Character.isDigit(chars[i])) {
+                found = true;
+            }
+            else if (Character.isWhitespace(chars[i]) || chars[i]=='.') {
                 found = false;
             }
         }
