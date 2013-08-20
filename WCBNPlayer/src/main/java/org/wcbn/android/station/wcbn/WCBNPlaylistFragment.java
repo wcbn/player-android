@@ -11,6 +11,10 @@ import org.wcbn.android.station.Station;
 import org.wcbn.android.UiFragment;
 
 public class WCBNPlaylistFragment extends Fragment implements UiFragment {
+
+    public static final String PLAYLIST_URI
+            = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=3&unit=hour";
+
     @Override
     public void handleMediaError(MediaPlayer mp, int what, int extra) {
 
