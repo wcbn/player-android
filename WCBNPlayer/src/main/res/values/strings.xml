@@ -22,8 +22,8 @@
     <string name="listeners">%1$s streaming</string>
 
     <string name="share_title">I\'m listening to WCBN-FM!</string>
-    <string name="share_string">I\'m listening to %1$s on %2$s on WCBN-FM! Tune in at http://wcbn.org/</string>
-    <string name="share_string_default">I\'m listening to WCBN-FM! Tune in at http://wcbn.org/</string>
+    <string name="share_string">I\'m listening to %1$s on %2$s on @WCBN_FM! Tune in at http://wcbn.org/</string>
+    <string name="share_string_default">I\'m listening to @WCBN_FM! Tune in at http://wcbn.org/</string>
 
     <string name="stream_settings">Stream Settings</string>
     <string name="about_settings">About</string>

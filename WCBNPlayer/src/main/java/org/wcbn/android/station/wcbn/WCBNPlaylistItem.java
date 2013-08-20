@@ -15,9 +15,21 @@ import java.util.List;
 
 public class WCBNPlaylistItem implements Parcelable {
 
-    private final String mTime, mArtist, mTitle, mAlbum, mLabel;
+    private String mTime, mArtist, mTitle, mAlbum, mLabel;
 
     WCBNPlaylistItem(Element element) {
+        setElement(element);
+    }
+
+    WCBNPlaylistItem(Parcel in) {
+        mTime = in.readString();
+        mArtist = in.readString();
+        mTitle = in.readString();
+        mAlbum = in.readString();
+        mLabel = in.readString();
+    }
+
+    public void setElement(Element element) {
         List<Element> elements = element.select("td");
         for(Element e : elements) {
             if(e.hasAttr("rowspan")) {
@@ -30,14 +42,6 @@ public class WCBNPlaylistItem implements Parcelable {
         mTitle = elements.get(2).data();
         mAlbum = elements.get(3).data();
         mLabel = elements.get(4).data();
-    }
-
-    WCBNPlaylistItem(Parcel in) {
-        mTime = in.readString();
-        mArtist = in.readString();
-        mTitle = in.readString();
-        mAlbum = in.readString();
-        mLabel = in.readString();
     }
 
     public View getView(Context context) {
