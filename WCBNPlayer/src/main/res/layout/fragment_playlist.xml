@@ -4,12 +4,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingLeft="8dp"
-              android:paddingRight="8dp">
+              android:paddingRight="8dp"
+              >
 
     <ListView android:id="@id/android:list"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#FFFFFF"
+              android:background="#DDDDDD"
               android:layout_weight="1"
               android:drawSelectorOnTop="false"/>
 </LinearLayout>

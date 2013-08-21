@@ -70,10 +70,10 @@ public class WCBNPlaylistItem implements Parcelable {
         ((TextView) view.findViewById(R.id.song_text)).setTypeface(typeface);
         ((TextView) view.findViewById(R.id.album_text)).setTypeface(typeface);
 
-        ((TextView) view.findViewById(R.id.time_text)).setSelected(true);
-        ((TextView) view.findViewById(R.id.artist_text)).setSelected(true);
-        ((TextView) view.findViewById(R.id.song_text)).setSelected(true);
-        ((TextView) view.findViewById(R.id.album_text)).setSelected(true);
+        view.findViewById(R.id.time_text).setSelected(true);
+        view.findViewById(R.id.artist_text).setSelected(true);
+        view.findViewById(R.id.song_text).setSelected(true);
+        view.findViewById(R.id.album_text).setSelected(true);
 
         return view;
     }

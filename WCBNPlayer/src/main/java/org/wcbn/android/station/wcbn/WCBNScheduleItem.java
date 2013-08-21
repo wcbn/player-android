@@ -128,6 +128,10 @@ class WCBNScheduleItem implements Parcelable {
         ((TextView) mView.findViewById(R.id.time_text)).setTypeface(mTypeface);
         ((TextView) mView.findViewById(R.id.program_text)).setTypeface(mTypeface);
         ((TextView) mView.findViewById(R.id.dj_text)).setTypeface(mTypeface);
+
+        mView.findViewById(R.id.time_text).setSelected(true);
+        mView.findViewById(R.id.program_text).setSelected(true);
+        mView.findViewById(R.id.dj_text).setSelected(true);
     }
 
     public void updateViews() {

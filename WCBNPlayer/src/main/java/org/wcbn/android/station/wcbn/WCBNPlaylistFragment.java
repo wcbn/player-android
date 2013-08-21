@@ -10,6 +10,9 @@ import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -49,6 +52,22 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.schedule, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_item_refresh:
+                new PlaylistUpdateTask().execute(PLAYLIST_URI);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void handleMediaError(MediaPlayer mp, int what, int extra) {
 
     }
@@ -78,11 +97,23 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
         mService = (StreamService) service;
         if(mService.getPersistData().containsKey(TAG+".playlist_items")) {
             mItems = mService.getPersistData().getParcelableArrayList(TAG+".playlist_items");
+            setListAdapter(new PlaylistAdapter(mService, 0, mItems));
         }
         else {
             new PlaylistUpdateTask().execute(PLAYLIST_URI);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(mItems != null && !mItems.isEmpty()) {
+            mService.getPersistData().putParcelableArrayList(TAG+".playlist_items",
+                    (ArrayList<WCBNPlaylistItem>) mItems);
+        }
+
+        super.onSaveInstanceState(outState);
+    }
+
 
     private class PlaylistAdapter extends ArrayAdapter<WCBNPlaylistItem> {
 
@@ -130,7 +161,6 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
                 for(Element e : elements) {
                         WCBNPlaylistItem item = new WCBNPlaylistItem(e);
                         mItems.add(item);
-
                 }
 
                 setListAdapter(new PlaylistAdapter(mService, 0, mItems));

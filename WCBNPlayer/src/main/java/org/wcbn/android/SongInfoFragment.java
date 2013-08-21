@@ -41,6 +41,10 @@ public class SongInfoFragment extends Fragment implements UiFragment {
         mArtistText.setTypeface(robotoLight);
         mDescriptionText.setTypeface(robotoLight);
 
+        mSongText.setSelected(true);
+        mArtistText.setSelected(true);
+        mDescriptionText.setSelected(true);
+
         if(mStation != null && mStream != null) {
             mSongText.setText(mStation.getSongName(mStream, getActivity()));
             mArtistText.setText(mStation.getArtistName(mStream, getActivity()));
