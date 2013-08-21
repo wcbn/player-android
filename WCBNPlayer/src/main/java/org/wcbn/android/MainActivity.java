@@ -313,15 +313,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             mIsManualOpen = true;
 
             if(mShareActionProvider != null && mService.getStream() != null) {
-                Intent intent = new Intent();
-                intent.setType("text/plain");
-                intent.setAction(Intent.ACTION_SEND);
-                mShareString = String.format(
-                        getString(R.string.share_string),
-                        Utils.capitalizeTitle(mService.getStream().getCurrentSong()),
-                        (mService.getStream()).getProgram());
-                intent.putExtra(Intent.EXTRA_TEXT, mShareString);
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
+                Intent intent = getShareIntent(mService.getStream());
                 mShareActionProvider.setShareIntent(intent);
             }
         }
@@ -384,16 +376,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
 
         if(mShareActionProvider != null && mBound) {
-            Intent intent = new Intent();
-            intent.setType("text/plain");
-            intent.setAction(Intent.ACTION_SEND);
-            mShareString = String.format(
-                    getString(R.string.share_string),
-                    Utils.capitalizeTitle(stream.getCurrentSong()),
-                    ((StreamExt) stream).getProgram());
-            intent.putExtra(Intent.EXTRA_TEXT, mShareString);
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
+            Intent intent = getShareIntent(stream);
             mShareActionProvider.setShareIntent(intent);
         }
+    }
+
+    private Intent getShareIntent(Stream stream) {
+        Intent intent = new Intent();
+        intent.setType("text/plain");
+        intent.setAction(Intent.ACTION_SEND);
+        mShareString = String.format(
+                getString(R.string.share_string),
+                Utils.capitalizeTitle(stream.getCurrentSong()),
+                ((StreamExt) stream).getProgram());
+        intent.putExtra(Intent.EXTRA_TEXT, mShareString);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
+        return intent;
     }
 }

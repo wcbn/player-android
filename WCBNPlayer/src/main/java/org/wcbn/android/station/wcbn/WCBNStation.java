@@ -35,7 +35,7 @@ public class WCBNStation implements Station {
     static {
         sFragments.add(AlbumArtFragment.class);
         sFragments.add(WCBNScheduleFragment.class);
-        // sFragments.add(WCBNPlaylistFragment.class);
+        sFragments.add(WCBNPlaylistFragment.class);
         // ...
     }
 

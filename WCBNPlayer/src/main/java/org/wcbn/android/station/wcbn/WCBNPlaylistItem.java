@@ -2,8 +2,10 @@ package org.wcbn.android.station.wcbn;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -31,30 +33,47 @@ public class WCBNPlaylistItem implements Parcelable {
 
     public void setElement(Element element) {
         List<Element> elements = element.select("td");
-        for(Element e : elements) {
-            if(e.hasAttr("rowspan")) {
-                elements.remove(e);
+
+        // This is done a bit oddly…
+        int j = 0;
+        for(int i = 0; j < 5 && i < 50; i++) {
+            if(!elements.get(i).hasAttr("rowspan")) {
+                switch(j) {
+                    case 0: mTime = elements.get(i).text().trim(); break;
+                    case 1: mArtist = elements.get(i).text().trim(); break;
+                    case 2: mTitle = elements.get(i).text().trim(); break;
+                    case 3: mAlbum = elements.get(i).text().trim(); break;
+                    case 4: mLabel = elements.get(i).text().trim(); break;
+                }
+                j++;
             }
         }
-
-        mTime = elements.get(0).data();
-        mArtist = elements.get(1).data();
-        mTitle = elements.get(2).data();
-        mAlbum = elements.get(3).data();
-        mLabel = elements.get(4).data();
     }
 
     public View getView(Context context) {
+
+        Typeface typeface = Typeface.createFromAsset(context.getAssets()
+                , "Roboto-Light.ttf");
+
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_playlist, null);
 
-        // TODO
-        // ((TextView) view.findViewById(R.id.time_text)).setText(mTime);
-        // ((TextView) view.findViewById(R.id.artist_text)).setText(mArtist);
-        // ((TextView) view.findViewById(R.id.title_text)).setText(mTitle);
-        // ((TextView) view.findViewById(R.id.album_text)).setText(mAlbum);
+        ((TextView) view.findViewById(R.id.time_text)).setText(mTime);
+        ((TextView) view.findViewById(R.id.artist_text)).setText(mArtist);
+        ((TextView) view.findViewById(R.id.song_text)).setText(mTitle);
+        ((TextView) view.findViewById(R.id.album_text)).setText(mAlbum);
+
+        ((TextView) view.findViewById(R.id.time_text)).setTypeface(typeface);
+        ((TextView) view.findViewById(R.id.artist_text)).setTypeface(typeface);
+        ((TextView) view.findViewById(R.id.song_text)).setTypeface(typeface);
+        ((TextView) view.findViewById(R.id.album_text)).setTypeface(typeface);
+
+        ((TextView) view.findViewById(R.id.time_text)).setSelected(true);
+        ((TextView) view.findViewById(R.id.artist_text)).setSelected(true);
+        ((TextView) view.findViewById(R.id.song_text)).setSelected(true);
+        ((TextView) view.findViewById(R.id.album_text)).setSelected(true);
 
         return view;
     }
