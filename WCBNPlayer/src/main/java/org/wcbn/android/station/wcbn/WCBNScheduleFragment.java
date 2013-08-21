@@ -170,6 +170,14 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         // Nothing
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mItems == null || mItems.isEmpty()) {
+            new ScheduleUpdateTask().execute(SCHEDULE_URI);
+        }
+    }
+
     // TODO: Make the matching algorithm more robust and more able to handle edge cases.
 
     static final Pattern sDjPattern =

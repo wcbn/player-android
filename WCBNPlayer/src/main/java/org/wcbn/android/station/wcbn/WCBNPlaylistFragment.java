@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -112,6 +110,14 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
         }
 
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mItems == null || mItems.isEmpty()) {
+            new PlaylistUpdateTask().execute(PLAYLIST_URI);
+        }
     }
 
 
