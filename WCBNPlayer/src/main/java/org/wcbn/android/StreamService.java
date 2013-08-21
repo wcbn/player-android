@@ -44,7 +44,7 @@ import org.wcbn.android.station.Station;
  */
 public class StreamService extends Service implements AudioManager.OnAudioFocusChangeListener {
 
-    public static final String TAG = "WCBN StreamService";
+    public static final String TAG = "WCBNStreamService";
 
     public static final String ACTION_PLAY_PAUSE = "org.wcbn.android.intent.ACTION_PLAY_PAUSE";
     public static final String ACTION_STOP = "org.wcbn.android.intent.ACTION_STOP";
