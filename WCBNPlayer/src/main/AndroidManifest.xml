@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.wcbn.android"
+    package="org.wcbntest.android"
     android:versionCode="4"
     android:versionName="@string/version_current" >
 
@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/WCBNTheme.AppTheme" >
         <activity
-            android:name="org.wcbn.android.MainActivity"
+            android:name="org.wcbntest.android.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="org.wcbn.android.SettingsActivity"
+                android:name="org.wcbntest.android.SettingsActivity"
                 android:label="@string/action_settings"
                 android:parentActivityName="org.wcbn.android.MainActivity"
                 >
@@ -35,7 +35,7 @@
                     android:value="org.wcbn.android.MainActivity" />
                 </activity>
         <service
-                android:name="org.wcbn.android.StreamService"
+                android:name="org.wcbntest.android.StreamService"
                 android:label="@string/app_name" >
         </service>
     </application>
