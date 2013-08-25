@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -36,7 +36,7 @@ import net.moraleboost.streamscraper.Stream;
 import net.moraleboost.streamscraper.Scraper;
 import net.moraleboost.streamscraper.scraper.IceCastScraper;
 
-import org.wcbntest.android.station.Station;
+import org.wcbn.android.station.Station;
 
 /**
  * Android Service that handles background music playback and metadata fetch.

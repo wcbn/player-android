@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import android.app.Service;
 import android.graphics.Bitmap;
@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 
 import net.moraleboost.streamscraper.Stream;
 
-import org.wcbntest.android.station.Station;
+import org.wcbn.android.station.Station;
 
 /**
  * Contains helpful methods, mostly for the playback Service to update the state of the app UI.

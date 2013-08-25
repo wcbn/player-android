@@ -1,4 +1,4 @@
-package org.wcbntest.android.station.wcbn;
+package org.wcbn.android.station.wcbn;
 
 
 import android.app.Service;
@@ -22,10 +22,10 @@ import net.moraleboost.streamscraper.Stream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.wcbntest.android.R;
-import org.wcbntest.android.StreamService;
-import org.wcbntest.android.station.Station;
-import org.wcbntest.android.UiFragment;
+import org.wcbn.android.R;
+import org.wcbn.android.StreamService;
+import org.wcbn.android.station.Station;
+import org.wcbn.android.UiFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
-import org.wcbntest.android.station.Station;
-import org.wcbntest.android.station.wcbn.WCBNStation;
+import org.wcbn.android.station.Station;
+import org.wcbn.android.station.wcbn.WCBNStation;
 
 /**
  * Misc. Utilities

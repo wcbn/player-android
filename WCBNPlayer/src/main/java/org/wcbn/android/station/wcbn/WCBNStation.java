@@ -1,16 +1,16 @@
-package org.wcbntest.android.station.wcbn;
+package org.wcbn.android.station.wcbn;
 
 import android.content.Context;
 import android.util.Log;
 
 import net.moraleboost.streamscraper.Stream;
 
-import org.wcbntest.android.AlbumArtFragment;
-import org.wcbntest.android.R;
-import org.wcbntest.android.station.Station;
-import org.wcbntest.android.StreamExt;
-import org.wcbntest.android.UiFragment;
-import org.wcbntest.android.Utils;
+import org.wcbn.android.AlbumArtFragment;
+import org.wcbn.android.R;
+import org.wcbn.android.station.Station;
+import org.wcbn.android.StreamExt;
+import org.wcbn.android.UiFragment;
+import org.wcbn.android.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

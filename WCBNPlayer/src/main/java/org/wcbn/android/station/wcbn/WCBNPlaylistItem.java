@@ -1,4 +1,4 @@
-package org.wcbntest.android.station.wcbn;
+package org.wcbn.android.station.wcbn;
 
 
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.jsoup.nodes.Element;
-import org.wcbntest.android.R;
+import org.wcbn.android.R;
 
 import java.util.List;
 

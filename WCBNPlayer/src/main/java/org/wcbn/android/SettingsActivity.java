@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

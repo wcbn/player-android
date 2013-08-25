@@ -25,4 +25,27 @@ android {
         minSdkVersion 14
         targetSdkVersion 18
     }
+
+    buildTypes {
+        release {
+            versionNameSuffix "-rel"
+        }
+
+        debug {
+            packageNameSuffix ".test"
+            versionNameSuffix "-debug"
+        }
+
+        release_alpha.initWith(buildTypes.release)
+        release_alpha {
+            packageNameSuffix ".test"
+            versionNameSuffix "-alpha"
+        }
+
+        release_beta.initWith(buildTypes.release)
+        release_beta {
+            packageNameSuffix ".test"
+            versionNameSuffix "-beta"
+        }
+    }
 }

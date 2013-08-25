@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version_code">4</string>
-    <string name="version_current">alpha4</string>
+    <string name="version_code">5</string>
+    <string name="version_current">0.1</string>
 
     <string name="on">on</string>
     <string name="with">with</string>

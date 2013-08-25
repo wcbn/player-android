@@ -1,4 +1,4 @@
-package org.wcbntest.android.station.wcbn;
+package org.wcbn.android.station.wcbn;
 
 import android.app.Service;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.wcbntest.android.R;
+import org.wcbn.android.R;
 
 import java.util.regex.Matcher;
 

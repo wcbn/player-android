@@ -1,11 +1,11 @@
-package org.wcbntest.android.station;
+package org.wcbn.android.station;
 
 import android.content.Context;
 
 import net.moraleboost.streamscraper.Stream;
 
-import org.wcbntest.android.StreamExt;
-import org.wcbntest.android.UiFragment;
+import org.wcbn.android.StreamExt;
+import org.wcbn.android.UiFragment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +8,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import org.wcbntest.android.station.Station;
+import org.wcbn.android.station.Station;
 
 public class SettingsFragment extends PreferenceFragment {
 

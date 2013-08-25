@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -29,8 +29,8 @@ import android.widget.ShareActionProvider;
 
 import net.moraleboost.streamscraper.Stream;
 
-import org.wcbntest.android.StreamService.StreamBinder;
-import org.wcbntest.android.station.Station;
+import org.wcbn.android.StreamService.StreamBinder;
+import org.wcbn.android.station.Station;
 
 import java.util.ArrayList;
 import java.util.List;

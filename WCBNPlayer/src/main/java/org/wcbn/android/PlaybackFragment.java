@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import android.app.Service;
 import android.graphics.Bitmap;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import net.moraleboost.streamscraper.Stream;
 
-import org.wcbntest.android.station.Station;
+import org.wcbn.android.station.Station;
 
 /**
  * Displays playback controls and sends commands to playback Service when controls are manipulated.

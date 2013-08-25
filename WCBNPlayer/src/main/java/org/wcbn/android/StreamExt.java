@@ -1,4 +1,4 @@
-package org.wcbntest.android;
+package org.wcbn.android;
 
 import net.moraleboost.streamscraper.Stream;
 
