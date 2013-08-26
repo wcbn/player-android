@@ -49,21 +49,21 @@ android {
 
     buildTypes {
         release {
-            versionNameSuffix "-rel"
+            versionNameSuffix "_rel"
         }
 
         release_alpha.initWith(buildTypes.release)
         release_alpha {
-            versionNameSuffix "-alpha"
+            versionNameSuffix "_alpha"
         }
 
         release_beta.initWith(buildTypes.release)
         release_beta {
-            versionNameSuffix "-beta"
+            versionNameSuffix "_beta"
         }
 
         debug {
-            versionNameSuffix "-debug"
+            versionNameSuffix "_debug"
         }
     }
 
