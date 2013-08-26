@@ -10,6 +10,10 @@
 # Java class files
 *.class
 
+# Private key files
+WCBNPlayer/keys_private.jks
+WCBNPlayer/keys_private.gradle
+
 # generated files
 bin/
 gen/

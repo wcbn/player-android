@@ -1,0 +1,20 @@
+/*
+ * Public key passwords for convenience/debug. DO NOT USE THIS FOR PRODUCTION.
+ *
+ * GENERATE YOUR OWN KEYS:
+ *   - Create a keys_private.gradle. Copy and paste this file into it.
+ *   - Generate a keystore and keys and fill in the passwords and fields below.
+ *   - Don't forget: ADD YOUR keys_private.gradle AND YOUR KEYSTORES TO THE .gitignore AT THE TOP
+ *     LEVEL! Keep it safe, kids!
+ */
+    storePassTest = "dont_use_me"
+    storePassRelease = "dont_use_me"
+
+    keyPassTest = "dont_use_me"
+    keyPassRelease = "dont_use_me"
+
+    keyAliasTest = "alias"
+    keyAliasRelease = "alias"
+
+    keyFileTest = file("keys_default.jks")
+    keyFileRelease = file("keys_default.jks")

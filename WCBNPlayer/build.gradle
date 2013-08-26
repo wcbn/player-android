@@ -1,3 +1,8 @@
+if(file("keys_private.gradle").exists())
+    apply from: 'keys_private.gradle'
+else
+    apply from: 'keys_default.gradle'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -14,7 +19,6 @@ repositories {
 
 dependencies {
     compile fileTree(dir: "libs", include: "*.jar")
-
 }
 
 android {
@@ -26,26 +30,51 @@ android {
         targetSdkVersion 18
     }
 
+    signingConfigs {
+        release_test {
+            storeFile keyFileTest
+            storePassword storePassTest
+            keyAlias keyAliasTest
+            keyPassword keyPassTest
+        }
+
+        release {
+            storeFile keyFileRelease
+            storePassword storePassRelease
+            keyAlias keyAliasRelease
+            keyPassword keyPassRelease
+        }
+    }
+
     buildTypes {
         release {
             versionNameSuffix "-rel"
         }
 
-        debug {
-            packageNameSuffix ".test"
-            versionNameSuffix "-debug"
-        }
-
         release_alpha.initWith(buildTypes.release)
         release_alpha {
-            packageNameSuffix ".test"
             versionNameSuffix "-alpha"
         }
 
         release_beta.initWith(buildTypes.release)
         release_beta {
-            packageNameSuffix ".test"
             versionNameSuffix "-beta"
+        }
+
+        debug {
+            versionNameSuffix "-debug"
+        }
+    }
+
+    /* Product flavors: We'll build apps for multiple stations with a single project later on. */
+    productFlavors {
+        wcbn_deploy {
+            packageName "org.wcbn.android"
+            signingConfig signingConfigs.release
+        }
+        wcbn_testing {
+            packageName "org.wcbntest.android"
+            signingConfig signingConfigs.release_test
         }
     }
 }
