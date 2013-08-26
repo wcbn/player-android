@@ -21,6 +21,14 @@ if(file("keys_private.gradle").exists())
 else
     apply from: 'keys_default.gradle'
 
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags', '--dirty'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
 
 android {
     compileSdkVersion 18
@@ -49,21 +57,21 @@ android {
 
     buildTypes {
         release {
-            versionNameSuffix "_rel"
+            versionNameSuffix "_rel"+"-"+getVersionName()
         }
 
         release_alpha.initWith(buildTypes.release)
         release_alpha {
-            versionNameSuffix "_alpha"
+            versionNameSuffix "_alpha"+"-"+getVersionName()
         }
 
         release_beta.initWith(buildTypes.release)
         release_beta {
-            versionNameSuffix "_beta"
+            versionNameSuffix "_beta"+"-"+getVersionName()
         }
 
         debug {
-            versionNameSuffix "_debug"
+            versionNameSuffix "_debug"+"-"+getVersionName()
         }
     }
 
