@@ -1,7 +1,11 @@
 package org.wcbn.android;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -13,12 +17,35 @@ import org.wcbn.android.station.Station;
 public class SettingsFragment extends PreferenceFragment {
 
     private Station mStation = Utils.getStation();
+    private Context mContext;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity != null) {
+            mContext = activity.getApplicationContext();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.settings);
+
+        Preference versionPreference = findPreference("version");
+
+        assert versionPreference != null;
+        if(mContext != null && versionPreference.getSummary() == null) {
+            try {
+                PackageInfo pInfo = mContext.getPackageManager()
+                        .getPackageInfo(mContext.getPackageName(), 0);
+                versionPreference.setSummary(pInfo.versionName);
+            }
+            catch(PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
         Preference qualityPreference = findPreference("quality");
 

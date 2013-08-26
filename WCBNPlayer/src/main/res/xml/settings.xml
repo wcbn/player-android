@@ -42,7 +42,6 @@
                 android:icon="@drawable/ic_menu_about"
                 android:key="version"
                 android:title="@string/version"
-                android:summary="@string/version_current"
                 />
     </PreferenceCategory>
 </PreferenceScreen>

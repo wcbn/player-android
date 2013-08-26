@@ -1,8 +1,3 @@
-if(file("keys_private.gradle").exists())
-    apply from: 'keys_private.gradle'
-else
-    apply from: 'keys_default.gradle'
-
 buildscript {
     repositories {
         mavenCentral()
@@ -20,6 +15,12 @@ repositories {
 dependencies {
     compile fileTree(dir: "libs", include: "*.jar")
 }
+
+if(file("keys_private.gradle").exists())
+    apply from: 'keys_private.gradle'
+else
+    apply from: 'keys_default.gradle'
+
 
 android {
     compileSdkVersion 18
