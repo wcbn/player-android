@@ -7,6 +7,7 @@
  *   - Don't forget: ADD YOUR keys_private.gradle AND YOUR KEYSTORES TO THE .gitignore AT THE TOP
  *     LEVEL! Keep it safe, kids!
  */
+project.ext {
     storePassTest = "dont_use_me"
     storePassRelease = "dont_use_me"
 
@@ -18,3 +19,4 @@
 
     keyFileTest = file("keys_default.jks")
     keyFileRelease = file("keys_default.jks")
+}

@@ -6,7 +6,12 @@ rudimentary interface for reading upcoming shows.
 
 ## Building
 
-Either import into Android Studio and build or use gradle to build from the
-command line.
+Either import into Android Studio and build using the included APK
+wizard or use gradle to build from the command line:
+
+gradle assemble
+
+If you want to redistribute, make sure you customize the gradle build
+files to include your own keys instead of the default provided.
 
 Code is (c) 2013 Mike Huang.

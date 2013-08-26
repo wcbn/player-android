@@ -67,11 +67,13 @@ android {
     }
 
     /* Product flavors: We'll build apps for multiple stations with a single project later on. */
+    // Release package name for Google Play
     productFlavors {
         wcbn_deploy {
             packageName "org.wcbn.android"
             signingConfig signingConfigs.release
         }
+        // Alpha/beta testing package name for Google Play
         wcbn_testing {
             packageName "org.wcbntest.android"
             signingConfig signingConfigs.release_test
