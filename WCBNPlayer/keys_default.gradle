@@ -7,8 +7,6 @@
  *   - Don't forget: ADD YOUR keys_private.gradle AND YOUR KEYSTORES TO THE .gitignore AT THE TOP
  *     LEVEL! Keep it safe, kids!
  */
-logger.warn('DANGER: USING DEFAULT KEYS!!! SEE keys_default.gradle')
-
 project.ext {
     storePassTest = "dont_use_me"
     storePassRelease = "dont_use_me"

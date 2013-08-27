@@ -16,10 +16,13 @@ dependencies {
     compile fileTree(dir: "libs", include: "*.jar")
 }
 
-if(file("keys_private.gradle").exists())
+if(file("keys_private.gradle").exists()) {
     apply from: 'keys_private.gradle'
-else
+}
+else {
+    logger.warn('DANGER: USING DEFAULT KEYS!!! SEE keys_default.gradle')
     apply from: 'keys_default.gradle'
+}
 
 def getVersionName = { ->
     def stdout = new ByteArrayOutputStream()
