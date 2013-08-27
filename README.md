@@ -6,6 +6,10 @@ rudimentary interface for reading upcoming shows.
 
 ## Building
 
+Requirements:
+* Gradle 1.6+ (or Android Studio)
+* git
+
 Either import into Android Studio and build using the included APK
 wizard or use gradle to build from the command line:
 
