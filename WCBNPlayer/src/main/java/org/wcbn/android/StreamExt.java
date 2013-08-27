@@ -37,6 +37,7 @@ public class StreamExt extends Stream {
         super.clear();
         dj = null;
         program = null;
+        artist = null;
     }
 
     @Override
@@ -76,5 +77,4 @@ public class StreamExt extends Stream {
     public void setProgram(String program) {
         this.program = program;
     }
-
 }
