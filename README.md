@@ -8,6 +8,7 @@ rudimentary interface for reading upcoming shows.
 
 Requirements:
 * Gradle 1.6+ and Android SDK (or Android Studio)
+* Android compatibility library (v7)
 * git
 
 Either import into Android Studio and build using the included APK
