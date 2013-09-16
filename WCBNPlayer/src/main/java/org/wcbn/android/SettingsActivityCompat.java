@@ -1,34 +1,23 @@
 package org.wcbn.android;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import org.wcbn.android.station.Station;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SettingsFragment extends PreferenceFragment {
+/**
+ * For API versions < 11 without PreferenceFragment.
+ */
+public class SettingsActivityCompat extends PreferenceActivity {
 
     private Station mStation = Utils.getStation();
-    private Context mContext;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if(activity != null) {
-            mContext = activity.getApplicationContext();
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,10 +28,10 @@ public class SettingsFragment extends PreferenceFragment {
         Preference versionPreference = findPreference("version");
 
         assert versionPreference != null;
-        if(mContext != null && versionPreference.getSummary() == null) {
+        if(versionPreference.getSummary() == null) {
             try {
-                PackageInfo pInfo = mContext.getPackageManager()
-                        .getPackageInfo(mContext.getPackageName(), 0);
+                PackageInfo pInfo = getPackageManager()
+                        .getPackageInfo(getPackageName(), 0);
                 versionPreference.setSummary(pInfo.versionName);
             }
             catch(PackageManager.NameNotFoundException e) {
@@ -107,7 +96,7 @@ public class SettingsFragment extends PreferenceFragment {
             }
         });
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Integer i = Integer.parseInt(prefs.getString("quality", "1"));
         qualityPreference.setSummary(getResources()
                 .getStringArray(R.array.quality_desc)[i]);
@@ -116,10 +105,7 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     public void resetService() {
-        if(getActivity() != null) {
-            getActivity().stopService(new Intent(getActivity(), StreamService.class));
-            getActivity().startService(new Intent(getActivity(), StreamService.class));
-        }
+            stopService(new Intent(this, StreamService.class));
+            startService(new Intent(this, StreamService.class));
     }
 }
-

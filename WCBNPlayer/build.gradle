@@ -24,7 +24,7 @@ else {
     apply from: 'keys_default.gradle'
 }
 
-def getVersionName = { ->
+String getVersionName() {
     def stdout = new ByteArrayOutputStream()
     exec {
         commandLine 'git', 'describe', '--tags', '--dirty'
@@ -33,12 +33,14 @@ def getVersionName = { ->
     return stdout.toString().trim()
 }
 
+String versionName = getVersionName();
+
 android {
     compileSdkVersion 18
     buildToolsVersion "18.0.0"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 8
         targetSdkVersion 18
     }
 
@@ -60,21 +62,21 @@ android {
 
     buildTypes {
         release {
-            versionNameSuffix "_rel"+"-"+getVersionName()
+            versionNameSuffix "_rel"+"-"+versionName
         }
 
         release_alpha.initWith(buildTypes.release)
         release_alpha {
-            versionNameSuffix "_alpha"+"-"+getVersionName()
+            versionNameSuffix "_alpha"+"-"+versionName
         }
 
         release_beta.initWith(buildTypes.release)
         release_beta {
-            versionNameSuffix "_beta"+"-"+getVersionName()
+            versionNameSuffix "_beta"+"-"+versionName
         }
 
         debug {
-            versionNameSuffix "_debug"+"-"+getVersionName()
+            versionNameSuffix "_debug"+"-"+versionName
         }
     }
 

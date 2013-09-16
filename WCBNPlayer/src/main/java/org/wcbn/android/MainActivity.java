@@ -1,6 +1,5 @@
 package org.wcbn.android;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -9,15 +8,19 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Context;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +28,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ShareActionProvider;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -35,7 +37,7 @@ import org.wcbn.android.station.Station;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
+public class MainActivity extends ActionBarActivity implements ActionBar.OnNavigationListener,
         StreamService.OnStateUpdateListener {
     private ShareActionProvider mShareActionProvider;
     private StreamService mService;
@@ -105,8 +107,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         if(mFragments.isEmpty()) {
             for(Class<? extends UiFragment> cls : sStation.getUiFragments()) {
@@ -172,7 +174,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     @Override
@@ -232,7 +234,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         MenuItem item = menu.findItem(R.id.menu_item_share);
 
-        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+        mShareActionProvider =
+                (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         if(mShareActionProvider != null && !mShareIntentSet) {
             Intent intent = new Intent();
             intent.setType("text/plain");
@@ -264,7 +267,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         switch(item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    startActivity(new Intent(this, SettingsActivity.class));
+                }
+                else {
+                    startActivity(new Intent(this, SettingsActivityCompat.class));
+                }
                 return true;
         }
         return false;

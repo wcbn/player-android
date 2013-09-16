@@ -5,8 +5,9 @@
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="Wcbn_deployDebug" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleWcbn_deployDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileWcbn_deployDebug" />
         <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleWcbn_deployTest" />
-        <option name="SOURCE_GEN_TASK_NAME" value="TODO" />
+        <option name="SOURCE_GEN_TASK_NAME" value="generateWcbn_deployDebugSources" />
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
@@ -74,7 +75,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/dependency-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/exploded-bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/libs" />
       <excludeFolder url="file://$MODULE_DIR$/build/manifests" />
@@ -85,6 +85,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.7.2" level="project" />
+    <orderEntry type="library" exported="" name="android-support-v7-appcompat" level="project" />
   </component>
 </module>
 
