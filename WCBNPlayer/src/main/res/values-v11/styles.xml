@@ -1,11 +1,39 @@
 <resources>
-
-    <!--
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- API 11 theme customizations can go here. -->
+    <style name="WCBNTheme.AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
     </style>
 
+    <style name="WCBNTheme.AppTheme" parent="WCBNTheme.AppBaseTheme">
+        <item name="android:actionBarStyle">@style/WCBNTheme.ActionBarStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/WCBNTheme.OverFlow</item>
+    </style>
+
+    <style name="WCBNTheme.ActionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">#0a7cc1</item>
+        <item name="android:titleTextStyle">@style/WCBNTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="WCBNTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="WCBNTheme.OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
+    </style>
+
+    <style name="GenericProgressBackground" parent="android:Theme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="GenericProgressIndicator" parent="@android:style/Widget.Holo.Light.ProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+    </style>
 </resources>
