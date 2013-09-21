@@ -62,7 +62,7 @@ public class PlaybackFragment extends Fragment implements UiFragment {
     }
 
     @Override
-    public void handleMediaError(MediaPlayer mp, int what, int extra) {
+    public void fachandleMediaError(MediaPlayer mp, int what, int extra) {
         updateButtons();
     }
 

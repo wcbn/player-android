@@ -2,9 +2,7 @@
   <library name="ComAndroidSupportAppcompatV71800.aar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/WCBNPlayer/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/classes.jar!/" />
-      <root url="jar://$PROJECT_DIR$/WCBNPlayer/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/WCBNPlayer/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res" />
-      <root url="jar://$PROJECT_DIR$/WCBNPlayer/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
