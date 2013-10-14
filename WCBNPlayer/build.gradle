@@ -85,7 +85,7 @@ android {
     // Release package name for Google Play
     productFlavors {
         wcbn_deploy {
-            packageName "org.wcbn.android"
+            packageName "org.wcbn.player"
             signingConfig signingConfigs.release
         }
         // Alpha/beta testing package name for Google Play
