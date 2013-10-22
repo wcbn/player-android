@@ -1,5 +1,5 @@
 <resources>
-    <style name="WCBNTheme.AppBaseTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="WCBNTheme.AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to

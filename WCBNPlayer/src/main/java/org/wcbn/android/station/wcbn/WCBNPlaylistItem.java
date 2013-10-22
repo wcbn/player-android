@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.jsoup.nodes.Element;
 import org.wcbn.android.R;
+import org.wcbn.android.Utils;
 
 import java.util.List;
 
@@ -39,10 +40,10 @@ public class WCBNPlaylistItem implements Parcelable {
             if(!elements.get(i).hasAttr("rowspan")) {
                 switch(j) {
                     case 0: mTime = elements.get(i).text().trim(); break;
-                    case 1: mArtist = elements.get(i).text().trim(); break;
-                    case 2: mTitle = elements.get(i).text().trim(); break;
-                    case 3: mAlbum = elements.get(i).text().trim(); break;
-                    case 4: mLabel = elements.get(i).text().trim(); break;
+                    case 1: mArtist = Utils.capitalizeTitle(elements.get(i).text().trim()); break;
+                    case 2: mTitle = Utils.capitalizeTitle(elements.get(i).text().trim()); break;
+                    case 3: mAlbum = Utils.capitalizeTitle(elements.get(i).text().trim()); break;
+                    case 4: mLabel = Utils.capitalizeTitle(elements.get(i).text().trim()); break;
                 }
                 j++;
             }
