@@ -5,6 +5,7 @@ import android.util.Log;
 
 import net.moraleboost.streamscraper.Stream;
 
+import org.jsoup.nodes.Element;
 import org.wcbn.android.AlbumArtFragment;
 import org.wcbn.android.R;
 import org.wcbn.android.station.Station;
@@ -12,10 +13,15 @@ import org.wcbn.android.StreamExt;
 import org.wcbn.android.UiFragment;
 import org.wcbn.android.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class WCBNStation implements Station {
 
@@ -24,10 +30,8 @@ public class WCBNStation implements Station {
     public static final int WEBSITE = R.string.wcbn_website;
     public static final int NUMBER = R.string.wcbn_number;
     public static final int TAB_NAMES = R.array.wcbn_tab_names;
-
-    static final Pattern sSongPattern = Pattern.compile("\"(.*?)\"");
-    static final Pattern sArtistPattern = Pattern.compile(" by (.*?) on ");
-    static final Pattern sProgramPattern = Pattern.compile(" on (.*?) with ");
+    public static final String PLAYLIST_URI
+            = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=1&unit=hour";
 
     static final List<Class<? extends UiFragment>> sFragments =
             new ArrayList<Class<? extends UiFragment>>();
@@ -91,59 +95,51 @@ public class WCBNStation implements Station {
         }
 
         StreamExt ext = new StreamExt();
-        String currentSong = "\"Song\" by artist on program with dj"; //stream.getCurrentSong();
-        String program, artist, song, dj = null;
+        String program = "", artist = "", song = "", dj = "";
 
-        // currentSong is in the format: "song" by artist on program with dj
-        // TODO: make the parser better at handling edge cases ie. no song, no artist etc.
-        if(currentSong != null) {
-            Log.d(TAG, "Metadata string "+currentSong);
+        try {
+            Document doc = Jsoup.connect(PLAYLIST_URI)
+                    .userAgent("Android")
+                    .get();
 
-            Matcher songMatcher = sSongPattern.matcher(currentSong);
-            if(songMatcher.find()) {
-                song = songMatcher.group(1);
-            }
-            else {
-                song = "";
-            }
+            String[] djProgram = doc
+                    .select("td.show")
+                    .get(0)
+                    .text()
+                    .split("\n")[0]
+                    .split(", with ");
+            program = djProgram[0];
+            dj = djProgram[1].substring(0, djProgram[1].length()-1).trim();
 
-            Matcher artistMatcher = sArtistPattern.matcher(currentSong);
-            int artistEnd;
-            if(artistMatcher.find()) {
-                artist = artistMatcher.group(1);
-                artistEnd = artistMatcher.end();
-            }
+            List<Element> elements = doc.select("tr.odd, tr.even").get(0).select("td");
 
-            else {
-                artist = "";
-                artistEnd = songMatcher.end();
-            }
-
-            // currentSong always contains a song, artist, and program, but sometimes not DJ
-            if(currentSong.substring(artistEnd).contains(" with ")) {
-                Matcher programMatcher = sProgramPattern
-                        .matcher(currentSong);
-                if(programMatcher.find(artistEnd - 4)) {
-                    program = programMatcher.group(1);
+            // This is done a bit oddly…
+            int j = 0;
+            for(int i = 0; j < 5 && i < 50; i++) {
+                if(!elements.get(i).hasAttr("rowspan")) {
+                    switch(j) {
+                        //case 0: mTime = elements.get(i).text().trim(); break;
+                        case 1: artist = elements.get(i).text().trim(); break;
+                        case 2: song = elements.get(i).text().trim(); break;
+                        //case 3: mAlbum = elements.get(i).text().trim(); break;
+                        //case 4: mLabel = elements.get(i).text().trim(); break;
+                    }
+                    j++;
                 }
-                else {
-                    program = "";
-                }
-
-                dj = currentSong.substring(programMatcher.end());
-            }
-            else {
-                program = currentSong.substring(artistEnd);
             }
 
-            ext.setProgram(program);
-            ext.setCurrentSong(song);
-            ext.setDj(dj);
-            ext.setArtist(artist);
-            ext.setMaxListenerCount(maxListenerCount);
-            ext.setCurrentListenerCount(currentListenerCount);
-            ext.setPeakListenerCount(peakListenerCount);
+        } catch (IOException e) {
+            Log.d(TAG, "Error downloading playlist");
+            e.printStackTrace();
         }
+
+        ext.setProgram(program);
+        ext.setCurrentSong(song);
+        ext.setDj(dj);
+        ext.setArtist(artist);
+        ext.setMaxListenerCount(maxListenerCount);
+        ext.setCurrentListenerCount(currentListenerCount);
+        ext.setPeakListenerCount(peakListenerCount);
 
         ext.merge(stream);
         return ext;

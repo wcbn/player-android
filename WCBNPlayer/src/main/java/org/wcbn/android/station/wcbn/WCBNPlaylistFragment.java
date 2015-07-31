@@ -144,7 +144,7 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
                         .userAgent("Android")
                         .get();
             } catch(IOException e) {
-                Log.d(TAG, "Error downloading playist");
+                Log.d(TAG, "Error downloading playlist");
                 e.printStackTrace();
                 return null;
             }
