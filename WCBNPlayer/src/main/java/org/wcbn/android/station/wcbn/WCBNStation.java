@@ -31,7 +31,7 @@ public class WCBNStation implements Station {
             = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=1&unit=hour";
 
     static final List<Class<? extends UiFragment>> sFragments =
-            new ArrayList<Class<? extends UiFragment>>();
+            new ArrayList<>();
 
     static {
         sFragments.add(AlbumArtFragment.class);
@@ -92,7 +92,7 @@ public class WCBNStation implements Station {
         }
 
         StreamExt ext = new StreamExt();
-        String program = "", artist = "", song = "", dj = "";
+        String program = "", artist = "", song = "", dj = "", album = "", recordLabel = "";
 
         try {
             Document doc = Jsoup.connect(PLAYLIST_URI)
@@ -111,6 +111,8 @@ public class WCBNStation implements Station {
             List<Element> elements = doc.select("tr.odd, tr.even").get(0).select("td");
             artist = elements.get(4).text().trim();
             song = elements.get(5).text().trim();
+            album = elements.get(6).text().trim();
+            recordLabel = elements.get(7).text().trim();
 
         } catch (IOException e) {
             Log.d(TAG, "Error downloading playlist");
@@ -121,6 +123,8 @@ public class WCBNStation implements Station {
         ext.setCurrentSong(song);
         ext.setDj(dj);
         ext.setArtist(artist);
+        ext.setAlbum(album);
+        ext.setRecordLabel(recordLabel);
         ext.setMaxListenerCount(maxListenerCount);
         ext.setCurrentListenerCount(currentListenerCount);
         ext.setPeakListenerCount(peakListenerCount);
