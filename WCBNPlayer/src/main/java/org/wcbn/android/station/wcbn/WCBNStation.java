@@ -91,7 +91,7 @@ public class WCBNStation implements Station {
         }
 
         StreamExt ext = new StreamExt();
-        String currentSong = stream.getCurrentSong();
+        String currentSong = "\"Song\" by artist on program with dj"; //stream.getCurrentSong();
         String program, artist, song, dj = null;
 
         // currentSong is in the format: "song" by artist on program with dj

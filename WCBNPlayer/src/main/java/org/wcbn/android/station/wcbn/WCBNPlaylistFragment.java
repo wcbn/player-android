@@ -37,7 +37,7 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
     private List<WCBNPlaylistItem> mItems;
     public static final String TAG = "WCBNPlaylistFragment";
     public static final String PLAYLIST_URI
-            = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=3&unit=hour";
+            = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=5&unit=hour";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
