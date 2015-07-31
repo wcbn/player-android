@@ -50,6 +50,12 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        new PlaylistUpdateTask().execute(PLAYLIST_URI);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.schedule, menu);
         super.onCreateOptionsMenu(menu, inflater);

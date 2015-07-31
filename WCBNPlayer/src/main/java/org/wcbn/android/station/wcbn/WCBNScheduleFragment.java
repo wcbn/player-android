@@ -46,11 +46,6 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
     private LinearLayout mView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -76,6 +71,12 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             }
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new ScheduleUpdateTask().execute(SCHEDULE_URI);
     }
 
     @Override
@@ -123,7 +124,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             }
         }
         else {
-            mItems = new ArrayList<WCBNScheduleItem>();
+            mItems = new ArrayList<>();
             for(int i = 0; i < NUM_ENTRIES; i++) {
                 mItems.add(new WCBNScheduleItem(mService.getApplicationContext()));
                 mItems.get(i).setLoading(true);
