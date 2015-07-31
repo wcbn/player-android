@@ -14,10 +14,10 @@ import org.wcbn.android.station.Station;
  * All Fragments in the UI should implement this interface.
  */
 public interface UiFragment {
-    public void handleMediaError(MediaPlayer mp, int what, int extra);
-    public void handleMediaPlay();
-    public void handleMediaPause();
-    public void handleMediaStop();
-    public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt);
-    public void setService(Service service);
+    void handleMediaError(MediaPlayer mp, int what, int extra);
+    void handleMediaPlay();
+    void handleMediaPause();
+    void handleMediaStop();
+    void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt);
+    void setService(Service service);
 }
