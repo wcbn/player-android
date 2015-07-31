@@ -11,7 +11,7 @@ Requirements:
 * git
 
 Either import into Android Studio and build using the included APK
-wizard or gradle wrapper or use gradle to build from the command line:
+wizard or gradle wrapper, or use gradle to build from the command line:
 
     gradle assemble
 
