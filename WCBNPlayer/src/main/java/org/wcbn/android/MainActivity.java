@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 if(mIsManualOpen) {
                     SharedPreferences.Editor prefEditor = mPrefs.edit();
                     prefEditor.putBoolean("drawer_opened", true);
-                    prefEditor.commit();
+                    prefEditor.apply();
                 }
             }
         };

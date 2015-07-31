@@ -499,10 +499,10 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
     }
 
     public interface OnStateUpdateListener {
-        public void onMediaError(MediaPlayer mp, int what, int extra);
-        public void onMediaPlay();
-        public void onMediaPause();
-        public void onMediaStop();
-        public void updateTrack(Stream stream, Station station, Bitmap albumArt);
+        void onMediaError(MediaPlayer mp, int what, int extra);
+        void onMediaPlay();
+        void onMediaPause();
+        void onMediaStop();
+        void updateTrack(Stream stream, Station station, Bitmap albumArt);
     }
 }
