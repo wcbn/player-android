@@ -112,21 +112,8 @@ public class WCBNStation implements Station {
             dj = djProgram[1].substring(0, djProgram[1].length()-1).trim();
 
             List<Element> elements = doc.select("tr.odd, tr.even").get(0).select("td");
-
-            // This is done a bit oddly…
-            int j = 0;
-            for(int i = 0; j < 5 && i < 50; i++) {
-                if(!elements.get(i).hasAttr("rowspan")) {
-                    switch(j) {
-                        //case 0: mTime = elements.get(i).text().trim(); break;
-                        case 1: artist = elements.get(i).text().trim(); break;
-                        case 2: song = elements.get(i).text().trim(); break;
-                        //case 3: mAlbum = elements.get(i).text().trim(); break;
-                        //case 4: mLabel = elements.get(i).text().trim(); break;
-                    }
-                    j++;
-                }
-            }
+            artist = elements.get(4).text().trim();
+            song = elements.get(5).text().trim();
 
         } catch (IOException e) {
             Log.d(TAG, "Error downloading playlist");

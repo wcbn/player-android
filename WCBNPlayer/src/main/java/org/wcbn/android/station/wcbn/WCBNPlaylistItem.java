@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.jsoup.nodes.Element;
 import org.wcbn.android.R;
+import org.wcbn.android.Utils;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class WCBNPlaylistItem implements Parcelable {
     public void setElement(Element element) {
         List<Element> elements = element.select("td");
 
-        // This is done a bit oddly…
+        // This is done a bit badly…
         int j = 0;
         for(int i = 0; j < 5 && i < 50; i++) {
             if(!elements.get(i).hasAttr("rowspan")) {
@@ -60,9 +61,9 @@ public class WCBNPlaylistItem implements Parcelable {
         View view = inflater.inflate(R.layout.item_playlist, null);
 
         ((TextView) view.findViewById(R.id.time_text)).setText(mTime);
-        ((TextView) view.findViewById(R.id.artist_text)).setText(mArtist);
-        ((TextView) view.findViewById(R.id.song_text)).setText(mTitle);
-        ((TextView) view.findViewById(R.id.album_text)).setText(mAlbum);
+        ((TextView) view.findViewById(R.id.artist_text)).setText(Utils.capitalizeTitle(mArtist));
+        ((TextView) view.findViewById(R.id.song_text)).setText(Utils.capitalizeTitle(mTitle));
+        ((TextView) view.findViewById(R.id.album_text)).setText(Utils.capitalizeTitle(mAlbum));
 
         ((TextView) view.findViewById(R.id.time_text)).setTypeface(typeface);
         ((TextView) view.findViewById(R.id.artist_text)).setTypeface(typeface);

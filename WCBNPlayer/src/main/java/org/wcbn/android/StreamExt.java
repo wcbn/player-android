@@ -12,6 +12,9 @@ public class StreamExt extends Stream {
     private String dj;
     private String program;
     private String artist;
+    private String album;
+    private String record;
+
 
     @Override
     public String toString()
