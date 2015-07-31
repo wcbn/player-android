@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="WCBNPlayer" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":" />
+      </configuration>
+    </facet>
     <facet type="android" name="Android">
       <configuration>
-        <option name="SELECTED_BUILD_VARIANT" value="Wcbn_deployDebug" />
+        <option name="SELECTED_BUILD_VARIANT" value="wcbn_deployDebug" />
+        <option name="SELECTED_TEST_ARTIFACT" value="_android_test_" />
         <option name="ASSEMBLE_TASK_NAME" value="assembleWcbn_deployDebug" />
-        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleWcbn_deployTest" />
-        <option name="SOURCE_GEN_TASK_NAME" value="TODO" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileWcbn_deployDebugSources" />
+        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleWcbn_deployDebugAndroidTest" />
+        <option name="COMPILE_JAVA_TEST_TASK_NAME" value="compileWcbn_deployDebugAndroidTestSources" />
+        <afterSyncTasks>
+          <task>generateWcbn_deployDebugAndroidTestSources</task>
+          <task>generateWcbn_deployDebugSources</task>
+        </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
@@ -14,77 +25,90 @@
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
-    <facet type="android-gradle" name="Android-Gradle">
-      <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":WCBNPlayer" />
-      </configuration>
-    </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/wcbn_deploy/debug" />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/build/intermediates/classes/wcbn_deploy/debug" />
+    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/androidTest/wcbn_deploy/debug" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/build/source/r/wcbn_deploy/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/aidl/wcbn_deploy/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/rs/wcbn_deploy/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/buildConfig/wcbn_deploy/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/res/rs/wcbn_deploy/debug" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/r/wcbn_deploy/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/aidl/wcbn_deploy/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/rs/wcbn_deploy/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/source/buildConfig/wcbn_deploy/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/res/rs/wcbn_deploy/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/wcbn_deploy/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/wcbn_deploy/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/wcbn_deploy/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/wcbn_deploy/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/wcbn_deploy/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/wcbn_deploy/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/jni" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/wcbn_deploy/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/wcbn_deploy/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/wcbn_deploy/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/wcbn_deploy/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/wcbn_deploy/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/androidTest/wcbn_deploy/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/assets" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/res" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/resources" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/assets" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/res" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTestWcbn_deploy/resources" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestWcbn_deploy/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/debug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/res" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/assets" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/res" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/assets" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/res" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/instrumentTest/resources" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/build/apk" />
-      <excludeFolder url="file://$MODULE_DIR$/build/assets" />
-      <excludeFolder url="file://$MODULE_DIR$/build/bundles" />
-      <excludeFolder url="file://$MODULE_DIR$/build/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/build/dependency-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/exploded-bundles" />
-      <excludeFolder url="file://$MODULE_DIR$/build/incremental" />
-      <excludeFolder url="file://$MODULE_DIR$/build/libs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/manifests" />
-      <excludeFolder url="file://$MODULE_DIR$/build/symbols" />
-      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/coverage-instrumented-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/ndk" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/proguard" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
     </content>
-    <orderEntry type="jdk" jdkName="Android 4.3 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="android-support-v4" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.7.2" level="project" />
   </component>
 </module>
-

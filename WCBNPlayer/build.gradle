@@ -3,10 +3,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
@@ -34,12 +34,12 @@ def getVersionName = { ->
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.0.0"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 18
+        targetSdkVersion 22
     }
 
     signingConfigs {
@@ -82,12 +82,12 @@ android {
     // Release package name for Google Play
     productFlavors {
         wcbn_deploy {
-            packageName "org.wcbn.player"
+            applicationId "org.wcbn.player"
             signingConfig signingConfigs.release
         }
         // Alpha/beta testing package name for Google Play
         wcbn_testing {
-            packageName "org.wcbntest.android"
+            applicationId "org.wcbntest.android"
             signingConfig signingConfigs.release_test
         }
     }
