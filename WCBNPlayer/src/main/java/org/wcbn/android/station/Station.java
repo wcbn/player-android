@@ -15,12 +15,12 @@ import java.util.List;
  * Place all station-specific code in a Station and associated classes.
  */
 public interface Station {
-    public int getWebsite();
-    public int getNumber();
-    public int getTabNames();
-    public String getSongName(StreamExt stream, Context context);
-    public String getArtistName(StreamExt stream, Context context);
-    public String getDescription(StreamExt stream, Context context);
-    public StreamExt fixMetadata (List<Stream> streams);
-    public List<Class<? extends UiFragment>> getUiFragments();
+    int getWebsite();
+    int getNumber();
+    int getTabNames();
+    String getSongName(StreamExt stream, Context context);
+    String getArtistName(StreamExt stream, Context context);
+    String getDescription(StreamExt stream, Context context);
+    StreamExt fixMetadata (List<Stream> streams);
+    List<Class<? extends UiFragment>> getUiFragments();
 }
