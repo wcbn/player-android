@@ -13,8 +13,7 @@ public class StreamExt extends Stream {
     private String program;
     private String artist;
     private String album;
-    private String record;
-
+    private String recordLabel;
 
     @Override
     public String toString()
@@ -31,7 +30,9 @@ public class StreamExt extends Stream {
                 ", genre=" + getGenre() +
                 ", artist=" + getArtist() +
                 ", dj=" + getDj() +
-                ", program=" +getProgram() +")");
+                ", program=" +getProgram() +
+                ", album=" + getAlbum() +
+                ", recordLabel=" +getRecordLabel()+")");
     }
 
     @Override
@@ -73,11 +74,15 @@ public class StreamExt extends Stream {
         this.dj = dj;
     }
 
-    public String getProgram() {
-        return program;
-    }
+    public String getProgram() { return program; }
 
-    public void setProgram(String program) {
-        this.program = program;
-    }
+    public void setProgram(String program) { this.program = program; }
+
+    public String getAlbum() { return album; }
+
+    public void setAlbum(String album) { this.album = album; }
+
+    public String getRecordLabel() { return recordLabel; }
+
+    public void setRecordLabel(String recordLabel) { this.recordLabel = recordLabel; }
 }
