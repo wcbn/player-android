@@ -54,9 +54,10 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        params.gravity= Gravity.CENTER;
 
         ScrollView scroll = new ScrollView(inflater.getContext());
+        scroll.setFillViewport(true);
+        scroll.setBackgroundColor(getResources().getColor(R.color.activated_color));
 
         LinearLayout view = new LinearLayout(inflater.getContext());
         view.setGravity(Gravity.CENTER);
@@ -74,6 +75,7 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
             }
 
         scroll.addView(mView);
+
 
         return scroll;
     }

@@ -2,13 +2,14 @@ package org.wcbn.android;
 
 import android.app.Service;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -19,7 +20,7 @@ import org.wcbn.android.station.Station;
  */
 public class AlbumArtFragment extends Fragment implements UiFragment {
 
-    private ImageView mAlbumArtView;
+    private RelativeLayout mAlbumArtView;
     private Bitmap mAlbumArtBitmap;
     private StreamService mService;
 
@@ -27,15 +28,15 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albumart, null);
-        mAlbumArtView = (ImageView) view.findViewById(R.id.album_art);
+        mAlbumArtView = (RelativeLayout) view.findViewById(R.id.album_art);
 
         if(mAlbumArtBitmap != null) {
-            mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
+            mAlbumArtView.setBackground(new BitmapDrawable(getResources(), mAlbumArtBitmap));
         }
 
         else if(savedInstanceState != null && savedInstanceState.containsKey("bitmap")) {
             mAlbumArtBitmap = (Bitmap) savedInstanceState.get("bitmap");
-            mAlbumArtView.setImageBitmap(mAlbumArtBitmap);
+            mAlbumArtView.setBackground(new BitmapDrawable(getResources(), mAlbumArtBitmap));
         }
         return view;
     }
@@ -79,8 +80,8 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
     @Override
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
         if(albumArt != null && mAlbumArtView != null) {
-            mAlbumArtView.setImageBitmap(albumArt);
             mAlbumArtBitmap = albumArt;
+            mAlbumArtView.setBackground(new BitmapDrawable(getResources(), mAlbumArtBitmap));
         }
     }
 }
