@@ -90,6 +90,34 @@ public class SettingsFragment extends PreferenceFragment {
             }
         });
 
+        Preference twitterPreference = findPreference("twitter");
+        assert twitterPreference != null;
+        twitterPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                startActivity(new Intent()
+                        .setAction(Intent.ACTION_VIEW)
+                        .setData(Uri.parse(getString(mStation.getTwitter()))));
+
+                return false;
+            }
+        });
+
+        Preference facebookPreference = findPreference("facebook");
+        assert facebookPreference != null;
+        facebookPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                startActivity(new Intent()
+                        .setAction(Intent.ACTION_VIEW)
+                        .setData(Uri.parse(getString(mStation.getFacebook()))));
+
+                return false;
+            }
+        });
+
         Preference numberPreference = findPreference("request_number");
         assert numberPreference != null;
         numberPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

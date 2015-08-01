@@ -40,8 +40,12 @@
     <string name="wcbn_number">+1–734–763–3500</string>
     <string name="default_twitter">\@WCBN_FM</string>
     <string name="wcbn_twitter">\@WCBN_FM</string>
-    <string name="default_facebook">https://www.facebook.com/wcbn88.3fm</string>
-    <string name="wcbn_facebook">https://www.facebook.com/wcbn88.3fm</string>
+    <string name="default_facebook">facebook.com/wcbn88.3fm</string>
+    <string name="wcbn_facebook">facebook.com/wcbn88.3fm</string>
+    <string name="default_twitter_uri">https://twitter.com/WCBN_FM</string>
+    <string name="wcbn_twitter_uri">https://twitter.com/WCBN_FM</string>
+    <string name="default_facebook_uri">https://www.facebook.com/wcbn88.3fm</string>
+    <string name="wcbn_facebook_uri">https://www.facebook.com/wcbn88.3fm</string>
     <string name="to">to</string>
 
     <string name="drawer_open">Open drawer</string>

@@ -26,6 +26,8 @@ public class WCBNStation implements Station {
 
     public static final int WEBSITE = R.string.wcbn_website;
     public static final int NUMBER = R.string.wcbn_number;
+    public static final int TWITTER = R.string.wcbn_twitter_uri;
+    public static final int FACEBOOK = R.string.wcbn_facebook_uri;
     public static final int TAB_NAMES = R.array.wcbn_tab_names;
     public static final String PLAYLIST_URI
             = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=1&unit=hour";
@@ -49,6 +51,12 @@ public class WCBNStation implements Station {
     public int getNumber() {
         return NUMBER;
     }
+
+    @Override
+    public int getTwitter() { return TWITTER; }
+
+    @Override
+    public int getFacebook() { return FACEBOOK; }
 
     @Override
     public String getSongName(StreamExt stream, Context context) {

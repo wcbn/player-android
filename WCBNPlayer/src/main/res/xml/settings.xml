@@ -39,11 +39,13 @@
                 android:summary="@string/wcbn_number"
                 />
         <Preference
+                android:icon="@drawable/ic_menu_twitter"
                 android:key="twitter"
                 android:title="Twitter"
                 android:summary="@string/wcbn_twitter"
                 />
         <Preference
+                android:icon="@drawable/ic_menu_facebook"
                 android:key="facebook"
                 android:title="Facebook"
                 android:summary="@string/wcbn_facebook"

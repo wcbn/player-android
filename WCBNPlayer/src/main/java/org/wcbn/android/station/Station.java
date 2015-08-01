@@ -16,6 +16,8 @@ import java.util.List;
  */
 public interface Station {
     int getWebsite();
+    int getTwitter();
+    int getFacebook();
     int getNumber();
     int getTabNames();
     String getSongName(StreamExt stream, Context context);
