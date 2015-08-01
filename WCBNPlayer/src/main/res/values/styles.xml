@@ -1,5 +1,5 @@
 <resources>
-    <style name="WCBNTheme.AppBaseTheme" parent="android:Theme.Light">
+    <style name="WCBNTheme.AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -7,7 +7,7 @@
         -->
     </style>
 
-    <style name="WCBNTheme.AppTheme" parent="AppBaseTheme">
+    <style name="WCBNTheme.AppTheme" parent="WCBNTheme.AppBaseTheme">
         <item name="android:actionBarStyle">@style/WCBNTheme.ActionBarStyle</item>
         <item name="android:actionOverflowButtonStyle">@style/WCBNTheme.OverFlow</item>
     </style>
