@@ -10,7 +10,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.jsoup.nodes.Element;
@@ -146,11 +146,11 @@ class WCBNScheduleItem implements Parcelable {
         ((TextView) mView.findViewById(R.id.program_text)).setText(mProgram);
         ((TextView) mView.findViewById(R.id.time_text)).setText(mTime);
         if(mUri != null) {
-            ((ImageView) mView.findViewById(R.id.icon_link))
+            ((ImageButton) mView.findViewById(R.id.icon_link))
                     .setImageResource(R.drawable.ic_menu_globe);
-            mView.findViewById(R.id.btn_link).setClickable(true);
-            mView.findViewById(R.id.btn_link).setFocusable(true);
-            mView.findViewById(R.id.btn_link).setOnClickListener(new View.OnClickListener() {
+            mView.findViewById(R.id.icon_link).setClickable(true);
+            mView.findViewById(R.id.icon_link).setFocusable(true);
+            mView.findViewById(R.id.icon_link).setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mInflater.getContext().startActivity(new Intent()
@@ -161,10 +161,10 @@ class WCBNScheduleItem implements Parcelable {
             });
         }
         else {
-            ((ImageView) mView.findViewById(R.id.icon_link))
+            ((ImageButton) mView.findViewById(R.id.icon_link))
                     .setImageResource(R.drawable.ic_menu_globe_disabled);
-            mView.findViewById(R.id.btn_link).setClickable(false);
-            mView.findViewById(R.id.btn_link).setFocusable(false);
+            mView.findViewById(R.id.icon_link).setClickable(false);
+            mView.findViewById(R.id.icon_link).setFocusable(false);
         }
     }
 

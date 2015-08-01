@@ -62,18 +62,8 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFile getDefaultProguardFile('proguard-android.txt')
             versionNameSuffix "_rel"+"-"+getVersionName()
-        }
-
-        release_alpha.initWith(buildTypes.release)
-        release_alpha {
-            versionNameSuffix "_alpha"+"-"+getVersionName()
-        }
-
-        release_beta.initWith(buildTypes.release)
-        release_beta {
-            versionNameSuffix "_beta"+"-"+getVersionName()
         }
 
         debug {
