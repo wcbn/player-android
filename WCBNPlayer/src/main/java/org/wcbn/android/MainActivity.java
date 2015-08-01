@@ -13,11 +13,11 @@ import android.os.Bundle;
 import android.content.Context;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +35,7 @@ import org.wcbn.android.station.Station;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
+public class MainActivity extends AppCompatActivity implements ActionBar.OnNavigationListener,
         StreamService.OnStateUpdateListener {
     private ShareActionProvider mShareActionProvider;
     private StreamService mService;
@@ -62,8 +62,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -84,15 +84,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+                R.string.drawer_open, R.string.drawer_close) {
 
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 if(mIsManualOpen) {
                     SharedPreferences.Editor prefEditor = mPrefs.edit();
@@ -105,8 +105,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(mFragments.isEmpty()) {
             for(Class<? extends UiFragment> cls : sStation.getUiFragments()) {
@@ -172,7 +171,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     @Override
@@ -232,7 +231,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         MenuItem item = menu.findItem(R.id.menu_item_share);
 
-        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+        /*mShareActionProvider = (ShareActionProvider) item.getActionProvider();
         if(mShareActionProvider != null && !mShareIntentSet) {
             Intent intent = new Intent();
             intent.setType("text/plain");
@@ -251,7 +250,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 mShareActionProvider.setShareIntent(intent);
             }
             mShareIntentSet = true;
-        }
+        }*/
         return true;
     }
 
