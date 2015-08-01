@@ -7,7 +7,7 @@ rudimentary interface for reading upcoming shows.
 ## Building
 
 Requirements:
-* Android Studio (or Gradle)
+* Android Studio
 * git
 
 Import into Android Studio and build using the included APK wizard or
