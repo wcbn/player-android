@@ -1,29 +1,20 @@
 <resources>
-    <style name="WCBNTheme.AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
+    <style name="WCBNTheme.AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
 
     <style name="WCBNTheme.AppTheme" parent="WCBNTheme.AppBaseTheme">
-        <item name="colorPrimary">#2087C9</item>
-        <item name="colorPrimaryDark">#186596</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
     </style>
 
-    <style name="WCBNTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
-
-    <style name="GenericProgressBackground" parent="android:Theme">
+    <style name="GenericProgressBackground" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="GenericProgressIndicator" parent="@android:style/Widget.Holo.Light.ProgressBar">
+    <style name="GenericProgressIndicator" parent="Widget.AppCompat.ProgressBar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:indeterminate">true</item>
