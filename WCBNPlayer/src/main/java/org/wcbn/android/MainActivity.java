@@ -208,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if(savedInstanceState.containsKey("share_string")) {
             mShareString = savedInstanceState.getString("share_string");
-            mShareIntentSet = true;
         }
         super.onRestoreInstanceState(savedInstanceState);
     }
@@ -221,8 +220,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             outState.putString("share_string", mShareString);
         super.onSaveInstanceState(outState);
     }
-
-    private boolean mShareIntentSet = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
