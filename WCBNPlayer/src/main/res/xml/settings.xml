@@ -58,10 +58,5 @@
                 android:key="version"
                 android:title="@string/version"
                 />
-        <Preference
-            android:icon="@drawable/ic_menu_about"
-            android:key="version"
-            android:title="@string/version"
-            />
     </PreferenceCategory>
 </PreferenceScreen>
