@@ -414,6 +414,10 @@ public class StreamService extends Service implements AudioManager.OnAudioFocusC
                                     stream.getArtist(), "album");
                             mLargeAlbumArt = scraper.getLargeAlbumArt();
                         }
+                        if(mLargeAlbumArt == null) {
+                            scraper = new ItunesScraper(stream.getAlbum(), "album");
+                            mLargeAlbumArt = scraper.getLargeAlbumArt();
+                        }
                     }
                     return stream;
                 }
