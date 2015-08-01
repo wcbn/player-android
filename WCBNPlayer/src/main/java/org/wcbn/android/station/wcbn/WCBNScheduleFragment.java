@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import net.moraleboost.streamscraper.Stream;
 
@@ -55,6 +56,8 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                 LinearLayout.LayoutParams.MATCH_PARENT);
         params.gravity= Gravity.CENTER;
 
+        ScrollView scroll = new ScrollView(inflater.getContext());
+
         LinearLayout view = new LinearLayout(inflater.getContext());
         view.setGravity(Gravity.CENTER);
         view.setLayoutParams(params);
@@ -70,7 +73,9 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                 mView.addView(item.getView());
             }
 
-        return view;
+        scroll.addView(mView);
+
+        return scroll;
     }
 
     @Override
