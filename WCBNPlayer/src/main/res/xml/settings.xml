@@ -39,6 +39,16 @@
                 android:summary="@string/wcbn_number"
                 />
         <Preference
+                android:key="twitter"
+                android:title="Twitter"
+                android:summary="@string/wcbn_twitter"
+                />
+        <Preference
+                android:key="facebook"
+                android:title="Facebook"
+                android:summary="@string/wcbn_facebook"
+            />
+        <Preference
                 android:icon="@drawable/ic_menu_about"
                 android:key="version"
                 android:title="@string/version"

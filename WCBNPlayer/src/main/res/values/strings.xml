@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version_code">100</string>
-    <string name="version_current">1.0.0</string>
+    <string name="version_code">110</string>
+    <string name="version_current">1.1.0</string>
 
     <string name="on">on</string>
     <string name="with">with</string>
@@ -38,6 +38,10 @@
     <string name="wcbn_website">http://wcbn.org/</string>
     <string name="default_number">+1–734–763–3500</string>
     <string name="wcbn_number">+1–734–763–3500</string>
+    <string name="default_twitter">\@WCBN_FM</string>
+    <string name="wcbn_twitter">\@WCBN_FM</string>
+    <string name="default_facebook">https://www.facebook.com/wcbn88.3fm</string>
+    <string name="wcbn_facebook">https://www.facebook.com/wcbn88.3fm</string>
     <string name="to">to</string>
 
     <string name="drawer_open">Open drawer</string>
