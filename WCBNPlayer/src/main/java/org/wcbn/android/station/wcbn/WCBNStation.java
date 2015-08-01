@@ -67,7 +67,7 @@ public class WCBNStation implements Station {
                 .append(" ")
                 .append(stream.getProgram());
 
-        if(stream.getDj() != null) {
+        if(stream.getDj() != null && stream.getDj().length() > 0) {
             subTextBuilder.append(" ")
                     .append(context.getString(R.string.with))
                     .append(" ")
@@ -102,9 +102,11 @@ public class WCBNStation implements Station {
             String[] djProgram = doc
                     .select("td.show")
                     .get(0)
-                    .text()
-                    .split("\n")[0]
+                    .html()
+                    .split("<p>")[0]
                     .split(", with ");
+            djProgram[0] = djProgram[0].trim();
+            djProgram[1] = djProgram[1].trim();
             program = djProgram[0];
             dj = djProgram[1].substring(0, djProgram[1].length()-1).trim();
 
