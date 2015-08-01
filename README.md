@@ -10,10 +10,8 @@ Requirements:
 * Android Studio (or Gradle)
 * git
 
-Either import into Android Studio and build using the included APK
-wizard or gradle wrapper, or use gradle to build from the command line:
-
-    gradle assemble
+Import into Android Studio and build using the included APK wizard or
+gradle wrapper.
 
 If you want to redistribute, make sure you customize the gradle build
 files to include your own keys instead of the default provided.
