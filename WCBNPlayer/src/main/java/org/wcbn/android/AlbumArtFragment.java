@@ -31,14 +31,25 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
         mAlbumArtView = (RelativeLayout) view.findViewById(R.id.album_art);
 
         if(mAlbumArtBitmap != null) {
-            mAlbumArtView.setBackground(new BitmapDrawable(getResources(), mAlbumArtBitmap));
+            mAlbumArtView.setBackgroundDrawable(
+                    new BitmapDrawable(getResources(), mAlbumArtBitmap));
         }
 
         else if(savedInstanceState != null && savedInstanceState.containsKey("bitmap")) {
             mAlbumArtBitmap = (Bitmap) savedInstanceState.get("bitmap");
-            mAlbumArtView.setBackground(new BitmapDrawable(getResources(), mAlbumArtBitmap));
+            mAlbumArtView.setBackgroundDrawable(
+                    new BitmapDrawable(getResources(), mAlbumArtBitmap));
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mAlbumArtBitmap != null) {
+            mAlbumArtView.setBackgroundDrawable(
+                    new BitmapDrawable(getResources(), mAlbumArtBitmap));
+        }
     }
 
     @Override
@@ -81,7 +92,10 @@ public class AlbumArtFragment extends Fragment implements UiFragment {
     public void handleUpdateTrack(Stream stream, Station station, Bitmap albumArt) {
         if(albumArt != null && mAlbumArtView != null) {
             mAlbumArtBitmap = albumArt;
-            mAlbumArtView.setBackground(new BitmapDrawable(getResources(), mAlbumArtBitmap));
+            if(isAdded()) {
+                mAlbumArtView.setBackgroundDrawable(
+                        new BitmapDrawable(getResources(), mAlbumArtBitmap));
+            }
         }
     }
 }
