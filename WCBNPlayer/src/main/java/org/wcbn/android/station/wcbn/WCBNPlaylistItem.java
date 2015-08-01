@@ -53,7 +53,7 @@ public class WCBNPlaylistItem implements Parcelable {
     public View getView(Context context) {
 
         Typeface typeface = Typeface.createFromAsset(context.getAssets()
-                , "Roboto-Light.ttf");
+                , "Roboto-Regular.ttf");
 
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

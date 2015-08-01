@@ -35,7 +35,7 @@ public class SongInfoFragment extends Fragment implements UiFragment {
         mDescriptionText = (TextView) view.findViewById(R.id.description_text);
 
         Typeface robotoLight = Typeface.createFromAsset(getActivity().getAssets(),
-                "Roboto-Light.ttf");
+                "Roboto-Regular.ttf");
 
         mSongText.setTypeface(robotoLight);
         mArtistText.setTypeface(robotoLight);

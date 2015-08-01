@@ -35,7 +35,7 @@ public class PlaybackFragment extends Fragment implements UiFragment {
         View layout = inflater.inflate(R.layout.fragment_playback, null);
 
         Typeface robotoLight = Typeface.createFromAsset(getActivity().getAssets(),
-                "Roboto-Light.ttf");
+                "Roboto-Regular.ttf");
 
         mButtonPlayPause = (ImageButton) layout.findViewById(R.id.button_play_pause);
         mButtonStop = (ImageButton) layout.findViewById(R.id.button_stop);
