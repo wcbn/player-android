@@ -27,6 +27,7 @@
 
     <string name="stream_settings">Stream Settings</string>
     <string name="about_settings">About</string>
+    <string name="connect_settings">Connect</string>
     <string name="stream_quality">Stream Quality</string>
     <string name="grab_album_art">Grab album art</string>
     <string name="grab_album_art_desc">Uses some additional bandwidth. May not always be accurate.</string>

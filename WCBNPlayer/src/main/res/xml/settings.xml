@@ -25,7 +25,7 @@
                 />
     </PreferenceCategory>
     <PreferenceCategory
-            android:title="@string/about_settings">
+            android:title="@string/connect_settings">
         <Preference
                 android:icon="@drawable/ic_menu_globe"
                 android:key="website"
@@ -50,6 +50,9 @@
                 android:title="Facebook"
                 android:summary="@string/wcbn_facebook"
             />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/about_settings">
         <Preference
                 android:icon="@drawable/ic_menu_about"
                 android:key="version"
