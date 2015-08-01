@@ -37,7 +37,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ActionBar.OnNavigationListener,
         StreamService.OnStateUpdateListener {
-    private ShareActionProvider mShareActionProvider;
     private StreamService mService;
     private boolean mBound, mIsManualOpen = false;
     private final List<UiFragment> mFragments = new ArrayList<UiFragment>();
@@ -228,35 +227,11 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
-        MenuItem item = menu.findItem(R.id.menu_item_share);
-
-        /*mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-        if(mShareActionProvider != null && !mShareIntentSet) {
-            Intent intent = new Intent();
-            intent.setType("text/plain");
-            intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
-            if(mBound && mService.getStream() != null) {
-                mShareString = String.format(
-                        getString(R.string.share_string),
-                        Utils.capitalizeTitle(mService.getStream().getCurrentSong()),
-                        (mService.getStream()).getProgram());
-                intent.putExtra(Intent.EXTRA_TEXT, mShareString);
-                mShareActionProvider.setShareIntent(intent);
-            }
-            else {
-                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_string_default));
-                mShareActionProvider.setShareIntent(intent);
-            }
-            mShareIntentSet = true;
-        }*/
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -265,6 +240,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
+            case R.id.action_share:
+                if(mBound && mService.getStream() != null)
+                    startActivity(getShareIntent(mService.getStream()));
         }
         return false;
     }
@@ -310,11 +288,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
             }
 
             mIsManualOpen = true;
-
-            if(mShareActionProvider != null && mService.getStream() != null) {
-                Intent intent = getShareIntent(mService.getStream());
-                mShareActionProvider.setShareIntent(intent);
-            }
         }
 
         @Override
@@ -372,11 +345,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.OnNavig
 
         for(UiFragment f : mFragments) {
             f.handleUpdateTrack(stream, station, albumArt);
-        }
-
-        if(mShareActionProvider != null && mBound) {
-            Intent intent = getShareIntent(stream);
-            mShareActionProvider.setShareIntent(intent);
         }
     }
 
