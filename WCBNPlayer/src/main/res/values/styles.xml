@@ -1,5 +1,5 @@
 <resources>
-    <style name="WCBNTheme.AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="WCBNTheme.AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -8,6 +8,8 @@
     </style>
 
     <style name="WCBNTheme.AppTheme" parent="WCBNTheme.AppBaseTheme">
+        <item name="colorPrimary">#2087C9</item>
+        <item name="colorPrimaryDark">#186596</item>
     </style>
 
     <style name="WCBNTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
@@ -20,6 +22,7 @@
         <item name="android:background">#00000000</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="GenericProgressIndicator" parent="@android:style/Widget.Holo.Light.ProgressBar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
