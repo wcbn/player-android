@@ -22,7 +22,7 @@
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_weight="0.7"
+                android:layout_weight="0.8"
                 />
         <FrameLayout
                 android:id="@+id/playback"

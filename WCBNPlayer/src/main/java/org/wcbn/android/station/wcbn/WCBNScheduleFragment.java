@@ -206,8 +206,10 @@ public class WCBNScheduleFragment extends Fragment implements UiFragment {
                         .select("ul[id=whatsnext]")
                         .select("li");
                 for(int i = 0; i < elements.size(); i++) {
-                    mItems.get(i).setElement(elements.get(i));
-                    mItems.get(i).setLoading(false);
+                    if(mItems != null) {
+                        mItems.get(i).setElement(elements.get(i));
+                        mItems.get(i).setLoading(false);
+                    }
                 }
             }
             else {

@@ -161,7 +161,7 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
         public void onPostExecute(Document result) {
             if(result != null) {
 
-                List<WCBNPlaylistItem> items = new ArrayList<WCBNPlaylistItem>();
+                List<WCBNPlaylistItem> items = new ArrayList<>();
 
                 Elements elements = result
                         .select("tr.odd, tr.even");
@@ -170,13 +170,13 @@ public class WCBNPlaylistFragment extends ListFragment implements UiFragment {
                         WCBNPlaylistItem item = new WCBNPlaylistItem(e);
                     items.add(item);
                 }
-
-                PlaylistAdapter adapter = (PlaylistAdapter) getListAdapter();
-                if(adapter == null) {
-                    setListAdapter(new PlaylistAdapter(mService, 0, items));
-                }
-                else {
-                    adapter.refreshItems(items);
+                if(mService != null) {
+                    PlaylistAdapter adapter = (PlaylistAdapter) getListAdapter();
+                    if (adapter == null) {
+                        setListAdapter(new PlaylistAdapter(mService, 0, items));
+                    } else {
+                        adapter.refreshItems(items);
+                    }
                 }
                 mItems = items;
             }
