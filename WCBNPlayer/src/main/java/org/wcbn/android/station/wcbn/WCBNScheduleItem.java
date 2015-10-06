@@ -120,8 +120,6 @@ class WCBNScheduleItem implements Parcelable {
     }
 
     public void initViews(Context context) {
-        mTypeface = Typeface.createFromAsset(context.getAssets()
-                , "Roboto-Regular.ttf");
         mInflater = (LayoutInflater) context.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
         mView = (ViewGroup) mInflater.inflate(R.layout.item_schedule, null);
 

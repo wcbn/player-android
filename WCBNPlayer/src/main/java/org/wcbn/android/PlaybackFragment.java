@@ -2,7 +2,6 @@ package org.wcbn.android;
 
 import android.app.Service;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,13 +33,9 @@ public class PlaybackFragment extends Fragment implements UiFragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_playback, null);
 
-        Typeface robotoLight = Typeface.createFromAsset(getActivity().getAssets(),
-                "Roboto-Regular.ttf");
-
         mButtonPlayPause = (ImageButton) layout.findViewById(R.id.button_play_pause);
         mButtonStop = (ImageButton) layout.findViewById(R.id.button_stop);
         mListenerCount = (TextView) layout.findViewById(R.id.listener_count);
-        mListenerCount.setTypeface(robotoLight);
 
         if(savedInstanceState != null && savedInstanceState.getString("listener_count") != null) {
             mListenerCount.setText(savedInstanceState.getString("listener_count"));

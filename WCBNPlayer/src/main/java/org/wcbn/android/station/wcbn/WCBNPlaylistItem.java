@@ -52,9 +52,6 @@ public class WCBNPlaylistItem implements Parcelable {
 
     public View getView(Context context) {
 
-        Typeface typeface = Typeface.createFromAsset(context.getAssets()
-                , "Roboto-Regular.ttf");
-
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -64,11 +61,6 @@ public class WCBNPlaylistItem implements Parcelable {
         ((TextView) view.findViewById(R.id.artist_text)).setText(Utils.capitalizeTitle(mArtist));
         ((TextView) view.findViewById(R.id.song_text)).setText(Utils.capitalizeTitle(mTitle));
         ((TextView) view.findViewById(R.id.album_text)).setText(Utils.capitalizeTitle(mAlbum));
-
-        ((TextView) view.findViewById(R.id.time_text)).setTypeface(typeface);
-        ((TextView) view.findViewById(R.id.artist_text)).setTypeface(typeface);
-        ((TextView) view.findViewById(R.id.song_text)).setTypeface(typeface);
-        ((TextView) view.findViewById(R.id.album_text)).setTypeface(typeface);
 
         view.findViewById(R.id.time_text).setSelected(true);
         view.findViewById(R.id.artist_text).setSelected(true);
