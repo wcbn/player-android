@@ -36,7 +36,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/wcbn_deploy/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/wcbn_deploy/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/wcbn_deploy/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/wcbn_deploy/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/wcbn_deploy/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deployDebug/assets" type="java-resource" />
@@ -49,7 +49,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/wcbn_deploy/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/wcbn_deploy/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/wcbn_deploy/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/androidTest/wcbn_deploy/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/wcbn_deploy/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/wcbn_deploy/assets" type="java-resource" />
