@@ -30,7 +30,7 @@ public class WCBNStation implements Station {
     public static final int FACEBOOK = R.string.wcbn_facebook_uri;
     public static final int TAB_NAMES = R.array.wcbn_tab_names;
     public static final String PLAYLIST_URI
-            = "http://wcbn.org/ryan-playlist/searchplaylist.php?howmany=1&unit=hour";
+            = "https://wcbn-readback.herokuapp.com/#now";
 
     static final List<Class<? extends UiFragment>> sFragments =
             new ArrayList<>();
@@ -107,22 +107,12 @@ public class WCBNStation implements Station {
                     .userAgent("Android")
                     .get();
 
-            String[] djProgram = doc
-                    .select("td.show")
-                    .get(0)
-                    .html()
-                    .split("<p>")[0]
-                    .split(", with ");
-            djProgram[0] = djProgram[0].trim();
-            djProgram[1] = djProgram[1].trim();
-            program = djProgram[0];
-            dj = djProgram[1].substring(0, djProgram[1].length()-1).trim();
+            program = doc.select("h2").get(0).text();
+            dj = doc.select("p.with").get(0).select("a").text();
 
-            List<Element> elements = doc.select("tr.odd, tr.even").get(0).select("td");
-            artist = elements.get(4).text().trim();
-            song = elements.get(5).text().trim();
-            album = elements.get(6).text().trim();
-            recordLabel = elements.get(7).text().trim();
+            artist = doc.select("td.width3").get(0).text();
+            song = doc.select("td.width4").get(0).text();
+            album = doc.select("td.width3.italic").get(0).text();
 
         } catch (IOException e) {
             Log.d(TAG, "Error downloading playlist");
@@ -134,7 +124,6 @@ public class WCBNStation implements Station {
         ext.setDj(dj);
         ext.setArtist(artist);
         ext.setAlbum(album);
-        ext.setRecordLabel(recordLabel);
         ext.setMaxListenerCount(maxListenerCount);
         ext.setCurrentListenerCount(currentListenerCount);
         ext.setPeakListenerCount(peakListenerCount);
