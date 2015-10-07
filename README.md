@@ -18,12 +18,7 @@ files to include your own keys instead of the default provided.
 
 ## Technical Information
 
-Since WCBN.org does not have a web API, most of the metadata is parsed
-directly from the website using jsoup and from the stream metadata using
-StreamScraper. Unfortunately, this means that if certain components of
-the website change significantly, this app will likely break, and there
-is no guarantee that all this metadata will always be available publicly.
-Fortunately, WCBN doesn't change their website very often.
+The stream metadata using is parsed with StreamScraper.
 
 ## License
 
